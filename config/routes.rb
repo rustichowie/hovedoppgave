@@ -1,5 +1,8 @@
 DatabaseApp::Application.routes.draw do
   get "home/index"
+  
+  match "/", to: 'home#show'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
