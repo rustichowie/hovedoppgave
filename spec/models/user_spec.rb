@@ -5,6 +5,7 @@ describe User do
         foo = User.new(:name=>"")
         foo.should_not be_valid
       end
+      
     
     
 end
