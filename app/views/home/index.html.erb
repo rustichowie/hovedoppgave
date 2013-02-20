@@ -1,95 +1,21 @@
 <!DOCTYPE html>
 <html>
-<script>
-	
-	$(document).ready(function() {
-		document.getElementById('alerts').style.display = ''
-        document.getElementById('message').style.color = "green";
-        setTimeout (function(){
-        	document.getElementById('alerts').style.display = 'none'
-        }, 5000);
-	});
-	
-	function getResult() {
-		document.getElementById('card_input_value').focus();
-    }
-	
-	$(document).keypress(function(e){
-    var checkWebkitandIE=(e.which==26 ? 1 : 0);
-    var checkMoz=(e.which==248 ? 1 : 0);
 
-    if (checkWebkitandIE || checkMoz) getResult();
-	});
-	
-</script>
 <head>
-<style type="text/css">
-#head
-{
-	text-align:center;
-	margin-bottom: 100px;
-	color:red;
-}
-#content
-{
-	position: relative;
-}
-#manual_register
-{
-	width:50%;
-	height:50%;
-	float:left;
-	text-align:center;
-	
-}
-#automatic_register
-{
-	width:50%;
-	height:50%;
-	float: right;
-	text-align:center;
-}
-#alerts
-{
-	margin-top: 300px;
-	clear: both;
-	text-align:center;
-	float: bottom;
-}
-#card_input_value
-{
-	opacity: 0;
-	filter:alpha(opacity=0);
-	width: 0;
-	overflow: hidden;
-}
-</style>
+
 </head>
 
 
 <body>
 	
-<div id="head">
-	<h1>Timeregistrering for Kuraas AS</h1>
-</div>
+
 <div id="content">
-<div id="manual_register">
-	<form>
-	<h3>Manuell registrering</h3>
-	Ansattnr:<input type="number" name="ansattnr" />
-	</br>
-	Passord:<input type="password" name="ansattpassord" />
-	</form>
-</div>
-<div id="automatic_register">
 	<h3>Dra nøkkelkortet for å registrere deg</h3>
 	<form name="automatic_form" action="/" method="post">
 	<input type="text" id="card_input_value" name="value" />
 	</form>
+	<a href="/manual">Glemt kortet?</a>
 </div>
-</div>
-<div id="alerts" style="display: none">
-	<h1 id="message"><%= @message %></h1>
-</div>
+
 </body>
 </html>

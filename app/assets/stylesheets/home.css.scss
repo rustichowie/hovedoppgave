@@ -1,3 +1,27 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#head
+{
+  text-align:center;
+  margin-bottom: 100px;
+  color:red;
+}
+#content
+{
+  text-align: center;
+}
+#alerts
+{
+  margin-top: 300px;
+  clear: both;
+  text-align:center;
+  float: bottom;
+}
+#card_input_value
+{
+  opacity: 0;
+  filter:alpha(opacity=0);
+  width: 0;
+  overflow: hidden;
+}

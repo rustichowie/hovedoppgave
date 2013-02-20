@@ -1,6 +1,7 @@
 DatabaseApp::Application.routes.draw do
   
-  match "/", to: 'home#show'
+  match "/", to: 'home#automatic_register'
+  match "/manual", to: 'home#manual_register'
   
 
   root to: 'home#index'
