@@ -30,14 +30,14 @@
 	</script>
 </head>
 <body>
-<div id="head">
-	<h1>Timeregistrering for Kuraas AS</h1>
-</div>
-<%= yield %>
-
+<%= render 'layouts/header'%>
+<div class="container">
+      <%= yield %>
+    </div>
+    
 <div id="alerts" style="display: none">
 	<h1 id="message"><%= @message %></h1>
 </div>
-
+<%= render 'layouts/footer'%>
 </body>
 </html>
