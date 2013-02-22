@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   def automatic_register
       @message = params[:value]
       #redirect_to('/', :notice => "Success")
-      flash[:notice] = "Success!".html_safe
+      #flash[:notice] = "Success!".html_safe
       render :action => 'index'
   end
   
