@@ -11,7 +11,7 @@
 #  updated_at :datetime         not null
 #
 
-class Workhours < ActiveRecord::Base
+class Workhour < ActiveRecord::Base
   attr_accessible :count, :start, :stop, :user_id
   belongs_to :user
 end

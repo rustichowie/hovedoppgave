@@ -14,5 +14,7 @@
 require 'spec_helper'
 
 describe Workhours do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'should have a user ' do
+    Workhour.new(user_id: nil).should_not be_valid
+  end
 end

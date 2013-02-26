@@ -8,7 +8,8 @@ class HomeController < ApplicationController
       @message = params[:value]
       #redirect_to('/', :notice => "Success")
       #flash[:notice] = "Success!".html_safe
-      
+      card = Card.new(user_id: 13, card_value: "card")
+      card.check_card_value(card.card_value)
       render :action => 'index'
   end
   

@@ -32,6 +32,8 @@ gem 'jquery-rails'
 group :test do
   gem 'rb-inotify', '0.8.8'
   gem 'libnotify', '0.5.9'
+  gem 'capybara', '1.1.2'
+  gem 'capybara-webkit'
 end 
 
 group :development do
