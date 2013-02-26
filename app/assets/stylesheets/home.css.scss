@@ -3,17 +3,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 #content
 {
   text-align: center;
+  margin-top: 50px;
+  margin-bottom: 200px;
 }
+
 #alerts
 {
-  margin-top: 300px;
   clear: both;
   text-align:center;
   float: bottom;
 }
+  
 #card_input_value
 {
   opacity: 0;
@@ -26,17 +30,16 @@
 body{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding-top: 60px;
+  background: #FFF5E0;
 }
 
 .header 
 {
   top: 0;
-  background:black;
   position:fixed;
   right: 0;
   left: 0;
   z-index: 1030;
-  margin-bottom: 0;
   a
   {
     text-decoration: none;
@@ -48,7 +51,7 @@ body{
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #fff;
+  color: #818181;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -58,7 +61,7 @@ body{
 .container {
   width: 940px;
   margin-right: auto;
-margin-left: auto;
+  margin-left: auto;
 }
 
 .head {
@@ -86,6 +89,7 @@ footer {
   margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid #eaeaea;
+  float: bottom;
   a {
     color: #555;
     &:hover { 

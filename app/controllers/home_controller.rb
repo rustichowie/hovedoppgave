@@ -5,7 +5,10 @@ class HomeController < ApplicationController
   end
   
   def automatic_register
-      @message = params[:value]
+      @message = ""
+      if params[:value] != nil
+        @message = "Suksess!"
+      end
       #redirect_to('/', :notice => "Success")
       #flash[:notice] = "Success!".html_safe
       card = Card.new(user_id: 13, card_value: "card")
