@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%=full_title("JT is full of bull")%></title>
+  <title><%=full_title("Registrering")%></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" , :media => "all"%>
   <%= csrf_meta_tags %>
@@ -9,13 +9,19 @@
 </head>
 <body>
 <%= render 'layouts/header'%>
+
+<div id="main">
+	
 <div class="container">
       <%= yield %>
     </div>
-    
-<div id="alerts" style="display: none">
-	<h1 id="message"><%= @message %></h1>
+<div id="alert_container">
+	<div id="alerts" style="display: hidden">
+		<h1 id="message"><%= @message %></h1>
+	</div>
 </div>
-<%= render 'layouts/footer'%>
+
+</div>
+
 </body>
 </html>
