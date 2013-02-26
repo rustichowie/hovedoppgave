@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
 
+
   def index
   end
   
@@ -7,6 +8,7 @@ class HomeController < ApplicationController
       @message = params[:value]
       #redirect_to('/', :notice => "Success")
       #flash[:notice] = "Success!".html_safe
+      
       render :action => 'index'
   end
   
