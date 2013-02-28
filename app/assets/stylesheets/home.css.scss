@@ -4,6 +4,41 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap";
 
+#list-head {
+  
+  ul {
+    float: left;
+    list-style: none;
+    li {
+      margin-left: 10px;
+      float: right;
+    }
+    
+  }
+}
+
+#child-head {
+  
+  td{
+    font-weight: bold;
+  }
+}
+
+.child-table
+{
+  margin: 0px;
+  padding: 0px;
+}
+
+.child{
+  display:none;
+}
+
+.info {
+  td{
+    width:25%;
+  }
+}
 
 #content
 {
@@ -33,4 +68,83 @@ body{
   padding-top: 60px;
   //background: #FFF5E0;
 }
+
+
+
+.header 
+{
+  top: 0;
+  position:absolute;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  a
+  {
+    text-decoration: none;
+    color: #0088cc;
+  }
+  
+}
+#logo{
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: #818181;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+  line-height: 1;
+}
+.container {
+  width: 940px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.head {
+  list-style: none;
+  position: relative;
+  left: 0;
+  display: block;
+  margin: 0 10px 0 0;
+}
+.pull-right
+  {
+    color:#000;
+    float: right;
+  }
+  
+  li{
+    line-height: 20px;
+   a{
+     padding: 10px 15px 10px;
+     display: block;
+     }
+}
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  float: bottom;
+  a {
+    color: #555;
+    &:hover { 
+      color: #222;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
+    }
+  }
+}
+
 
