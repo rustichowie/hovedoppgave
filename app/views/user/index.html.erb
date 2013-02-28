@@ -1,3 +1,6 @@
+<%provide(:custom_css, 'user')%>
+
+
 
 <script>
 
@@ -23,7 +26,7 @@ $(document).ready(function() {
 
 });
 </script>
-
+<div class="container-fluid">
 <div class="row-fluid">
 	
 <div class="span3">
@@ -39,7 +42,7 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<div class="span7">
+<div class="span5">
 	<table class="table table-striped" id="workhours">
 		<thead>
 			<tr>
@@ -52,7 +55,7 @@ $(document).ready(function() {
 		</thead>
 		<tbody>
 			<% @c.each do |row|%>
-				<tr class="info" id=<%=row[:id]%>>
+				<tr class="info parent" id=<%=row[:id]%>>
 				<td><i class=icon-chevron-right id="icon<%=row[:id]%>"></i><%= row[:name]%></td>
 				<td><%= row[:date]%></td>
 				<td><%= row[:hours]%></td>
@@ -87,6 +90,6 @@ $(document).ready(function() {
 		</tbody>
 	</table>
 </div>
-
+</div>
 
 </div>

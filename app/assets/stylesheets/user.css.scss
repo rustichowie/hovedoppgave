@@ -1,0 +1,37 @@
+
+
+#list-head {
+  
+  ul {
+    float: left;
+    list-style: none;
+    li {
+      margin-left: 10px;
+      float: right;
+    }
+    
+  }
+}
+
+#child-head {
+  
+  td{
+    font-weight: bold;
+  }
+}
+
+.child-table
+{
+  margin: 0px;
+  padding: 0px;
+}
+
+.child{
+  display:none;
+}
+
+.parent {
+  td{
+    width:25%;
+  }
+}
