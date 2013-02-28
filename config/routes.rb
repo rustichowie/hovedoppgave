@@ -1,6 +1,7 @@
 DatabaseApp::Application.routes.draw do
   
   match "/manual", to: 'home#manual_register'
+  match "/user", to: 'user#index'
   root to: 'home#automatic_register'
 
   # The priority is based upon order of creation:
