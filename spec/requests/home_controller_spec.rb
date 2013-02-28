@@ -5,11 +5,11 @@ require 'spec_helper'
 
 describe "Registration" do
   include Capybara::DSL
-  
+  before {visit "/"}
   
   
   describe 'automatic regitration' do
-    before {visit "/"}
+    
     it "compares swiped card with database" do
       card = Card.create(user_id: 1, card_value: "blob")
       fill_in "card_input_value", :with => card.card_value
@@ -42,12 +42,10 @@ describe "Registration" do
   end
   describe 'manual registration' do
     it 'should except userid and pincode' do
-      visit manual_path
-      
-      fill_in "employee_id", :with => "1234"
-      fill_in "pincode", :with => "7989"
-      page.click_on('manual_submit')
       post manual_path
+      fill_in "id", "1234"
+      fill_in "pw", "7989"
+      page.click_on('manual_submit')
     end
   end
 end

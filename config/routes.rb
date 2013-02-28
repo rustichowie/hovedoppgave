@@ -1,6 +1,8 @@
 DatabaseApp::Application.routes.draw do
   
   match "/manual", to: 'home#manual_register'
+  match "/supervisor", to: 'supervisor#index'
+  match "/supervisor/list", to: 'supervisor#list'
   root to: 'home#automatic_register'
 
   # The priority is based upon order of creation:

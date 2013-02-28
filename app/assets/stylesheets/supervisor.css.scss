@@ -1,0 +1,30 @@
+
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#buttonbar
+{
+  margin-bottom: 50px;
+
+}
+
+#sokebar
+{
+  float: right;
+}
+
+#list_details
+{
+  padding: 2px;
+  margin-left: 20px;
+  margin-bottom: 0px;
+}
+
+
+#supervisor_login
+{
+  position: fixed;
+  z-index: 100;
+  margin-top: 200px;
+}
