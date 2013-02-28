@@ -8,7 +8,10 @@
   margin-bottom: 50px;
 
 }
-
+.child_row
+{
+  display: none;
+}
 #sokebar
 {
   float: right;
@@ -16,15 +19,20 @@
 
 #list_details
 {
-  padding: 2px;
-  margin-left: 20px;
+  padding: 0px;
+  margin-left: 15px;
   margin-bottom: 0px;
 }
 
-
 #supervisor_login
 {
-  position: fixed;
-  z-index: 100;
-  margin-top: 200px;
+  padding-top: 100px;
+  padding-left: 25%;
+  position: relative;
+}
+#filler
+{
+  height: 100px;
+  width: 100%;
+  clear: both;
 }

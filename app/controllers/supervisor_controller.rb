@@ -5,11 +5,11 @@ class SupervisorController < ApplicationController
   end
   
   def list
-    person1 = { :name => "Thommas Thommassen", :date => "26.02.2013", :hours => "7,5"}
-    person2 = { :name => "Arnold Armstrong", :date => "26.02.2013", :hours => "8,5"}
-    person3 = { :name => "Roger Rabbit", :date => "26.02.2013", :hours => "7,0"}
-    person4 = { :name => "Haavols Hvalross", :date => "26.02.2013", :hours => "7,0"}
-    person5 = { :name => "Trude Trutmunn", :date => "26.02.2013", :hours => "6,0"}
+    person1 = { :id => 1, :name => "Thommas Thommassen", :date => "26.02.2013", :hours => "7,5"}
+    person2 = { :id => 2, :name => "Arnold Armstrong", :date => "26.02.2013", :hours => "8,5"}
+    person3 = { :id => 3, :name => "Roger Rabbit", :date => "26.02.2013", :hours => "7,0"}
+    person4 = { :id => 4, :name => "Haavols Hvalross", :date => "26.02.2013", :hours => "7,0"}
+    person5 = { :id => 5, :name => "Trude Trutmunn", :date => "26.02.2013", :hours => "6,0"}
     @collection = []
     @collection.push(person1)
     @collection.push(person2)

@@ -2,8 +2,32 @@
 
 <%= render 'layouts/supervisor_buttonbar'%>
 
+<script>
 
-<table class="table table-striped">
+$(document).ready(function() {	
+	
+	$('#main_table > tbody > tr').click(function(){
+		childId = "#child_row" + this.id;
+		//cellId = "#icon"+this.id;
+		if($(childId).is(":visible")){
+    		$(childId).hide();
+    		//$(cellId).removeClass('icon-chevron-down');
+    		//$(cellId).addClass('icon-chevron-right');
+    	}
+    	else
+    	{	
+    		$(childId).show();
+    		//$(cellId).addClass('icon-chevron-down');
+    		//$(cellId).removeClass('icon-chevron-right');
+    	}
+    	
+    	
+	});
+
+});
+</script>
+
+<table class="table table-striped" id="main_table">
 	<thead>
 		<th>Navn</th>
 		<th>Timer</th>
@@ -12,7 +36,7 @@
 		
 	</thead>
 	<% @collection.each do |person| -%>
-	<tr class="">
+	<tr id=<%=person[:id]%>>
 		<td><%= person[:name] %></td>
 		<td><%= person[:hours] %></td>
 		<td><%= person[:date] %></td>
@@ -22,7 +46,7 @@
 			<button class="btn btn-danger">Underkjenn</button>
 		</td>
 	</tr>
-	<tr>
+	<tr class="child_row" id="child_row<%= person[:id] %>">
 		<td colspan="4">
 	<table class="table table-hover" id="list_details">
 		<thead>
@@ -50,4 +74,6 @@
 	<% end -%>
 </table>
 <button class="btn btn-success">Godkjenn alle</button>
+<div id="filler">
+</div>
 </div>
