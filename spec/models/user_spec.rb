@@ -9,6 +9,7 @@
 #  employee_id :integer
 #  pin         :string(255)
 #  salt        :string(255)
+#  email       :string(255)
 #
 
 require 'spec_helper'

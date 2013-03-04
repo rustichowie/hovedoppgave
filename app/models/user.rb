@@ -9,6 +9,7 @@
 #  employee_id :integer
 #  pin         :string(255)
 #  salt        :string(255)
+#  email       :string(255)
 #
 
 class User < ActiveRecord::Base
@@ -16,6 +17,7 @@ class User < ActiveRecord::Base
   attr_accessible :name
   has_many :cards
   has_many :workhours
+  has_one :role
   
   validates :name, :presence => true
 end

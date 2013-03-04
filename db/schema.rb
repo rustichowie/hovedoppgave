@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222135224) do
+ActiveRecord::Schema.define(:version => 20130304104800) do
 
   create_table "cards", :force => true do |t|
     t.integer  "user_id"
@@ -23,6 +23,31 @@ ActiveRecord::Schema.define(:version => 20130222135224) do
   add_index "cards", ["user_id", "card_value"], :name => "index_cards_on_user_id_and_card_value", :unique => true
   add_index "cards", ["user_id"], :name => "index_cards_on_user_id"
 
+  create_table "log_types", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "logs", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "card_id"
+    t.integer  "logtype_id"
+    t.integer  "workhours_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "logs", ["logtype_id"], :name => "index_logs_on_logtype_id"
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.datetime "created_at",  :null => false
@@ -30,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20130222135224) do
     t.integer  "employee_id"
     t.string   "pin"
     t.string   "salt"
+    t.string   "email"
   end
 
   create_table "workhours", :force => true do |t|
@@ -39,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20130222135224) do
     t.integer  "count"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "approved"
   end
 
   add_index "workhours", ["user_id"], :name => "index_workhours_on_user_id"
