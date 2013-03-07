@@ -7,6 +7,7 @@ DatabaseApp::Application.routes.draw do
   
   root to: 'home#automatic_register'
 
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
