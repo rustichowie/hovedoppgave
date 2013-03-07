@@ -7,12 +7,24 @@ class HomeController < ApplicationController
   def automatic_register
       @message = ""
       if params[:value] != nil
-        @message = "Suksess!"
+        @value = params[:value].gsub(/[^0-9]/, '')
+        @card = Card.where(card_value: @value).first
+        
+        if @card != nil
+          row = @card.user.workhours.where(stop: nil).last
+          if row != nil
+            row.stop = Time.now
+            row.count = (row.stop - row.start).to_i
+            row.save
+            @message = "Vellykket registrering: stoppet"
+          else
+            Workhour.create(start: Time.now, user_id: @card.user_id)
+            @message = "Vellykket registrering: startet"
+          end
+        else
+          render :action => 'unknown'
+        end
       end
-      #redirect_to('/', :notice => "Success")
-      #flash[:notice] = "Success!".html_safe
-      @card = Card.new(user_id: 13, card_value: "blob")
-      @card.check_card_value(params[:value])
       render :action => 'index'
   end
   

@@ -16,7 +16,7 @@ class Card < ActiveRecord::Base
   validates :card_value, :presence => true, :uniqueness => {:scope => :user_id}
   validates :user_id, :presence => true
   
-  def check_card_value(card_value)
+  def check_card_value(value)
     return false
   end
  
