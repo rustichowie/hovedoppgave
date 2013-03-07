@@ -2,6 +2,8 @@ class SupervisorController < ApplicationController
 
 
   def index
+    @workhour = Workhour.all
+    
   end
   
   def list
@@ -16,6 +18,33 @@ class SupervisorController < ApplicationController
     @collection.push(person3)
     @collection.push(person4)
     @collection.push(person5)
+  end
+  #GET
+  def show
+    @workhour = Workhour.all
+  end
+
+  #GET
+  def new_workhour
+
+  end
+  
+  #POST
+  def create_workhour
+
+  end
+  
+  #GET
+  def edit
+
+  end
+  #PUT
+  def update
+    render 'index'
+  end
+  #DELETE
+  def destroy
+
   end
   
 end

@@ -11,8 +11,8 @@ class HomeController < ApplicationController
       end
       #redirect_to('/', :notice => "Success")
       #flash[:notice] = "Success!".html_safe
-      card = Card.new(user_id: 13, card_value: "card")
-      card.check_card_value(card.card_value)
+      @card = Card.new(user_id: 13, card_value: "blob")
+      @card.check_card_value(params[:value])
       render :action => 'index'
   end
   

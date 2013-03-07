@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130304104800) do
+ActiveRecord::Schema.define(:version => 20130307115703) do
 
   create_table "cards", :force => true do |t|
     t.integer  "user_id"
@@ -61,11 +61,13 @@ ActiveRecord::Schema.define(:version => 20130304104800) do
   create_table "workhours", :force => true do |t|
     t.datetime "start"
     t.datetime "stop"
-    t.integer  "user_id",    :null => false
+    t.integer  "user_id",         :null => false
     t.integer  "count"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.boolean  "approved"
+    t.text     "comment"
+    t.integer  "supervisor_hour"
   end
 
   add_index "workhours", ["user_id"], :name => "index_workhours_on_user_id"

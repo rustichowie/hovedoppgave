@@ -14,7 +14,7 @@ describe "Registration" do
       card = Card.create(user_id: 1, card_value: "blob")
       fill_in "card_input_value", :with => card.card_value
       page.click_on('submit')
-      card.should_receive(:check_card_value).with(card.card_value)
+      card.should_receive(:check_card_value).with(card.card_value).and_return(false)
       
     end
     it 'should redirect to unknowncard site if card is unknown' do
@@ -24,7 +24,7 @@ describe "Registration" do
       page.should_receive(:alert).with("Error message!")
     end
     it 'should add a start time when swiping card' do
-      card = Card.create(user_id: 1, card_value: "blob")
+      card = Card.create(user_id: 1, card_value: "start")
       fill_in "card_input_value", :with => card.card_value
       page.click_on('submit')
       card.stub(:check_card_value).with("card").and_return(true)
@@ -40,11 +40,12 @@ describe "Registration" do
   end
     
   end
+  before {visit "/manual"}
   describe 'manual registration' do
     it 'should except userid and pincode' do
       post manual_path
-      fill_in "id", "1234"
-      fill_in "pw", "7989"
+      fill_in "id", :with => "1234"
+      fill_in "pw", :with => "7989"
       page.click_on('manual_submit')
     end
   end

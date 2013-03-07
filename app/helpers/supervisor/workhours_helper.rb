@@ -1,0 +1,2 @@
+module Supervisor::WorkhoursHelper
+end
