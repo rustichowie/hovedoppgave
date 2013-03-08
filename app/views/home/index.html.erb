@@ -7,10 +7,10 @@
 	<form name="automatic_form" id="automatic_form_id" action="/" method="post">
 
 	<input type="text" id="card_input_value" name="value" />
-	<input type="submit" id="submit" style="display: none" />
+	
 	</form>
 	<%= %>
-	<%= link_to "Glemt kortet?", manual_path %>
+	<%= link_to "Glemt kortet?", :action => 'manual_register'  %>
 </div>
 
 </body>

@@ -8,10 +8,12 @@ end
   resources :user
   
   match "/manual", to: 'home#manual_register'
+  #match "/unknown", to: 'home#card_register'
   match "/user", to: 'user#index'
   match "/supervisor/list", to: 'supervisor#list'
   
-  root to: 'home#automatic_register'
+  
+  root to: 'home#register'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
