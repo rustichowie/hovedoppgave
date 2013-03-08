@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
   end
   
-  def create
+  def register
       @message = ""
       if params[:value] != nil
         @value = params[:value].gsub(/[^0-9]/, '')

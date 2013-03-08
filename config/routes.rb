@@ -12,7 +12,7 @@ end
   match "/user", to: 'user#index'
   
   
-  root to: 'home#create'
+  root to: 'home#register'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
