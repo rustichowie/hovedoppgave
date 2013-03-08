@@ -4,16 +4,19 @@
 <body>
 
 <div id="content">
-	<form name="manual_form" action"manual" method="post">
-	<h2>Manuell registrering</h2>
-	Ansattnr:<input type="text" name="id" id="employee_id" />
-	</br>
-	Passord:<input type="password" name="pw" id="pincode" />
-	</br>
-	<input type="submit" id="manual_submit" value="Registrer" />
-	</form>
-	</br>
+	
+	<%= form_tag("/", :method => "post") do %>
+  	<%= label_tag(:a, "Brukernavn") %>
+ 	<%= text_field_tag(:id) %>
+ 	<%= label_tag(:b, "Passord") %>
+ 	<%= password_field_tag(:pw) %>
+ 	</br>
+  	<%= submit_tag("Registrer") %>
+	<% end %>
+	
 	<%= link_to "Tilbake til kortregistrering", root_path%>
+	
+	
 
 </div>
 

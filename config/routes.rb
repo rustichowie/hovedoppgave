@@ -1,18 +1,5 @@
 DatabaseApp::Application.routes.draw do
   
-  get "workhours/index"
-
-  get "workhours/show"
-
-  get "workhours/new"
-
-  get "workhours/create"
-
-  get "workhours/edit"
-
-  get "workhours/update"
-
-  get "workhours/destroy"
 
 namespace :supervisor do
   resources :workhour
@@ -21,9 +8,11 @@ end
   resources :user
   
   match "/manual", to: 'home#manual_register'
+  #match "/unknown", to: 'home#card_register'
   match "/user", to: 'user#index'
   
-  root to: 'home#automatic_register'
+  
+  root to: 'home#create'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

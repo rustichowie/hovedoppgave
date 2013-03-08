@@ -17,4 +17,18 @@
 class Workhour < ActiveRecord::Base
   attr_accessible :count, :start, :stop, :user_id
   belongs_to :user
+  
+  def register(user_id)
+    workhour = Workhour.where(user_id: user_id, stop: nil).last
+    if workhour != nil
+      workhour.stop = Time.now
+      workhour.count = (workhour.stop - workhour.start).to_i
+      workhour.save
+      response = "Vellykket registrering: stoppet"
+    else
+      Workhour.create(start: Time.now, user_id: user_id)
+      response = "Vellykket registrering: startet"
+    end
+    return response
+  end
 end
