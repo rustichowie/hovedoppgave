@@ -1,18 +1,5 @@
 DatabaseApp::Application.routes.draw do
   
-  get "workhours/index"
-
-  get "workhours/show"
-
-  get "workhours/new"
-
-  get "workhours/create"
-
-  get "workhours/edit"
-
-  get "workhours/update"
-
-  get "workhours/destroy"
 
 namespace :supervisor do
   resources :workhour
@@ -22,6 +9,7 @@ end
   
   match "/manual", to: 'home#manual_register'
   match "/user", to: 'user#index'
+  match "/supervisor/list", to: 'supervisor#list'
   
   root to: 'home#automatic_register'
   

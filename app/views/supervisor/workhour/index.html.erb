@@ -2,79 +2,64 @@
 
 <%= render 'layouts/supervisor_buttonbar'%>
 
-<script>
 
-$(document).ready(function() {	
-	
-	$('#main_table > tbody > tr').click(function(){
-		childId = "#child_row" + this.id;
-		//cellId = "#icon"+this.id;
-		if($(childId).is(":visible")){
-    		$(childId).hide();
-    		//$(cellId).removeClass('icon-chevron-down');
-    		//$(cellId).addClass('icon-chevron-right');
-    	}
-    	else
-    	{	
-    		$(childId).show();
-    		//$(cellId).addClass('icon-chevron-down');
-    		//$(cellId).removeClass('icon-chevron-right');
-    	}
-    	
-    	
-	});
-
-});
-</script>
-
-<table class="table table-striped" id="main_table">
-	<thead>
-		<th>Navn</th>
-		<th>Timer</th>
-		<th>Dato</th>
-		<th>Status</th>
-		
-	</thead>
-	<% @collection.each do |hour| -%>
-	<tr id=<%=hour[:user_id]%>>
-		<td><%= hour[:count] %></td>
-		<td><%= hour[:start] %></td>
-		<td><%= hour[:stop] %></td>
-		<td>Venter på godkjenning</td>
-		<td>
+<div class="span11">
+	<table class="table table-striped" id="parent_table">
+		<thead>
+			<tr>
+				<th>Navn</th>
+				<th>Dato</th>
+				<th>Timer</th>
+				<th>Status</th>
+			</tr>
+			
+		</thead>
+		<tbody>
+			<% @hour.each_with_index do |day, index|%>
+				<tr class="parent" id=<%=index%>>
+					<td><%=day[:user].name %></td>
+				<td><%= day[:info][:day] %></td>
+				<td><%= day[:stop]%></td>
+				<td><%= day[:info][:sum]%></td>
+				<td><%= day[:status]%></td>
+				<td>
 			<button class="btn btn-success">Godkjenn</button>
 			<button class="btn btn-danger">Underkjenn</button>
-		</td>
-	</tr>
-	<tr class="child_row" id="child_row<%= hour[:id] %>">
-		<td colspan="4">
-	<table class="table table-hover" id="list_details">
-		<thead>
-			<th>Periode</th>
-			<th>Start</th>
-			<th>Stop</th>
-			<th>Total</th>
-		</thead>
-		<tr class="info">
-			<td>1</td>
-			<td>07.32</td>
-			<td>11.26</td>
-			<td>3t 54min</td>
-		</tr>
-		<tr class="info">
-			<td>2</td>
-			<td>12.14</td>
-			<td>15.33</td>
-			<td>3t 19min</td>
-		</tr>
+				</td>
+				</tr>
+				<tr class="child" id="child_row<%=index%>">
+				<% day[:info][:hours].each do |hour|%>	
+				<td colspan="2">
+					<table id="child-table" class='table child-table'>
+					<thead>
+                     <tr id='child-head' class='child-row'>
+                     	<th>Start:</th>
+                     	<th>Stop:</th>
+                     	<th>Antall:</th>
+                     	<th>Status:</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     
+                     <tr class="info">
+                     	<td><%= hour[:start]%></td>
+						<td><%= hour[:stop]%></td>
+						<td><%= hour[:count]%></td>
+						<td><%= hour[:approved]%></td>
+                     </tr>
+                     </tbody>
+                 </table>
+				
+				</td>
+				<%end%>
+			</tr>
+			<%end%>
+		</tbody>
 	</table>
-	</td>
-	</tr>
+	<button class="btn btn-success">Godkjenn alle</button>
 	
-	<% end -%>
-</table>
-<button class="btn btn-success">Godkjenn alle</button>
+</div>
+
 <div id="filler">
 </div>
 </div>
-

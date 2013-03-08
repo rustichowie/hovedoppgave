@@ -14,10 +14,11 @@
 
 class User < ActiveRecord::Base
   
-  attr_accessible :name
+  attr_accessible :name, :email, :group_id, :role_id, :employee_id
   has_many :cards
   has_many :workhours
-  has_one :role
+  belongs_to :role
+  belongs_to :group
   
   validates :name, :presence => true
 end
