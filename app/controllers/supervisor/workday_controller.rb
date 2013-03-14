@@ -1,8 +1,8 @@
-class Supervisor::WorkhourController < ApplicationController
+class Supervisor::WorkdayController < ApplicationController
   
   def index
 
-    @hour = Workhour.new.group_workhours
+    @hour = Workday.new.get_workdays
     
   end
 

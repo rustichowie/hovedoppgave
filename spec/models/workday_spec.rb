@@ -7,9 +7,9 @@
 #  user_id         :integer
 #  comment         :string(255)
 #  supervisor_hour :integer
-#  approved        :boolean
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  approved        :boolean          default(FALSE)
 #
 
 require 'spec_helper'

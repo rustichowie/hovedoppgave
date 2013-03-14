@@ -2,7 +2,7 @@ DatabaseApp::Application.routes.draw do
   
 
 namespace :supervisor do
-  resources :workhour
+  resources :workday
 end
 
   resources :user
