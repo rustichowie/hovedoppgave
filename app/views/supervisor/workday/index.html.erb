@@ -14,7 +14,7 @@
 			<% @hour.each_with_index do |day, index|%>
 				<tr class="parent" id=<%=index%>>
 				<td><%=day[:user].name %></td>
-				<td><%= day[:info][:day] %></td>
+				<td><%= day[:info][:day][:date] %></td>
 				<td><%= day[:info][:sum]%></td>
 				<td>
 					<button class="btn btn-success">Godkjenn</button>
