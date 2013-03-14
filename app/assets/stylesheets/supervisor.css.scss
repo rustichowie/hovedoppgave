@@ -3,6 +3,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+#parent_table {
+  
+  td {
+    max-width: 20px;
+    
+  }
+  
+}
+
 #buttonbar
 {
   margin-bottom: 50px;
@@ -17,11 +27,14 @@
   float: right;
 }
 
-#list_details
+#child-table
 {
   padding: 0px;
   margin-left: 15px;
   margin-bottom: 0px;
+  td {
+    
+  }
 }
 
 #supervisor_login
@@ -30,9 +43,8 @@
   padding-left: 25%;
   position: relative;
 }
-#filler
-{
-  height: 100px;
-  width: 100%;
-  clear: both;
+
+.container {
+  margin-bottom: 100px;
 }
+

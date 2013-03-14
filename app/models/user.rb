@@ -10,6 +10,8 @@
 #  pin         :string(255)
 #  salt        :string(255)
 #  email       :string(255)
+#  group_id    :integer          not null
+#  role_id     :integer          not null
 #
 
 class User < ActiveRecord::Base
@@ -19,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :workhours
   belongs_to :role
   belongs_to :group
+  has_many :workdays
   
   validates :name, :presence => true
 end

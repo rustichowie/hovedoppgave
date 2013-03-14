@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130308105652) do
+ActiveRecord::Schema.define(:version => 20130314110447) do
 
   create_table "cards", :force => true do |t|
     t.integer  "user_id"
@@ -69,16 +69,24 @@ ActiveRecord::Schema.define(:version => 20130308105652) do
   add_index "users", ["group_id"], :name => "index_users_on_group_id"
   add_index "users", ["role_id"], :name => "index_users_on_role_id"
 
+  create_table "workdays", :force => true do |t|
+    t.datetime "date"
+    t.integer  "user_id"
+    t.string   "comment"
+    t.integer  "supervisor_hour"
+    t.boolean  "approved"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "workhours", :force => true do |t|
     t.datetime "start"
     t.datetime "stop"
-    t.integer  "user_id",         :null => false
+    t.integer  "user_id",    :null => false
     t.integer  "count"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.boolean  "approved"
-    t.text     "comment"
-    t.integer  "supervisor_hour"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "workday_id", :null => false
   end
 
   add_index "workhours", ["user_id"], :name => "index_workhours_on_user_id"

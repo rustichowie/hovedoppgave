@@ -1,38 +1,34 @@
 <div class="container">
+	<%= render 'layouts/supervisor_buttonbar'%>
 
-<%= render 'layouts/supervisor_buttonbar'%>
-
-
-<div class="span11">
-	<table class="table table-striped" id="parent_table">
+	<table class="table table-striped table-hover" id="parent_table">
 		<thead>
 			<tr>
 				<th>Navn</th>
 				<th>Dato</th>
 				<th>Timer</th>
-				<th>Status</th>
 			</tr>
 			
 		</thead>
 		<tbody>
 			<% @hour.each_with_index do |day, index|%>
 				<tr class="parent" id=<%=index%>>
-					<td><%=day[:user].name %></td>
+				<td><%=day[:user].name %></td>
 				<td><%= day[:info][:day] %></td>
-				<td><%= day[:stop]%></td>
 				<td><%= day[:info][:sum]%></td>
-				<td><%= day[:status]%></td>
 				<td>
-			<button class="btn btn-success">Godkjenn</button>
-			<button class="btn btn-danger">Underkjenn</button>
+					<button class="btn btn-success">Godkjenn</button>
+				</td>
+				<td>
+					<button class="btn btn-danger">Underkjenn</button>
 				</td>
 				</tr>
-				<tr class="child" id="child_row<%=index%>">
-				<% day[:info][:hours].each do |hour|%>	
+				<tr class="child_row" id="child_row<%=index%>">
+				
 				<td colspan="2">
 					<table id="child-table" class='table child-table'>
 					<thead>
-                     <tr id='child-head' class='child-row'>
+                     <tr id='child-head'>
                      	<th>Start:</th>
                      	<th>Stop:</th>
                      	<th>Antall:</th>
@@ -40,26 +36,22 @@
                      </tr>
                      </thead>
                      <tbody>
-                     
+                     <% day[:info][:hours].each do |hour|%>	
                      <tr class="info">
                      	<td><%= hour[:start]%></td>
 						<td><%= hour[:stop]%></td>
 						<td><%= hour[:count]%></td>
 						<td><%= hour[:approved]%></td>
                      </tr>
+                     <%end%>
                      </tbody>
                  </table>
 				
 				</td>
-				<%end%>
+				
 			</tr>
 			<%end%>
 		</tbody>
 	</table>
 	<button class="btn btn-success">Godkjenn alle</button>
-	
-</div>
-
-<div id="filler">
-</div>
 </div>
