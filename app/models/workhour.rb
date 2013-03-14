@@ -53,7 +53,7 @@ class Workhour < ActiveRecord::Base
     workday = Workday.new.check_for_workday_now(user_id)
     # Hvis ikke lages en ny
     if workday == false
-      day = Workday.create(date: DateTime.now, user_id: user_id)
+      day = Workday.create(date: Date.today, user_id: user_id)
       workday_id = day.id
     # Hvis det eksisterer, er det id som blir returnert av "check_for_workday_now" metoden over
     # og denne ID settes
