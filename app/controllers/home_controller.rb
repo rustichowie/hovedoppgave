@@ -25,5 +25,22 @@ class HomeController < ApplicationController
       end
       render :action => 'index'
   end
+  
+  def add_card
+    if params[:pin] != nil
+      @pin = params[:pin]
+      @card_id = params[:value]
+      @response = Card.new.check_card_value(@card_id, @pin)
+      if @response == true
+        @message = "Suksess! Kort registrert"
+      else
+        @message = "Noe gikk galt.."
+      end
+      render :action => 'index'
+    else
+      @message = "Du maa fylle inn din PIN for aa registrere kortet"
+      render :action => 'card_register' and return
+    end
+  end
 
 end
