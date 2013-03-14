@@ -1,3 +1,4 @@
+#encoding: utf-8
 # == Schema Information
 #
 # Table name: cards
@@ -16,15 +17,34 @@ class Card < ActiveRecord::Base
   validates :card_value, :presence => true, :uniqueness => {:scope => :user_id}
   validates :user_id, :presence => true
   
+  # Metode for å registrere et kort på en bruker
   def check_card_value(value, pin)
     user = User.where(pin: pin).first
-    user_id = user.id
-    if user_id and value
-      Card.create(user_id: user_id, card_value: value)
-      return true
+    # Sjekker om forige linje som sjekket etter 
+    # brukere med anngitt PIN returnerte noe
+    if user
+      # Sjekker om verdien for hvilket kort det gjelder ikke er null
+      if value  
+        card = Card.where(user_id: user.id).first
+        # Sjekker om linjen over, som leter etter et kort 
+        # med den angitte brukeren returnerte en bruker
+        if card
+          # Hvis den gjorde det, gir beskjed om at det eksisterer et kort på brukeren
+          respons = "Bruker allerede registrert med et kort"
+        else
+          # Hvis ikke opprettes et kort på den gitte brukeren
+          Card.create(user_id: user.id, card_value: value)
+          respons = "Kort registrert på: " + user.name
+        end
+        return respons
+      else
+        # Hvis det ikke er noen kortverdi med, er noe gådt galt
+        return "Noe gikk galt"
+      end
     else
-      return false
-    end
+      # Hvis det ikke finnes en bruker med den angitte PIN
+      return "Finner ingen bruker med denne PIN"
+    end  
   end
- 
+  
 end
