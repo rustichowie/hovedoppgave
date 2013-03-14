@@ -8,7 +8,7 @@ end
   resources :user
   
   match "/manual", to: 'home#manual_register'
-  #match "/unknown", to: 'home#card_register'
+  match "/add", to: 'home#add_card'
   match "/user", to: 'user#index'
   match "/supervisor/list", to: 'supervisor#list'
   

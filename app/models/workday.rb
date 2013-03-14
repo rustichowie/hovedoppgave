@@ -17,7 +17,7 @@ class Workday < ActiveRecord::Base
   has_many :workhours
   belongs_to :user
   
-  #
+
   def get_workhours(user_id, n)
      user = User.find(user_id)
      workhours = user.workhours.where("DATE(start) = ?", n).order("TIME(start) desc")
@@ -42,4 +42,17 @@ class Workday < ActiveRecord::Base
   end
   
   
+
+  # Metode som sjekker om det eksisterer en arbeidsdag for brukeren i dag
+  # hvis det eksisterer, returneres id, hvis ikke returneres false
+  def check_for_workday_now(user_id)
+    date = DateTime.now.to_date # Dagens dato
+    day = Workday.where(user_id: user_id) # Alle workdays til brukeren
+    workday = day.where("DATE(date) = ?",date).first # workday med dagens dato
+    if workday
+      return workday.id
+    else
+      return false
+    end
+  end
 end

@@ -7,7 +7,15 @@
 	
 	<h1>Registrer et nytt kort</h1>
 	
-	<%= link_to "Tilbake til kortregistrering", root_path%>
+	<%= form_tag("/add", :method => "post") do %>
+	<%= label_tag(:a, "Skriv inn PIN") %>
+ 	<%= text_field_tag(:pin) %>
+ 	<%= hidden_field_tag(:value, @value) %>
+ 	</br>
+ 	<%= submit_tag("Legg til") %>
+	<% end %>
+	
+	<%= link_to "Tilbake til registrering", root_path%>
 	
 	
 
