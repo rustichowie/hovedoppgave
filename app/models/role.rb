@@ -12,6 +12,6 @@
 class Role < ActiveRecord::Base
   attr_accessible :description, :name
   
-  belongs_to :user
+  has_many :user
   
 end

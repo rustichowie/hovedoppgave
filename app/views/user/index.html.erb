@@ -1,31 +1,4 @@
-<%provide(:custom_css, 'user')%>
 
-
-
-<script>
-
-$(document).ready(function() {	
-	
-	$('#workhours > tbody > tr').click(function(){
-		childId = "#child"+this.id;
-		cellId = "#icon"+this.id;
-		if($(childId).is(":visible")){
-    		$(childId).hide();
-    		$(cellId).removeClass('icon-chevron-down');
-    		$(cellId).addClass('icon-chevron-right');
-    	}
-    	else
-    	{	
-    		$(childId).show();
-    		$(cellId).addClass('icon-chevron-down');
-    		$(cellId).removeClass('icon-chevron-right');
-    	}
-    	
-    	
-	});
-
-});
-</script>
 <div class="container-fluid">
 <div class="row-fluid">
 	
@@ -43,7 +16,7 @@ $(document).ready(function() {
 </div>
 
 <div class="span5">
-	<table class="table table-striped" id="workhours">
+	<table class="table table-striped" id="parent_table">
 		<thead>
 			<tr>
 				<th>Navn</th>
@@ -61,7 +34,7 @@ $(document).ready(function() {
 				<td><%= row[:hours]%></td>
 				<td><%= row[:status]%></td>
 				</tr>
-				<tr class="child" id="child<%=row[:id]%>">
+				<tr class="child" id="child_row<%=row[:id]%>">
 				<td colspan="2">
 					<table id="child-table" class='table child-table'>
 					<thead>

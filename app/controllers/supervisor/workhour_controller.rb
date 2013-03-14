@@ -2,7 +2,7 @@ class Supervisor::WorkhourController < ApplicationController
   
   def index
 
-    @collection = Workhour.all
+    @hour = Workhour.new.group_workhours
     
   end
 

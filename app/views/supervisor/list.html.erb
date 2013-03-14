@@ -2,32 +2,8 @@
 
 <%= render 'layouts/supervisor_buttonbar'%>
 
-<script>
 
-$(document).ready(function() {	
-	
-	$('#main_table > tbody > tr').click(function(){
-		childId = "#child_row" + this.id;
-		//cellId = "#icon"+this.id;
-		if($(childId).is(":visible")){
-    		$(childId).hide();
-    		//$(cellId).removeClass('icon-chevron-down');
-    		//$(cellId).addClass('icon-chevron-right');
-    	}
-    	else
-    	{	
-    		$(childId).show();
-    		//$(cellId).addClass('icon-chevron-down');
-    		//$(cellId).removeClass('icon-chevron-right');
-    	}
-    	
-    	
-	});
-
-});
-</script>
-
-<table class="table table-striped" id="main_table">
+<table class="table table-striped" id="parent_table">
 	<thead>
 		<th>Navn</th>
 		<th>Timer</th>

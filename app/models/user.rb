@@ -10,14 +10,18 @@
 #  pin         :string(255)
 #  salt        :string(255)
 #  email       :string(255)
+#  group_id    :integer          not null
+#  role_id     :integer          not null
 #
 
 class User < ActiveRecord::Base
   
-  attr_accessible :name
+  attr_accessible :name, :email, :group_id, :role_id, :employee_id
   has_many :cards
   has_many :workhours
-  has_one :role
+  belongs_to :role
+  belongs_to :group
+  has_many :workdays
   
   validates :name, :presence => true
 end

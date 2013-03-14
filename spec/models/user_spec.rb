@@ -10,6 +10,8 @@
 #  pin         :string(255)
 #  salt        :string(255)
 #  email       :string(255)
+#  group_id    :integer          not null
+#  role_id     :integer          not null
 #
 
 require 'spec_helper'

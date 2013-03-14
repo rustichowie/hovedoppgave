@@ -10,6 +10,7 @@ end
   match "/manual", to: 'home#manual_register'
   match "/add", to: 'home#add_card'
   match "/user", to: 'user#index'
+  match "/supervisor/list", to: 'supervisor#list'
   
   
   root to: 'home#register'
