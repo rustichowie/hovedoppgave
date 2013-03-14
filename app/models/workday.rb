@@ -49,11 +49,10 @@ class Workday < ActiveRecord::Base
   # Metode som sjekker om det eksisterer en arbeidsdag for brukeren i dag
   # hvis det eksisterer, returneres id, hvis ikke returneres false
   def check_for_workday_now(user_id)
-    date = DateTime.now.to_date # Dagens dato
-    day = Workday.where(user_id: user_id) # Alle workdays til brukeren
-    workday = day.where("DATE(date) = ?",date).first # workday med dagens dato
-    if workday
-      return workday.id
+    date = Date.today # Dagens dato
+    day = Workday.where(user_id: user_id, date: date).first # Workday til brukeren
+    if day
+      return day.id
     else
       return false
     end
