@@ -11,10 +11,10 @@
 			
 		</thead>
 		<tbody>
-			<% @hour.each_with_index do |day, index|%>
+			<% @workdays.each_with_index do |day, index|%>
 				<tr class="parent" id=<%=index%>>
 				<td><%=day[:user].name %></td>
-				<td><%= day[:info][:day][:date] %></td>
+				<td><%= day[:info][:day].date %></td>
 				<td><%= day[:info][:sum]%></td>
 				<td>
 					<button class="btn btn-success">Godkjenn</button>
@@ -36,7 +36,7 @@
                      </tr>
                      </thead>
                      <tbody>
-                     <% day[:info][:hours].each do |hour|%>	
+                     <% day[:info][:day].workhours.each do |hour|%>	
                      <tr class="info">
                      	<td><%= hour[:start]%></td>
 						<td><%= hour[:stop]%></td>

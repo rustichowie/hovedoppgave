@@ -2,7 +2,7 @@ class Supervisor::WorkdayController < ApplicationController
   
   def index
 
-    @hour = Workday.new.get_workdays
+    @workdays = Workday.new.get_workdays
     
   end
 

@@ -43,6 +43,9 @@ class Workhour < ActiveRecord::Base
     end
     return @array
   end
+    
+  
+  
   
   
   # Metode for å starte eller stoppe en arbeidsøkt på en bruker
