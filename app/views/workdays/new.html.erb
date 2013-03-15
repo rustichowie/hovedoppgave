@@ -1,0 +1,15 @@
+<div class="container">
+	<%= render 'layouts/supervisor_buttonbar'%>
+	
+	<h1>Legg til en ny jobbdag for bruker: <h2><%=@user.name%></h2></h1>
+	<div class="row">
+		<div class="span3 offsett3">
+	<%= form_for([@user, @workday]) do |f| %>
+    <%= f.text_area :comment, placeholder: "Kommentar til manuell innlegg av timer...", :cols => 20, :rows => 5 %>
+    <%= f.number_field :supervisor_hour, placeholder: "Antall timer..." %>
+  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+<% end %>
+	</div>
+	</div>
+	
+</div>

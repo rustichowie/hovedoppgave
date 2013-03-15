@@ -1,12 +1,15 @@
 DatabaseApp::Application.routes.draw do
   
 
-namespace :supervisor do
-  resources :workday
-end
 
-  resources :user
+  resources :users do
+    resources :workdays
+    
+  end
   
+  
+  
+  match "/workdays", to: 'workdays#list'
   match "/manual", to: 'register#manual_register'
   match "/add", to: 'register#add_card'
   match "/user", to: 'user#index'

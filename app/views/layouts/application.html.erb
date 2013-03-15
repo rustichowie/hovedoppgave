@@ -2,10 +2,11 @@
 <html>
 <head>
   <title><%=full_title("Registrering")%></title>
-  <%= stylesheet_link_tag "base"%>
-  <%= stylesheet_link_tag yield(:custom_css)%>
-  <%= %>
   <%= javascript_include_tag "application" , :media => "all"%>
+  <%= stylesheet_link_tag "base"%>
+  
+  <%= stylesheet_link_tag yield(:custom_css)%>
+  
   <%= csrf_meta_tags %>
 
 </head>

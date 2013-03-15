@@ -1,0 +1,56 @@
+
+<div class="container">
+<%= render 'layouts/supervisor_buttonbar'%>
+<table class="table table-striped" id="parent_table">
+		<thead>
+			<tr>
+				<th>Navn</th>
+				<th>Start</th>
+				<th>Stop</th>
+				<th>Antall</th>
+				<th>Status</th>
+			</tr>
+			
+		</thead>
+		<tbody>
+				<tr class="parent" id="1">
+				<td><%=@workday.user.name%></td>
+				<td><%= @workday.date%></td>
+				<td><%= @workday.approved%></td>
+				<td><%= @sum%></td>				
+				<td>
+					<button class="btn btn-success">Godkjenn</button>
+				</td>
+				<td>
+					<button class="btn btn-danger">Underkjenn</button>
+				</td>
+			</tr>
+			<tr class="child_row" id="child_row1">
+				
+				<td colspan="2">
+					<table id="child-table" class='table child-table'>
+					<thead>
+                     <tr id='child-head'>
+                     	<th>Start:</th>
+                     	<th>Stop:</th>
+                     	<th>Antall:</th>
+                     	<th>Status:</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <% @workday.workhours.each do |hour|%>	
+                     <tr class="info">
+                     	<td><%= hour[:start]%></td>
+						<td><%= hour[:stop]%></td>
+						<td><%= hour[:count]%></td>
+                     </tr>
+                     <%end%>
+                     </tbody>
+                 </table>
+				
+				</td>
+				
+			</tr>
+		</tbody>
+	</table>
+</div>

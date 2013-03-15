@@ -18,31 +18,26 @@ class Workday < ActiveRecord::Base
   belongs_to :user
   validates :date, :uniqueness => {:scope => :user_id}
 
-
-  def has_workdays(user_id, date)
-     user = User.find(user_id)
-     workdays = user.workdays.where("date = ?", date)
-     unless workdays.empty?
-       return false
-     else
-       return true
-     end 
-  end
   
-  def get_workdays
-    days = Workday.includes(:workhours).where(approved: false)
+  def get_workdays(user_id)
+    if user_id
+      days = Workday.includes(:workhours).where(user_id: user_id).order("date desc")
+    else  
+      days = Workday.includes(:workhours).order("date desc")
+    end
+    
     array = [] 
     sum = nil
-    user = User.all
     days.each do |day|    
-          sum = Workhour.sum(:count, conditions: ["DATE(start) = ? AND user_id = ?", day.date, day.user.id])
-          array.push({user: day.user, info: {day: day, sum: sum}})
+          sum = get_workhour_sum(day.date, day.user.id)
+          array.push({day: day, sum: sum})
     end
-    array.sort_by
     return array
   end
   
-  
+  def get_workhour_sum(date, user_id)
+    return Workhour.sum(:count, conditions: ["DATE(start) = ? AND user_id = ?", date, user_id])
+  end
   
   
 

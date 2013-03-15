@@ -1,7 +1,7 @@
 $(document).ready(function() {	
 	
-	$('#parent_table > tbody > tr').click(function(){
-		childId = "#child_row"+this.id;
+	$('.row_button').click(function(){
+		childId = "#child"+this.id;
 		if($(childId).is(":visible")){
     		$(childId).hide();
     	}
