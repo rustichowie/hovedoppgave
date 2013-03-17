@@ -2,15 +2,15 @@ require 'spec_helper'
 
 
 
-
 describe "Registration" do
   include Capybara::DSL
+
   before {visit "/"}
   
   describe 'automatic regitration' do
     
 
-    let(:user) {User.create(name: "yolo")}
+    let(:user) {FactoryGirl.create(:user)}
     
     it 'should render automatic register website' do
       get "/"

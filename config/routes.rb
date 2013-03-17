@@ -2,21 +2,32 @@ DatabaseApp::Application.routes.draw do
   
 
 
+
   resources :users do
     resources :workdays
     
   end
-  
-  
+
+  resources :users, :user_sessions
   
   match "/workdays", to: 'workdays#list'
   match "/manual", to: 'register#manual_register'
   match "/add", to: 'register#add_card'
-  match "/user", to: 'user#index'
   match "/supervisor/list", to: 'supervisor#list'
+  
+
+  
+  match 'signup' => 'users#new', :as => :signup
   
   
   root to: 'register#register'
+  
+  
+  match 'login' => 'user_sessions#new', :as => :login
+  match 'logout' => 'user_sessions#destroy', :as => :logout
+
+  #root :to => 'users#new'
+  
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
