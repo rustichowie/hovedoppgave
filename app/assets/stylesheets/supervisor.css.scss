@@ -4,13 +4,23 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-#parent_table {
-  
-  td {
-    max-width: 20px;
-    
+
+.row_button{
+        width: 20%;
+      } 
+.last_td
+      {
+        width: 40%;
+      }
+.parent{
+form {
+  margin: 0px;
+  display: inline;
+  div{
+    display: inline;
   }
-  
+}
+
 }
 
 #buttonbar
@@ -44,7 +54,4 @@
   position: relative;
 }
 
-.container {
-  margin-bottom: 100px;
-}
 

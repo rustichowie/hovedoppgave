@@ -37,22 +37,32 @@ before_filter :get_user
 
   def edit
     
-    session[:return_to] ||= request.referer
+    
   end
 
   def update
-    @workday = Workday.find(params[:id])
-    #@workday.approved = true
-    if @workday.update_attributes(approved: true)
-      if params[:page] == "index"
-        redirect_to action: 'index'
-      else
-        redirect_to action: 'list'
-      end
-    else
-      render 'index'
+      @workday = Workday.find(params[:id])
+     if params[:approved] 
+            @workday.update_attributes(approved: params[:approved])        
+
+      else if params[:workday] 
+        @workday.update_attributes(comment: params[:workday][:comment], approved: true, supervisor_hour: params[:workday][:supervisor_hour])
     end
-  end
+    end
+    #@workday.approved = true
+      respond_to do |format|
+        format.html do
+          if params[:page] or params[:workday][:page] == "index"
+            redirect_to action: "index"
+          else
+            redirect_to action: "list"
+          end
+          
+        end
+      format.js
+      format.json {render json: @workday.to_json(only: :approved)}
+    end
+end
 
   def destroy
   end
