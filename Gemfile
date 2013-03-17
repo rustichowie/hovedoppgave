@@ -39,6 +39,11 @@ end
 
 group :development do
   gem 'annotate', '2.5.0'
+  gem 'authlogic'
+  #gem 'acl9'
+  gem 'declarative_authorization'
+  gem 'gemcutter'
+  gem 'ruby_parser'
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
