@@ -17,6 +17,7 @@ class Workhour < ActiveRecord::Base
   belongs_to :user
   belongs_to :workday
   
+  #Sjekker om en bruker har noen jobbtimer
   def has_workhours(user_id, n)
      user = User.find(user_id)
      workhour_day = user.workhours.where("DATE(start) = ?", n)

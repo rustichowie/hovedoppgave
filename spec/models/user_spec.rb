@@ -2,16 +2,27 @@
 #
 # Table name: users
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  employee_id :integer
-#  pin         :string(255)
-#  salt        :string(255)
-#  email       :string(255)
-#  group_id    :integer          not null
-#  role_id     :integer          not null
+#  id                  :integer          not null, primary key
+#  name                :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  employee_id         :integer
+#  pin                 :string(255)
+#  salt                :string(255)
+#  email               :string(255)
+#  group_id            :integer          not null
+#  role_id             :integer          not null
+#  persistence_token   :string(255)      not null
+#  single_access_token :string(255)      not null
+#  perishable_token    :string(255)      not null
+#  login_count         :integer          default(0), not null
+#  failed_login_count  :integer          default(0), not null
+#  last_request_at     :datetime
+#  current_login_at    :datetime
+#  last_login_at       :datetime
+#  current_login_ip    :string(255)
+#  last_login_ip       :string(255)
+#  crypted_password    :string(255)      not null
 #
 
 require 'spec_helper'
