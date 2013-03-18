@@ -3,12 +3,12 @@ $(document).ready(function() {
 	$(".approve_buttons").click(function(){
 		id = this.id;
 
-		$(".button_to").submit(function(e){
+		$(".approve_form").submit(function(e){
 		
 			e.preventDefault();
 			
 			url = $(this).attr('action');
-			alert(this);
+
 			$.ajax({
 				type: 'put',
 				url: url,

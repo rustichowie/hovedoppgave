@@ -26,23 +26,6 @@ class Workhour < ActiveRecord::Base
        return true
      end 
   end
-  
-  def group_workhours
-    @day = (Workhour.order("DATE(start) desc").group("DATE(start)").count).keys
-    @array = [] 
-    @sum = nil
-    @user = User.all
-    @day.each do |n|
-    @user.each do |u| 
-        unless has_workhours(u.id, n) == true
-          child = Workhour.find(:all, conditions: ["DATE(start) = ? AND user_id = ?", n, u.id])
-          sum = Workhour.sum(:count, conditions: ["DATE(start) = ? AND user_id = ?", n, u.id])
-          @array.push({user: u, info: {day: n, hours: child, sum: sum}})
-      end
-      end
-    end
-    return @array
-  end
     
   
   

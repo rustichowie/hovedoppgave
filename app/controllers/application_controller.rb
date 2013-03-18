@@ -8,8 +8,15 @@ class ApplicationController < ActionController::Base
   helper_method :set_current_user, :current_user_session, :current_user 
 
   before_filter { |c| Authorization.current_user = c.current_user }
+  before_filter :set_language
+  #private
   
   #private
+  def set_language
+    I18n.locale = 'nb'
+  end
+  
+  
   def set_current_user
     Authorization.current_user = current_user 
   end

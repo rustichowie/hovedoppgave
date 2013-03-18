@@ -12,6 +12,7 @@ group :development, :test do
 gem 'rspec-rails'
 gem 'guard-rspec', '1.2.1'
 gem "mysql2"
+gem 'kaminari'
 end
 
 
@@ -23,7 +24,7 @@ group :assets do
   gem 'vagrant'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-
+  
   gem 'uglifier', '>= 1.0.3'
 end
 

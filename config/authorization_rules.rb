@@ -2,6 +2,7 @@ authorization do
   
   role :guest do
     has_permission_on [:user_sessions], :to => [:read, :create]
+
   end
   role :ansatt do
     includes :guest

@@ -7,11 +7,56 @@ before_filter :get_user
   end
   
   def index
-    @workdays = Workday.new.get_workdays(params[:user_id])
+       
+       @prev_class = "enabled"
+       @next_class = "enabled"
+    
+    if params[:date]
+      @date = Date.parse(params[:date])
+    else
+      @date = Date.today 
+    end
+    respond_to do |format|
+      format.html do
+        #@workdays = Workday.new.get_workdays(params[:user_id])
+          @workdays = Workday.new.get_workdays_by_month(params[:user_id], @date)
+          
+          if Workday.new.get_workdays_by_month(params[:user_id], @date.advance(months: -1)).empty?
+            @prev_class = "disabled"
+          end
+          if Workday.new.get_workdays_by_month(params[:user_id], @date.advance(months: 1)).empty?
+            @next_class = "disabled"
+          end
+      end
+      format.json {render json: @workdays.to_json}
+    end
+    
+    
   end
 
   def list
-    @workdays = Workday.new.get_workdays(nil)
+    @prev_class = "enabled"
+       @next_class = "enabled"
+    
+    if params[:date]
+      @date = Date.parse(params[:date])
+    else
+      @date = Date.today 
+    end
+    respond_to do |format|
+      format.html do
+        #@workdays = Workday.new.get_workdays(params[:user_id])
+          @workdays = Workday.new.get_workdays_by_month(nil, @date)
+          
+          if Workday.new.get_workdays_by_month(nil, @date.advance(months: -1)).empty?
+            @prev_class = "disabled"
+          end
+          if Workday.new.get_workdays_by_month(nil, @date.advance(months: 1)).empty?
+            @next_class = "disabled"
+          end
+      end
+      format.json {render json: @workdays.to_json}
+    end
   end
 
   def show 

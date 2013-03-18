@@ -1,3 +1,6 @@
+
+
+<div id="mainTable">
 <table class="table table-striped table-hover" id="parent_table">
 		<thead>
 			<tr>
@@ -9,10 +12,8 @@
 		</thead>
 		<tbody>
 			<% @workdays.each_with_index do |day, index|%>
-			
-			
-			</div>
 				<tr class="parent" id=row<%=index%>>
+					
 				<td class="row_button" id=<%=index%>><%=day[:day].user.name %></td>
 				<td class="row_button" id=<%=index%>><%= day[:day].date %></td>
 				<td class="row_button" id=<%=index%>><%= day[:sum]%></td>
@@ -25,11 +26,11 @@
 				<%else%>
 				<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   					<div class="modal-body">
-    				<h1>Legg til en ny jobbdag for bruker: <h2><%=@user.name%></h2></h1>
+    				<h1>Legg til en ny jobbdag for bruker: <h2><%=day[:day].user.name%></h2></h1>
 					<div class="row">
 						<div class="span3 offsett3">
-						<%= form_for([@user, day[:day]]) do |f| %>
-						<%= f.hidden_field :page, value: "index"%>
+						<%= form_for([day[:day].user, day[:day]]) do |f| %>
+						<%= f.hidden_field :page, value: yield(:action)%>
     					<%= f.text_area :comment, placeholder: "Kommentar til manuell innlegg av timer...", :cols => 20, :rows => 5 %>
     					<%= f.number_field :supervisor_hour, placeholder: "Antall timer..." %>								
 					</div>
@@ -41,13 +42,13 @@
     				<% end %>
   				</div>
 				<td id=last_td<%=index%>>
-				<%=button_to  "Godkjenn timer", { :action => "update", :id => day[:day].id, :user_id => day[:day].user.id, page: "index", approved: true},
+				<%=button_to  "Godkjenn timer", { :action => "update", :id => day[:day].id, :user_id => day[:day].user.id, page: yield(:page), approved: true},
 					{class: "approve_buttons btn btn-small btn-success button_row#{index}" , id: "#{index}",
-             		:confirm => "Are you sure?"}%>
+             		:confirm => "Are you sure?", form_class: "approve_form"}%>
 							<button type="button" id=<%=index%> class="button_row<%=index%> btn btn-warning btn-small approve_buttons open_modal" data-toogle="modal" data-id=<%=day[:day]%>>Delvis godkjenn</button>
-						<%=button_to  "Underkjenn timer", { :action => "update", :id => day[:day].id, :user_id => day[:day].user.id, page: "index", approved: false},
+						<%=button_to  "Underkjenn timer", { :action => "update", :id => day[:day].id, :user_id => day[:day].user.id, page: yield(:page), approved: false},
 					{class: "approve_buttons btn-small btn btn-danger button_row#{index}" ,id: "#{index}",
-             	:confirm => "Are you sure?", :method => :put, remote: true}%>
+             	:confirm => "Are you sure?", form_class: "approve_form"}%>
 				</td>
 				<%end%>
 				</tr>
@@ -81,3 +82,4 @@
 			<%end%>
 		</tbody>
 	</table>
+	</div>
