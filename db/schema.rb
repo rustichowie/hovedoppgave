@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314215753) do
+ActiveRecord::Schema.define(:version => 20130319134833) do
 
   create_table "cards", :force => true do |t|
     t.integer  "user_id"
@@ -29,23 +29,26 @@ ActiveRecord::Schema.define(:version => 20130314215753) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "log_types", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "logs", :force => true do |t|
     t.integer  "user_id"
     t.integer  "card_id"
     t.integer  "logtype_id"
     t.integer  "workhours_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "workday_id"
+    t.integer  "effected_user_id"
+    t.string   "action"
   end
 
   add_index "logs", ["logtype_id"], :name => "index_logs_on_logtype_id"
+
+  create_table "logtypes", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -56,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20130314215753) do
     t.integer  "authorizable_id"
   end
 
-  create_table "roles_users", :id => false, :force => true do |t|
+  create_table "roles_users", :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
     t.datetime "created_at", :null => false
@@ -75,38 +78,39 @@ ActiveRecord::Schema.define(:version => 20130314215753) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "employee_id"
     t.string   "pin"
     t.string   "salt"
     t.string   "email"
-    t.integer  "group_id",                           :null => false
-    t.integer  "role_id",                            :null => false
-    t.string   "persistence_token",                  :null => false
-    t.string   "single_access_token",                :null => false
-    t.string   "perishable_token",                   :null => false
-    t.integer  "login_count",         :default => 0, :null => false
-    t.integer  "failed_login_count",  :default => 0, :null => false
+    t.integer  "group_id",                              :null => false
+    t.integer  "role_id",                               :null => false
+    t.string   "persistence_token",                     :null => false
+    t.string   "single_access_token",                   :null => false
+    t.string   "perishable_token",                      :null => false
+    t.integer  "login_count",         :default => 0,    :null => false
+    t.integer  "failed_login_count",  :default => 0,    :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.string   "crypted_password",                   :null => false
+    t.string   "crypted_password",                      :null => false
+    t.boolean  "active",              :default => true, :null => false
   end
 
   add_index "users", ["group_id"], :name => "index_users_on_group_id"
   add_index "users", ["role_id"], :name => "index_users_on_role_id"
 
   create_table "workdays", :force => true do |t|
-    t.integer  "user_id",                            :null => false
+    t.integer  "user_id",         :null => false
     t.string   "comment"
     t.integer  "supervisor_hour"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
-    t.boolean  "approved",        :default => false
-    t.date     "date",                               :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.boolean  "approved"
+    t.date     "date",            :null => false
   end
 
   create_table "workhours", :force => true do |t|

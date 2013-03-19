@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   belongs_to :role
   belongs_to :group
   has_many :workdays
+  has_many :logs
   
   validates :name, :presence => true
   

@@ -2,12 +2,13 @@ class CardsController < ApplicationController
   
   before_filter :get_card, only: [:show, :edit, :destroy, :update]
   
-  
+  #Henter et kort
   def get_card
     @card = Card.find(params[:id])
   end
   
-  
+  #GET /cards
+  #GET /cards.xml
   def index
     @cards = Card.all
 
@@ -17,8 +18,8 @@ class CardsController < ApplicationController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.xml
+  # GET /cards/1
+  # GET /cards/1.xml
   def show
     
 
@@ -28,8 +29,8 @@ class CardsController < ApplicationController
     end
   end
 
-  # GET /users/new
-  # GET /users/new.xml
+  # GET /cards/new
+  # GET /cards/new.xml
   def new
     @card = User.new
 
@@ -39,13 +40,13 @@ class CardsController < ApplicationController
     end
   end
 
-  # GET /users/1/edit
+  # GET /cards/1/edit
   def edit
     
   end
 
-  # POST /users
-  # POST /users.xml
+  # POST /cards
+  # POST /cards.xml
   def create
     @card = User.new(params[:card])
 
@@ -60,8 +61,8 @@ class CardsController < ApplicationController
     end
   end
 
-  # PUT /users/1
-  # PUT /users/1.xml
+  # PUT /cards/1
+  # PUT /cards/1.xml
   def update
     
 
@@ -76,8 +77,8 @@ class CardsController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.xml
+  # DELETE /cards/1
+  # DELETE /cards/1.xml
   def destroy
     @card.destroy
 

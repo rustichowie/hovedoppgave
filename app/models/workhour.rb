@@ -16,6 +16,7 @@ class Workhour < ActiveRecord::Base
   attr_accessible :count, :start, :stop, :user_id, :workday_id
   belongs_to :user
   belongs_to :workday
+  has_many :logs
   
   #Sjekker om en bruker har noen jobbtimer
   def has_workhours(user_id, n)

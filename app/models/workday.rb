@@ -16,6 +16,7 @@ class Workday < ActiveRecord::Base
   attr_accessible :approved, :comment, :date, :supervisor_hour, :user_id
   has_many :workhours
   belongs_to :user
+  has_many :logs
   validates :date, :uniqueness => {:scope => :user_id}
 
   

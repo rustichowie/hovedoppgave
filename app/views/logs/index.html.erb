@@ -1,20 +1,63 @@
 
+<script>
+	
+	$(document).ready(function(){
+		
+		$("#categories").change(function(e){
+			//filtrerer etter kategori valgt av bruker.
+			//TODO: legg i egen fil.
+			category = e.target.options[e.target.selectedIndex].value;
+			
+			
+			window.location = "/logs?category="+category;
+			
+			
+		});
+		
+	});
+	
+	
+</script>
+<%= render "layouts/supervisor_buttonbar"%>
 
-<table class="table table-hover logs">
+
+<div class="container">
+
+<div id="cat">
+	
+	<select id="categories">
+		<%if @category == nil%>
+		<option selected="selected" value="nil">Default</option>
+		<%else%>
+		<option value="">Default</option>
+		<%end%>
+		<% @logtypes.each do |logtype|%>
+		<% unless @category == raw(logtype.id)%>
+		<option value=<%=logtype.id%>><%=logtype.name%></option>
+		<%else%>
+		<option selected="selected" value=<%=logtype.id%>><%=logtype.name%></option>
+		<%end%>
+		<%end%>
+	</select>
+</div>
+<div id="logs">
+<table class="table table-hover" id="log-table">
 <thead>
 	<th>Dato</th>
 	<th>Bruker</th>
 	<th>Beskjed</th>
 </thead>
 <tbody>
-	<% @logs.each do |log|%>
-	<tr>
-		<td>log.created_at</td>
-		<td>log.user.name</td>
-		<td></td>
+	<% @log_message.each do |log|%>
+	<tr class="log-entries">
+		<td><%= log[:date]%></td>
+		<td><%= log[:user].name%></td>
+		<td><%= raw log[:message]%></td>
 	</tr>
 	<%end%>
 	
 </tbody>
 
 </table>
+</div>
+</div>

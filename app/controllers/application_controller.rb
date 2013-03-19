@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_language
   #private
   
-  #private
+  #Setter default språk til norsk
   def set_language
     I18n.locale = 'nb'
   end

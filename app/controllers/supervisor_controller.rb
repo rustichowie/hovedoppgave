@@ -1,3 +1,5 @@
+#Ikke i bruk!
+
 class SupervisorController < ApplicationController
 
 

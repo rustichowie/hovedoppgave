@@ -9,8 +9,11 @@
 #  updated_at  :datetime         not null
 #
 
-class LogType < ActiveRecord::Base
+class Logtype < ActiveRecord::Base
   attr_accessible :description, :name
-  belongs_to :logs
+  has_many :logs
+  
+  
+  
   
 end

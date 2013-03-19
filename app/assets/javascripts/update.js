@@ -1,19 +1,24 @@
+//Oppdaterer approve/unapprove knappene, og legger til en passende label.
+
+
 $(document).ready(function() {	
 
+	//når en av knappene trykkes
 	$(".approve_buttons").click(function(){
 		id = this.id;
-
+		
 		$(".approve_form").submit(function(e){
 		
 			e.preventDefault();
 			
 			url = $(this).attr('action');
-
+			//får tilbake et json object som enten er true eller false fra serveren.	
 			$.ajax({
 				type: 'put',
 				url: url,
 				dataType: 'json',
 				success: function(json){
+					//Fjerner knappene og legger til label.
 					$('.button_row'+id).remove();
 					$("#last_td"+id).css("text-align", "center");
 					if(json.approved == true)
@@ -27,6 +32,7 @@ $(document).ready(function() {
 		});
 
 	});
+	//Åpner vinduet til å kunne delvis godkjenne ting.
 	$(".open_modal").click(function(){
 			$("#myModal").modal('show');
 	});
