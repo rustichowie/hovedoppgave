@@ -3,13 +3,29 @@ DatabaseApp::Application.routes.draw do
 
 
 
+
+
+  get "cards/new"
+
+  get "cards/index"
+
+  get "cards/show"
+
+  get "cards/create"
+
+  get "cards/edit"
+
+  get "cards/update"
+
   resources :users do
-    resources :workdays
+    resources :workdays do
+    end
     
   end
 
+  resources :logs
   resources :users, :user_sessions
-  
+
   match "/workdays", to: 'workdays#list'
   match "/manual", to: 'register#manual_register'
   match "/add", to: 'register#add_card'

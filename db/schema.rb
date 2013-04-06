@@ -13,6 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20130319134039) do
 
+
   create_table "cards", :force => true do |t|
     t.integer  "user_id"
     t.string   "card_value"
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130319134039) do
     t.datetime "updated_at",       :null => false
     t.integer  "workday_id"
     t.integer  "effected_user_id"
+    t.string   "action"
   end
 
   add_index "logs", ["logtype_id"], :name => "index_logs_on_logtype_id"

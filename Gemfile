@@ -12,6 +12,11 @@ group :development, :test do
 gem 'rspec-rails'
 gem 'guard-rspec', '1.2.1'
 gem "mysql2"
+gem 'kaminari'
+gem 'authlogic'
+gem 'declarative_authorization'
+  gem 'gemcutter'
+  gem 'ruby_parser'
 end
 
 
@@ -23,7 +28,7 @@ group :assets do
   gem 'vagrant'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-
+  
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -35,18 +40,15 @@ group :test do
   gem 'capybara', '1.1.2'
   gem 'capybara-webkit'
   gem 'factory_girl_rails', '4.1.0'
-  gem 'authlogic'
-  gem 'declarative_authorization'
-  gem 'gemcutter'
-  gem 'ruby_parser'
+
 end 
 
 group :development do
   gem 'annotate', '2.5.0'
-  gem 'authlogic'
-  gem 'declarative_authorization'
-  gem 'gemcutter'
-  gem 'ruby_parser'
+
+  
+  #gem 'acl9'
+
 end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
