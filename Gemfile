@@ -35,12 +35,15 @@ group :test do
   gem 'capybara', '1.1.2'
   gem 'capybara-webkit'
   gem 'factory_girl_rails', '4.1.0'
+  gem 'authlogic'
+  gem 'declarative_authorization'
+  gem 'gemcutter'
+  gem 'ruby_parser'
 end 
 
 group :development do
   gem 'annotate', '2.5.0'
   gem 'authlogic'
-  #gem 'acl9'
   gem 'declarative_authorization'
   gem 'gemcutter'
   gem 'ruby_parser'

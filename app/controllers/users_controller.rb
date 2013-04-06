@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    @users = User.where(active: true)
 
     respond_to do |format|
       format.html # index.html.haml
@@ -85,19 +85,13 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    @user.active = false
+    @user.save
 
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml { head :ok }
     end
   end
-  
-  #private
-
-  #def me?
-    #current_user == User.find(params[:id])
-  #end
-  
   
 end
