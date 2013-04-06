@@ -4,7 +4,6 @@ class LogsController < ApplicationController
   #GET /logs
   def index
     @category = params[:category]
-    flash[:notice] = params[:category]
     @logtypes = Logtype.all
     @log_message = Log.new.print_log(params[:category])
     

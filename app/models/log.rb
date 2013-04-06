@@ -32,6 +32,7 @@ class Log < ActiveRecord::Base
   #lager et array av den informasjonen jeg trenger: log beskjed, dato og bruker.
   def print_log(logtype_id)
     
+    #Filtrerer etter kategori.
     unless logtype_id == nil
       logs = Log.includes(:user, :workday, :workhour, :logtype, :card).where(logtype_id: logtype_id)
     else
