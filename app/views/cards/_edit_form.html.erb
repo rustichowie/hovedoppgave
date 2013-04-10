@@ -1,0 +1,6 @@
+<%= form_for([@card.user, @card]) do |f|%>
+<%= f.label :card_value%>
+<%= f.text_field :card_value%>
+<br />
+<%= f.submit "Lagre", class: "btn btn-primary"%>
+<%end%>

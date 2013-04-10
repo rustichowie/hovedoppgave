@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   belongs_to :group
   has_many :workdays
   has_many :logs
-  
+  accepts_nested_attributes_for :cards
   validates :name, :presence => true
   
   def role_symbols

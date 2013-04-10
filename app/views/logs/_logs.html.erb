@@ -1,0 +1,9 @@
+
+<% @log_message.each do |log|%>
+	<tr class="log-entries">
+		<td><%= log[:log].created_at%></td>
+		<td><%= log[:log].user.name%></td>
+		<td><%= raw log[:message]%></td>
+	</tr>
+	
+	<%end%>

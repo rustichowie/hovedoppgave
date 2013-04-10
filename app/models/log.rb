@@ -16,35 +16,82 @@
 #Se workdays_controller for eksempel på lagring av log. og se metoden humanize for å se
 #om du skal legge actions i en egen tabell.
 class Log < ActiveRecord::Base
-  attr_accessible :card_id, :int, :logtype_id, :user_id, :workhours_id, :action
+  attr_accessible :card_id, :int, :logtype_id, :user_id, :workhours_id, :action, :workday_id, :effected_user_id
   belongs_to :logtype 
   belongs_to :user
   belongs_to :workhour
   belongs_to :workday
   belongs_to :card
   
-  #Søke metode, skal implementeres senere
-  #TODO: Legge til søk i logg
-  def search(params)
-   
-  end
-  
+
   #lager et array av den informasjonen jeg trenger: log beskjed, dato og bruker.
-  def print_log(logtype_id)
+  def print_log(logtype_id, search, from, to)
     
+    user_res = []
+    action_res = []
+    temp_logs = []
+    date_res = []    
+    unless search == nil  
+      user_res = User.select(:id).where("name like ?", "%#{search}%")
+      action_res = Log.where("action like ?", "%#{search}%")
+    end
     #Filtrerer etter kategori.
     unless logtype_id == nil
-      logs = Log.includes(:user, :workday, :workhour, :logtype, :card).where(logtype_id: logtype_id)
+      unless from == nil || to == nil        
+      logs = Log.includes(:user, :workday, :workhour, :logtype, :card).where("logtype_id = ? and Date(created_at) >= ? AND Date(created_at) <= ?" ,logtype_id, from, to).order('created_at desc') 
+      else
+      logs = Log.includes(:user, :workday, :workhour, :logtype, :card).where(logtype_id: logtype_id).order('created_at desc')
+      end
     else
-      logs = Log.includes(:user, :workday, :workhour, :logtype, :card).all
+      unless from == nil || to == nil  
+      logs = Log.includes(:user, :workday, :workhour, :logtype, :card).where("Date(created_at) >= ? AND Date(created_at) <= ?" ,from, to).order('created_at desc')
+      else
+        logs = Log.includes(:user, :workday, :workhour, :logtype, :card).order('created_at desc')
+      end
     end
+
+      user_ids = user_res.map {|user| user.id}
+      action_ids = action_res.map {|log| log.action}
+      user_filtered_logs = logs.find_all_by_user_id(user_ids)
+      eff_user_filtered_logs = logs.find_all_by_effected_user_id(user_ids)
+      action_filtered_logs = logs.find_all_by_action(action_ids)
+      temp_logs = eff_user_filtered_logs
+      
+      eff_user_filtered_logs.each do |eff|
+        user_filtered_logs.each do |u|
+          if eff.id == u.id
+            temp_logs.delete(eff)
+          end
+        end
+      end
+      user_filtered_logs += temp_logs
+      temp_logs = action_filtered_logs  
+      
+        
+        action_filtered_logs.each do |a|
+        user_filtered_logs.each do |u|
+          unless a.id == u.id
+            temp_logs.delete(a)
+          end
+        end
+      end
+      user_filtered_logs += temp_logs
+      temp_logs = []
+      
+      unless search == nil
+        logs = user_filtered_logs
+      end
+    
+    
     printable_logs = []
     #Går gjennom alle log innlegg, lager egendefinert hash.
     #TODO: Hente de n siste logg innlegg?
+    unless logs == nil
     logs.each do |log|
       message = humanize(log)     
-      printable_logs.push({user: log.user, date: log.created_at, message: message})
+      printable_logs.push({log: log, message: message})
       
+    end
     end
     return printable_logs
   end
