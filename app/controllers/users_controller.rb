@@ -8,7 +8,8 @@ class UsersController < ApplicationController
     #allow :admin
     #allow logged_in, :to => [:show, :new, :create]
   #end
-  
+  include DateModul
+  before_filter :pager
   
 
   # GET /users
@@ -26,9 +27,10 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
-
+    @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
     respond_to do |format|
-      format.html # show.html.haml
+      format.html 
+      format.js
       format.xml { render :xml => @user }
     end
   end

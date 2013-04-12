@@ -18,10 +18,9 @@ class Workday < ActiveRecord::Base
   belongs_to :user
   has_many :logs
   validates :date, :uniqueness => {:scope => :user_id}
+  validates :date, :presence => true
 
-  def to_param
-    "#{id}-#{user.name}"
-  end
+ 
   #Henter ut arbeidsdager basert på bruker id.
   #Metoden sjekker om man sender inn nil eller en bruker id,
   #og basert på dette henter han henten dager for en bruker eller
@@ -44,7 +43,7 @@ class Workday < ActiveRecord::Base
   end
   
   #Henter jobbtimer basert på måned og bruker id.
-  def get_workdays_by_month(user_id, date)
+  def get_workdays_by_month(user_id, date, supervisor_group_id)
       #henter ut måned og år fra datoen
       month = date.month
       year = date.year
@@ -55,7 +54,15 @@ class Workday < ActiveRecord::Base
     else  
       days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) =?",month, year).order("date desc")
     end
-    
+    new_days = []
+     unless days.empty?
+      days.each do |day|
+        if day.user.group_id == supervisor_group_id
+          new_days.push(day)
+        end
+      end
+      days = new_days
+    end
     array = []
     #Går igjennom alle dagene og legger rett sum til rett dag.
     days.each do |day|
@@ -90,3 +97,8 @@ class Workday < ActiveRecord::Base
     end
   end
 end
+
+
+
+
+

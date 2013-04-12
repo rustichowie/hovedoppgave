@@ -1,6 +1,6 @@
 <div class="container">
-	<%= form_for([@user, @card]) do |f|%>
+	<%= form_for([@user, Card.new],	html: {class: "form-inline"}) do |f|%>
 	<%= f.number_field :card_value, placeholder: "Kort verdi..."%>
-	<%= f.submit "Lagre", class: "btn"%>
+	<%= f.submit "Lagre", class: "btn btn-primary"%>
 	<%end%>
 </div>

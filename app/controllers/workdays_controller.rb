@@ -1,18 +1,41 @@
+#encoding: utf-8
+
 class WorkdaysController < ApplicationController
   
-before_filter :get_user
+  
+  before_filter :get_user, except: :check_group
+  
+  before_filter :check_group, only: [:index, :new, :edit, :show]
+  include DateModul
   before_filter :pager
+  
   #henter en bruker om params[:user_id] finnes
   def get_user
      @user = User.includes(:workdays).find(params[:user_id]) if params[:user_id]
   end
+
+ def check_group
+    if params[:user_id]
+      if User.find(params[:user_id]).group_id != current_user.group_id
+        flash[:notice] = "Du har ikke tilgang på denne ansatte"
+        redirect_to action: 'index', user_id: nil
+      end
+    else if params[:id]
+      if Workday.find(params[:id]).user.group_id != current_user.group_id
+        flash[:notice] = "Du har ikke tilgang på denne ansatte"
+        redirect_to action: 'index', user_id: nil
+      end
+    end     
+    end
+  end
+  
   
   def approve_all
     if @user
-      workdays = @user.workdays
+      workdays = @user.workdays.where(group_id: supervisor.group_id)
     else
-      workdays = Workday.where("MONTH(date) = ? AND YEAR(date) = ?",
-                                  @date.month, @date.year)
+      workdays = Workday.where("MONTH(date) = ? AND YEAR(date) = ? AND group_id = ?",
+                                  @date.month, @date.year, supervisor.group_id)
     end  
     workdays.each do |workday|
       if workday.approved == nil
@@ -32,30 +55,16 @@ before_filter :get_user
     
   end
   
-  def pager
-    @prev_class = "enabled"
-    @next_class = "enabled"
-    if params[:date]
-      @date = Date.parse(params[:date])
-    else
-      @date = Date.today 
-    end
-    
-    if Workday.new.get_workdays_by_month(@user, @date.advance(months: -1)).empty?
-         @prev_class = "disabled"
-    end
-    if Workday.new.get_workdays_by_month(@user, @date.advance(months: 1)).empty?
-         @next_class = "disabled"
-    end
-  end
+  
   
   #Index action, GET /user/:user_id/workdays
   def index
-
+    @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
     respond_to do |format|
-      format.html do       
-          @workdays = Workday.new.get_workdays_by_month(@user, @date)
+      format.html do 
+        @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
       end
+      format.js 
       format.json {render json: @workdays.to_json}
     end
     
@@ -65,10 +74,10 @@ before_filter :get_user
   #GET /users/:user_id/workdays/:id
   def show 
     if @user
-      @workday = @user.workdays.find(params[:id])
+        @workday = @user.workdays.find(params[:id]) 
     else
-      @workday = Workday.find(params[:id])
-      @user = @workday.user
+        @workday = Workday.find(params[:id])
+        @user = @workday.user
     end
     
     if @workday.supervisor_hour
@@ -76,6 +85,7 @@ before_filter :get_user
     else
       @sum = @workday.get_workhour_sum(@workday.date, @workday.user.id)
     end
+    
   end
   
   #GET /users/:user_id/workdays/new
@@ -85,14 +95,32 @@ before_filter :get_user
 
   #POST /users/:user_id/workdays
   def create
+    
+    
     comment = params[:workday][:comment]
     hours = params[:workday][:supervisor_hour]
-    @workday = Workday.new(date: Date.today, comment: comment, supervisor_hour: hours, user_id: @user.id, approved: true)
+    date = params[:workday][:date]
+    unless date.empty?
+      new_date = try_date(date, @user.id)
+    end
+    
+    @workday = Workday.new(date: date, comment: comment, supervisor_hour: hours, user_id: @user.id, approved: true)
     if @workday.save
       Log.create(user_id: current_user.id, workday_id: @workday.id, effected_user_id: @user.id, action: "user", logtype_id: 2)
-      redirect_to action: 'show', id: @workday
+      redirect_to action: 'show', id: @workday     
     else
+      if hours.empty?
+        flash[:notice] = "Du må skrive inn antall timer.."
         render 'new'
+      else
+        if date.empty?
+        flash[:notice] = "Du må velge en dato.."
+        render 'new'
+        else
+        flash[:notice] = "Datoen har allerede en registrert arbeidsdag, prøv:  #{new_date}"
+        render 'new'
+        end
+      end
     end
   end
 

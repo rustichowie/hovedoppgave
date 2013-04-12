@@ -1,14 +1,21 @@
 
-<%provide(:page, 'index')%>
-<%provide(:action, 'index')%>
-
 
 <div class="container">
 	
-	<%= render 'layouts/supervisor_buttonbar'%>
-	<%= render 'layouts/pager'%>
-	<%= render 'layouts/workday'%>
-
+	<%= render 'shared/supervisor_buttonbar'%>
+	<div class="my_pager row" id="pager">
+	<%= render 'shared/pager', action: 'index'%>
+	</div>
+	<%if flash[:notice]%>
+	<div class="alert alert-error">
+  		<button type="button" id="close" class="close" data-dismiss="alert">&times;</button>
+  		<strong>Noe gikk galt!</strong> <%=flash[:notice]%>
+	</div>
+	<%end%>
+<div id="mainTable">
+			<%= render 'shared/workdays', workdays: @workdays%>
+</div>
+	
 
 	<%=button_to  "Godkjenn alle timer", {:action => "approve_all", user_id: @user},
 					{class: "btn btn-small btn-success",

@@ -1,6 +1,6 @@
 class LogsController < ApplicationController
 
-require 'will_paginate/array'
+
   #GET /logs
   def index
     @category = params[:category]
@@ -22,9 +22,12 @@ require 'will_paginate/array'
     
     @log_message = Log.new.print_log(cat, search, from, to)
     respond_to do |format|
-    format.html
+    format.html 
     format.js
   end
+  rescue ActiveRecord::StatementInvalid
+     flash[:notice] = "Encoding error"
+     redirect_to action: "index"
   end
   
   

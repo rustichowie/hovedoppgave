@@ -1,11 +1,18 @@
+<%= stylesheet_link_tag "theme/jquery-ui-1.10.2.custom.css"%>
 <div class="container">
-	<%= render 'layouts/supervisor_buttonbar'%>
-	
+	<%= render 'shared/supervisor_buttonbar'%>
+	<%if flash[:notice]%>
+	<div class="alert alert-error">
+  		<button type="button" id="close" class="close" data-dismiss="alert">&times;</button>
+  		<strong>Noe gikk galt!</strong> <%=flash[:notice]%>
+	</div>
+	<%end%>
 	<h1>Legg til en ny jobbdag for bruker: <h2><%=@user.name%></h2></h1>
 	<div class="row">
 		<div class="span3 offsett3">
 	<%= form_for([@user, @workday]) do |f| %>
     <%= f.text_area :comment, placeholder: "Kommentar til manuell innlegg av timer...", :cols => 20, :rows => 5 %>
+    <%= f.text_field :date, placeholder: "Dato...", id: "date"%>
     <%= f.number_field :supervisor_hour, placeholder: "Antall timer..." %>
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>
 <% end %>

@@ -2,44 +2,26 @@ require 'spec_helper'
 
 describe CardsController do
 
+  let(:user) {User.find(9)}
+  let(:card){Card.find(56)}
   describe "GET 'new'" do
     it "returns http success" do
-      get 'new'
+      get 'new', user_id: user.id
       response.should be_success
     end
   end
 
   describe "GET 'index'" do
     it "returns http success" do
-      get 'index'
+      get 'index', user_id: user.id
       response.should be_success
     end
   end
 
-  describe "GET 'show'" do
-    it "returns http success" do
-      get 'show'
-      response.should be_success
-    end
-  end
-
-  describe "GET 'create'" do
-    it "returns http success" do
-      get 'create'
-      response.should be_success
-    end
-  end
 
   describe "GET 'edit'" do
     it "returns http success" do
-      get 'edit'
-      response.should be_success
-    end
-  end
-
-  describe "GET 'update'" do
-    it "returns http success" do
-      get 'update'
+      get 'edit', user_id: user.id, id: card.id
       response.should be_success
     end
   end

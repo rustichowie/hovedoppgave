@@ -4,6 +4,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+.margin-left{
+  
+
+  padding-left: 8%;
+  
+}
 
 .row_button{
         width: 20%;
@@ -57,14 +63,17 @@ form {
   margin: 0px;
 }
 
-#prev_button {
-  float: left;
+
+#current_month {
+  
+  text-align: center;
 }
 
-#next_button {
+div#next{
   float: right;
 }
-
-
+div#prev{
+  float: left;
+}
 
 

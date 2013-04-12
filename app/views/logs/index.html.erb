@@ -1,40 +1,31 @@
-<%= stylesheet_link_tag "theme/jquery-ui-1.10.2.custom.css", "vendor" %>
-<%= javascript_include_tag "jquery-ui.js", "vendor"%>
-<script>
+<%= stylesheet_link_tag "theme/jquery-ui-1.10.2.custom.css"%>
 
-$(function() {
-    $( "#datepicker-from" ).datepicker({
-    defaultDate: "+1w",
-      changeMonth: true,
-      dateFormat: "yy-mm-dd",
-      onClose: function( selectedDate ) {
-        $( "#datepicker-to" ).datepicker( "option", "minDate", selectedDate );
-      }
-  });
-	$( "#datepicker-to" ).datepicker({
-      defaultDate: "+1w",
-      changeMonth: true,
-      dateFormat: "yy-mm-dd",
-      onClose: function( selectedDate ) {
-        $( "#datepicker-from" ).datepicker( "option", "maxDate", selectedDate );
-      }
-    });
-});
-</script>
+
+
 
 
 <div class="container">
 
-<div id="cat">
-	<%= render "layouts/supervisor_buttonbar"%>
+
+
+
+<%= render "layouts/supervisor_buttonbar"%>
+	
+<%if flash[:notice]%>
+<div class="alert alert-error">
+  <button type="button" id="close" class="close" data-dismiss="alert">&times;</button>
+  <strong>Noe gikk galt!</strong> Du har brukt et ugyldig tegn i søket ditt, prøv igjen.
+</div>
+<%end%>
 <%= form_tag logs_path, :method => 'get', class:"navbar-form pull-left" do %>
+<legend>Søkefelt</legend>
     <%= text_field_tag :search, params[:search] , placeholder: "Søkefelt..."%>
     <%= text_field_tag "datepicker-from", params["datepicker-from"], placeholder: "Fra dato..."%>
     <%= text_field_tag "datepicker-to", params["datepicker-to"], placeholder: "Til dato..."%>
     <%=select_tag "category", options_from_collection_for_select(@logtypes, "id", "name", params[:category]), {prompt: "Kategorier"}%>
 	<input type="submit" class="btn"/>
 	<% end %>
-</div>
+
 <div id="logs">
 <table class="table table-hover" id="log-table">
 <thead>

@@ -1,0 +1,14 @@
+
+
+$('div#mainTable').html('<%= escape_javascript ("#{render('shared/workdays', workdays: @workdays)}").html_safe%>');
+$('div#pager').html('<%= escape_javascript("#{render('shared/pager', action: 'index')}").html_safe%>');
+
+if($("#prev_button").hasClass("disabled"))
+{
+	$("#prev_button").prop("disabled", true);
+	//$("#prev_button").hide();
+}
+if($("#next_button").hasClass("disabled"))
+{
+	$("#next_button").prop("disabled", true);
+}
