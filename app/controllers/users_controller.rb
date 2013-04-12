@@ -29,11 +29,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
-    @workdays = Workday.where(user_id: @user.id)
+    @workdays_graph = Workday.where(user_id: @user.id)
     
     @start = Array.new
     @stop = Array.new
-    @workdays.each do |workday|
+    @workdays_graph.each do |workday|
       
       forlat = Array.new
       workhours = Workhour.where(workday_id: workday.id)
@@ -63,7 +63,6 @@ class UsersController < ApplicationController
       
      end
 
->>>>>>> c1d7d4fb3e22bfb05aba8a9c74e3b953ac5f0b53
     respond_to do |format|
       format.html 
       format.js
