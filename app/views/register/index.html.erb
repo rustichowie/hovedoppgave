@@ -2,15 +2,34 @@
 <html>
 
 <body>
-<div id="content">
-	<h3>Dra nøkkelkortet for å registrere deg</h3>
+<div id="content" class="container">
+
+    <h3>Dra nøkkelkortet for å registrere deg</h3>
+
+	
 	<form name="automatic_form" id="automatic_form_id" action="/" method="post">
 
 	<input type="text" id="card_input_value" name="value" />
 	
 	</form>
-	<%= %>
-	<%= link_to "Glemt kortet?", :action => 'manual_register'  %>
+	<a href="manual" class="btn btn-large disabled">Glemt kortet</a>
+	<br />
+	<br />
+	<% unless @message.empty? %>
+		<% if @message.include?("startet") %>
+		<div id="alert_container">
+			<div id="alerts" class="alert alert-success">
+    			<h2><%= @message %></h2>
+    		</div>
+		</div>
+		<% else %>
+		<div id="alert_container">
+			<div id="alerts" class="alert alert-info">
+    			<h2><%= @message %></h2>
+    		</div>
+		</div>
+		<% end %>
+	<%end%>
 </div>
 
 </body>

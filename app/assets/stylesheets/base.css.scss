@@ -3,7 +3,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap";
-
+ 
 #content
 {
   text-align: center;
@@ -109,6 +109,17 @@ footer {
       margin-left: 10px;
     }
   }
+}
+
+#login
+{
+  h1 {text-align: center;}
+  position: absolute;
+  height: 200px;
+  width: 400px;
+  margin: -100px 0 0 -200px;
+  top: 40%;
+  left: 50%;
 }
 
 

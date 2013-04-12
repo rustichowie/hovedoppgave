@@ -37,6 +37,7 @@ module DatabaseApp
     config.encoding = "utf-8"
     config.time_zone = 'Copenhagen'
     config.active_record.default_timezone = :local
+
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 

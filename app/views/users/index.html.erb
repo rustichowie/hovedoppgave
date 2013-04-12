@@ -1,24 +1,26 @@
-<h1>Listing users</h1>
+<div class="container">
+	<%= render 'layouts/supervisor_buttonbar'%>
+<h1>Alle brukere</h1>
 <p id="notice"><%= notice %></p>
-<table>
+<table class="table table-striped">
 <tr>
-<th>Name</th>
+<th>Navn</th>
 <th>Email</th>
 <th></th>
-<th></th>
+<th>Handlinger</th>
 <th></th>
 </tr>
 <% @users.each do |user| %>
-<tr>
-<td><%= user.name %></td>
-<td><%= user.email %></td>
-<td><%= link_to 'Show', user %></td>
-<td><%= link_to 'Edit', edit_user_path(user) %></td>
-<td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
-</tr>
+	<tr>
+	<td><%= user.name %></td>
+	<td><%= user.email %></td>
+	<td style="width: 12%;"><%= link_to 'Åpne', user, class: "btn btn-block" %></td>
+	<td style="width: 12%;"><%= link_to 'Endre', edit_user_path(user), class: "btn btn-block" %></td>
+	<td style="width: 12%;"><%= link_to 'Deaktiver', user, class: "btn btn-block", :confirm => 'Er du sikker?', :method => :delete %></td>
+	</tr>
 <% end %>
 </table>
  
 <br />
- 
-<%= link_to 'New User', new_user_path %>
+<a href="new" class="btn btn-large">Opprett bruker</a>
+</div>

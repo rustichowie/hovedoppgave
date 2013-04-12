@@ -1,6 +1,5 @@
 $(document).ready(function() {
 		document.getElementById('alerts').style.display = ''
-        document.getElementById('message').style.color = "green";
         setTimeout (function(){
         	document.getElementById('alerts').style.display = 'none'
         }, 5000);

@@ -4,20 +4,40 @@
 <body>
 
 <div id="content">
-	
+	<div id="login">
 	<h3>Manuell registrering</h3>
-	<%= form_tag("/", :method => "post") do %>
-  	<%= label_tag(:a, "Brukernavn") %>
- 	<%= text_field_tag(:id) %>
- 	<%= label_tag(:b, "Passord") %>
- 	<%= password_field_tag(:pw) %>
- 	</br>
-  	<%= submit_tag("Registrer") %>
+	<%= form_for @user_session, :as => :user_session, html: {class: "form-horizontal"}, :url => { :action => "register", :method => "post" } do |f| %>
+
+	<div class="control-group">
+   	
+  	<%= f.label :email, class: "control-label" %>
+  	<div class="controls">
+  	<%= f.text_field :email %>
+  	</div>
+  	</div>
+  	<div class="control-group">
+  	<%= f.label "Pin", class: "control-label" %>
+  	<div class="controls">
+  	<%= f.password_field :password %>
+  	</div>
+  	</div>
+  	<div class="controls">
+  	<%= f.submit "Registrer" %>
+  	</div>
+  
 	<% end %>
+
+	<% unless @message == nil %>
+	<div id="alert_container">
+		<div id="alerts" class="alert">
+    		<h2><%= @message %></h2>
+    	</div>
+	</div>
+	<% end %>
+	<br />
+	<%= link_to "Tilbake til automatisk registrering", root_path%>
 	
-	<%= link_to "Tilbake til kortregistrering", root_path%>
-	
-	
+	</div>
 
 </div>
 

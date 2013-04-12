@@ -1,3 +1,4 @@
+
 # encoding: utf-8
 class UsersController < ApplicationController 
   filter_resource_access
@@ -15,7 +16,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    @users = User.all
+    @users = User.where(active: true)
 
     respond_to do |format|
       format.html # index.html.haml
@@ -28,6 +29,41 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
+    @workdays = Workday.where(user_id: @user.id)
+    
+    @start = Array.new
+    @stop = Array.new
+    @workdays.each do |workday|
+      
+      forlat = Array.new
+      workhours = Workhour.where(workday_id: workday.id)
+      unless workhours.empty?
+      
+
+        latest = 0
+        time = 0
+        workhours.each do |workhour|
+          if workhour.stop.to_time.to_i > latest
+            latest = workhour.stop.to_time.to_i
+            time = workhour.stop
+          end
+        end
+        forlat.push(workday.date.to_time.to_i*1000)
+        forlat.push(time.strftime("%H%M").to_i)
+        @stop.push(forlat.to_json.html_safe)
+      
+        ankomst = Array.new
+        #ankomst.push(workday.created_at.strftime("%F").to_i)
+        ankomst.push(workday.date.to_time.to_i*1000)#date.strftime("%Y/%m/%d"))
+        ankomst.push(workday.created_at.strftime("%H%M").to_i)#.strftime("%H:%M").to_time.to_i)
+      
+        @start.push(ankomst.to_json.html_safe)
+      
+      end
+      
+     end
+
+>>>>>>> c1d7d4fb3e22bfb05aba8a9c74e3b953ac5f0b53
     respond_to do |format|
       format.html 
       format.js
@@ -87,19 +123,13 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    @user.active = false
+    @user.save
 
     respond_to do |format|
       format.html { redirect_to(users_url) }
       format.xml { head :ok }
     end
   end
-  
-  #private
-
-  #def me?
-    #current_user == User.find(params[:id])
-  #end
-  
   
 end

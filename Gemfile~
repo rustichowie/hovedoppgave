@@ -13,9 +13,8 @@ gem "mysql2"
 gem 'kaminari'
 gem 'authlogic'
 gem 'declarative_authorization'
-gem 'gemcutter'
-gem 'ruby_parser'
-gem 'therubyracer'
+  gem 'gemcutter'
+  gem 'ruby_parser'
 end
 
 
@@ -25,7 +24,6 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'vagrant'
-  gem 'will_paginate'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
   
