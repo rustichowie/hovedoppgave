@@ -22,10 +22,12 @@ class RegisterController < ApplicationController
         end
       end
       # Sjekker om det er parameter fra manuell registrering
-      if params[:id] != nil
+      if params[:user_session] != nil
         # Hvis brukeren eksisterer startes/stoppes registrering
-        if User.exists?(params[:id])
-          @message = Workhour.new.register(params[:id])
+        session = params[:user_session]
+        user = User.where(email: session[:email], pin: session[:password]).first
+        unless user.nil?
+          @message = Workhour.new.register(user.id)
         # Hvis ikke returneres feilmelding
         else
           @message = "Ukjent bruker"

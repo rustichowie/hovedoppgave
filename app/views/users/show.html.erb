@@ -1,3 +1,18 @@
+<%= javascript_include_tag "jquery.min"%>
+<%= javascript_include_tag "excanvas.min"%>
+<%= javascript_include_tag "jquery.flot.min"%>
+<%= javascript_include_tag "jquery.flot.time"%>
+<script type="text/javascript">
+var data11_1 = [
+	<% @start.each do |start| %>
+	<%= start %>,
+	<% end %> ];
+var data11_2 = [
+    <% @stop.each do |stop| %>
+	<%= stop %>,
+	<% end %> ];
+</script>
+<%= javascript_include_tag "worktimegraph"%>
 
 <p>
 <b>Email:</b>
@@ -33,6 +48,23 @@
 <b>Current login ip:</b>
 <%=h @user.current_login_ip %>
 </p>
+
+<p>
+<b>Gruppe id:</b>
+<%= @user.group_id %>
+</p>
+
+<p>
+<b>Rolle id:</b>
+<%= @user.role_id %>
+</p>
+
+<div id="example-section11">
+    <div id="flotcontainer" style="width: 1000px;height:400px; text-align: center; margin:0 auto;">
+    </div>
+</div>
+
+
 
 <%= link_to 'Edit Account', edit_user_path %>
 <%= link_to 'Destroy', @user, :confirm => 'Are you sure?', :method => :delete %>

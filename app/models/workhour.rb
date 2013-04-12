@@ -54,11 +54,11 @@ class Workhour < ActiveRecord::Base
       workhour.stop = Time.now
       workhour.count = (workhour.stop - workhour.start).to_i
       workhour.save
-      response = "Vellykket registrering: stoppet"
+      response = "Timeregistrering stoppet"
     # Hvis ikke, startes det en ny
     else
       Workhour.create(start: Time.now, user_id: user_id, workday_id: workday_id)
-      response = "Vellykket registrering: startet"
+      response = "Timeregistrering startet"
     end
     return response
   end
