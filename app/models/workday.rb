@@ -19,7 +19,9 @@ class Workday < ActiveRecord::Base
   has_many :logs
   validates :date, :uniqueness => {:scope => :user_id}
 
-  
+  def to_param
+    "#{id}-#{user.name}"
+  end
   #Henter ut arbeidsdager basert på bruker id.
   #Metoden sjekker om man sender inn nil eller en bruker id,
   #og basert på dette henter han henten dager for en bruker eller
@@ -32,7 +34,7 @@ class Workday < ActiveRecord::Base
       days = Workday.includes(:workhours).order("date desc")
     end
 
-    array = [] 
+    array = []  
     sum = nil
       days.each do |day|
         sum = get_workhour_sum(day.date, day.user.id)

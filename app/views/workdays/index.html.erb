@@ -10,6 +10,7 @@
 	<%= render 'layouts/workday'%>
 
 
-	
-	<button class="btn btn-success">Godkjenn alle</button>
+	<%=button_to  "Godkjenn alle timer", {:action => "approve_all", user_id: @user},
+					{class: "btn btn-small btn-success",
+             		:confirm => "Are you sure?"}%>
 </div>

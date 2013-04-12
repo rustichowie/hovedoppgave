@@ -1,2 +1,6 @@
-<h1>Cards#new</h1>
-<p>Find me in app/views/cards/new.html.erb</p>
+<div class="container">
+	<%= form_for([@user, @card]) do |f|%>
+	<%= f.number_field :card_value, placeholder: "Kort verdi..."%>
+	<%= f.submit "Lagre", class: "btn"%>
+	<%end%>
+</div>

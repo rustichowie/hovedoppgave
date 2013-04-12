@@ -1,44 +1,39 @@
-
+<%= stylesheet_link_tag "theme/jquery-ui-1.10.2.custom.css", "vendor" %>
+<%= javascript_include_tag "jquery-ui.js", "vendor"%>
 <script>
-	
-	$(document).ready(function(){
-		
-		$("#categories").change(function(e){
-			//filtrerer etter kategori valgt av bruker.
-			//TODO: legg i egen fil.
-			category = e.target.options[e.target.selectedIndex].value;
-			
-			
-			window.location = "/logs?category="+category;
-			
-			
-		});
-		
-	});
-	
-	
+
+$(function() {
+    $( "#datepicker-from" ).datepicker({
+    defaultDate: "+1w",
+      changeMonth: true,
+      dateFormat: "yy-mm-dd",
+      onClose: function( selectedDate ) {
+        $( "#datepicker-to" ).datepicker( "option", "minDate", selectedDate );
+      }
+  });
+	$( "#datepicker-to" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      dateFormat: "yy-mm-dd",
+      onClose: function( selectedDate ) {
+        $( "#datepicker-from" ).datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+});
 </script>
-<%= render "layouts/supervisor_buttonbar"%>
 
 
 <div class="container">
 
 <div id="cat">
-	
-	<select id="categories">
-		<%if @category == nil%>
-		<option selected="selected" value="nil">Default</option>
-		<%else%>
-		<option value="">Default</option>
-		<%end%>
-		<% @logtypes.each do |logtype|%>
-		<% unless @category == raw(logtype.id)%>
-		<option value=<%=logtype.id%>><%=logtype.name%></option>
-		<%else%>
-		<option selected="selected" value=<%=logtype.id%>><%=logtype.name%></option>
-		<%end%>
-		<%end%>
-	</select>
+	<%= render "layouts/supervisor_buttonbar"%>
+<%= form_tag logs_path, :method => 'get', class:"navbar-form pull-left" do %>
+    <%= text_field_tag :search, params[:search] , placeholder: "Søkefelt..."%>
+    <%= text_field_tag "datepicker-from", params["datepicker-from"], placeholder: "Fra dato..."%>
+    <%= text_field_tag "datepicker-to", params["datepicker-to"], placeholder: "Til dato..."%>
+    <%=select_tag "category", options_from_collection_for_select(@logtypes, "id", "name", params[:category]), {prompt: "Kategorier"}%>
+	<input type="submit" class="btn"/>
+	<% end %>
 </div>
 <div id="logs">
 <table class="table table-hover" id="log-table">
@@ -47,17 +42,15 @@
 	<th>Bruker</th>
 	<th>Beskjed</th>
 </thead>
-<tbody>
-	<% @log_message.each do |log|%>
-	<tr class="log-entries">
-		<td><%= log[:date]%></td>
-		<td><%= log[:user].name%></td>
-		<td><%= raw log[:message]%></td>
-	</tr>
-	<%end%>
-	
+<% unless @log_message.empty?%>
+<tbody last="<%=@log_message.to_a.last[:date]%>">
+	<%= render partial: 'logs'%>
 </tbody>
-
+<%else%>
+<tbody></tbody>
+<%end%>
 </table>
 </div>
+
+
 </div>

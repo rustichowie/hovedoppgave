@@ -1,5 +1,6 @@
 
 <div class="container">
+
 <%= render 'layouts/supervisor_buttonbar'%>
 <table class="table table-striped table-hover" id="parent_table">
 		<thead>
@@ -11,49 +12,55 @@
 			
 		</thead>
 		<tbody>
-				<tr class="parent" id="row0">
-				<td class="row_button" id=0><%=@workday.user.name%></td>
-				<td class="row_button" id=0><%= @workday.date%></td>
-				<td class="row_button" id=0><%= @sum%></td>	
+				<tr class="parent" id="row<%=@workday.id%>">
+				<td class="row_button" id=<%=@workday.id%>><%=@workday.user.name%></td>
+				<td class="row_button" id=<%=@workday.id%>><%= @workday.date%></td>
+				<td class="row_button" id=<%=@workday.id%>><%= @sum%></td>	
 							
 				<% if @workday.approved != nil%>
 					<% if @workday.approved%>
-					<td colspan="3" style="text-align: center"><span class="last_td label label-success">Timene er allerede godkjent</span></td>
+						<% if @workday.supervisor_hour == nil%>
+							<td colspan="3" style="text-align: center"><span class="last_td label label-success">Timene er allerede godkjent</span></td>
+						<%else%>
+							<td colspan="3" style="text-align: center"><span class="last_td label label-warning">Timene har blitt forandret av formann</span></td>
+						<%end%>
 					<%else%>
-					<td colspan="3" style="text-align: center"><span class="last_td label label-important">Timene er blitt underkjent</span></td>
+						<td colspan="3" style="text-align: center"><span class="last_td label label-important">Timene er blitt underkjent</span></td>
 					<%end%>
 				<%else%>
-				<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  					<div class="modal-body">
-    				<h1>Legg til en ny jobbdag for bruker: <h2><%=@workday.user.name%></h2></h1>
-					<div class="row">
-						<div class="span3 offsett3">
-						<%= form_for(@user, @workday) do |f| %>
-						<%= f.hidden_field :page, value: "show"%>
-    					<%= f.text_area :comment, placeholder: "Kommentar til manuell innlegg av timer...", :cols => 20, :rows => 5 %>
-    					<%= f.number_field :supervisor_hour, placeholder: "Antall timer..." %>								
+				<div id="myModal<%=@workday.id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-body">
+						<h1>Delvis godkjenn en dag for bruker: <h2><%= @workday.user.name%></h2></h1>
+						<div class="row">
+							<div class="span3 offsett3">
+								<%= form_for(@workday) do |f| %>
+								<%= f.text_area :comment, placeholder: "Kommentar til manuell innlegg av timer...", :cols => 20, :rows => 5 %>
+								<%= f.number_field :supervisor_hour, placeholder: "Antall timer..." %>
+							</div>
+						</div>
 					</div>
-				</div>
-  				</div>
-  				<div class="modal-footer">
-    				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    				<%= f.submit "Lagre", {class: "btn btn-large btn-primary"}%>
-    				<% end %>
-  				</div>
-				<td id=last_td<%=index%>>
-				<%=button_to  "Godkjenn timer", { :action => "update", :id => @workday.id, :user_id => @user.id, page: "show", approved: true},
-					{class: "approve_buttons btn btn-small btn-success button_row0" , id: "0",
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true">
+							Close
+						</button>
+						<%= f.submit "Lagre", {class: "btn btn-large btn-primary"}%>
+						<% end %>
+					</div>
+					</div>
+				<td id=last_td<%=@workday.id%>>
+				<%=button_to  "Godkjenn timer", { :action => "update", :id => @workday.id, :user_id => @workday.user.id, approved: true},
+					{class: "approve_buttons btn btn-small btn-success button_row#{@workday.id}" , id: @workday.id,
              		:confirm => "Are you sure?", form_class: "approve_form"}%>
-							<button type="button" id=<%=index%> class="button_row<%=index%> btn btn-warning btn-small approve_buttons open_modal" data-toogle="modal" data-id=<%=day[:day]%>>Delvis godkjenn</button>
-						<%=button_to  "Underkjenn timer", { :action => "update", :id => @workday.id, :user_id => @user.id, page: "show", approved: false},
-					{class: "approve_buttons btn-small btn btn-danger button_row0" ,id: "0",
+							<button type="button" id=<%=@workday.id%> class="button_row<%=@workday.id%> btn btn-warning btn-small approve_buttons open_modal" data-id=<%=@workday.id%>>Delvis godkjenn</button>
+						<%=button_to  "Underkjenn timer", { :action => "update", :id => @workday.id, :user_id => @workday.user.id, approved: false},
+					{class: "approve_buttons btn-small btn btn-danger button_row#{@workday.id}" ,id: @workday.id,
              	:confirm => "Are you sure?", form_class: "approve_form"}%>
 				</td>
 				<%end%>
 			</tr>
-			<tr class="child_row" id="child0">
+			<tr class="child_row" id="child<%=@workday.id%>">
 				
-				<td colspan="2">
+				<td colspan="3">
 					<table id="child-table" class='table child-table'>
 					<thead>
                      <tr id='child-head'>

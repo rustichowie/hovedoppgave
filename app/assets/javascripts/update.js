@@ -34,7 +34,8 @@ $(document).ready(function() {
 	});
 	//Åpner vinduet til å kunne delvis godkjenne ting.
 	$(".open_modal").click(function(){
-			$("#myModal").modal('show');
+		id = $(this).data('id');
+			$("#myModal"+id).modal('show');
 	});
 	
 	

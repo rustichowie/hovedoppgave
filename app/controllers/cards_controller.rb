@@ -1,7 +1,11 @@
 class CardsController < ApplicationController
   
   before_filter :get_card, only: [:show, :edit, :destroy, :update]
-  
+  before_filter :get_user
+  #henter en bruker om params[:user_id] finnes
+  def get_user
+     @user = User.find(params[:user_id]) if params[:user_id]
+  end
   #Henter et kort
   def get_card
     @card = Card.find(params[:id])
@@ -32,8 +36,8 @@ class CardsController < ApplicationController
   # GET /cards/new
   # GET /cards/new.xml
   def new
-    @card = User.new
-
+    @card = Card.new
+    @users = User.all
     respond_to do |format|
       format.html # new.html.haml
       format.xml { render :xml => @card }
@@ -48,10 +52,11 @@ class CardsController < ApplicationController
   # POST /cards
   # POST /cards.xml
   def create
-    @card = User.new(params[:card])
+    @card = Card.new(card_value: params[:card][:card_value], user_id: params[:user_id])
 
     respond_to do |format|
       if @card.save
+        Log.create(user_id: current_user.id, logtype_id: 2, action: "card", card_id: @card.id)
         format.html { redirect_to(@card, :notice => 'User was successfully created.') }
         format.xml { render :xml => @card, :status => :created, :location => @card }
       else
@@ -64,11 +69,10 @@ class CardsController < ApplicationController
   # PUT /cards/1
   # PUT /cards/1.xml
   def update
-    
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to(@user, :notice => 'User was successfully updated.') }
+      if @card.update_attributes(params[:card])
+        format.html { redirect_to(@card, :notice => 'User was successfully updated.') }
         format.xml { head :ok }
       else
         format.html { render :action => "edit" }

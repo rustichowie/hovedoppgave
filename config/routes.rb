@@ -1,32 +1,17 @@
 DatabaseApp::Application.routes.draw do
-  
-
-
-
-
-
-  get "cards/new"
-
-  get "cards/index"
-
-  get "cards/show"
-
-  get "cards/create"
-
-  get "cards/edit"
-
-  get "cards/update"
 
   resources :users do
     resources :workdays do
-    end
-    
+    end   
+    resources :cards, except: :show
   end
 
-  resources :logs
+  resources :cards, only: [:index, :show]
+  resources :workdays, only: [:index, :show]
+  resources :logs, only: [:index]
   resources :users, :user_sessions
 
-  match "/workdays", to: 'workdays#list'
+  match "/workdays", to: 'workdays#approve_all', via: :post
   match "/manual", to: 'register#manual_register'
   match "/add", to: 'register#add_card'
   match "/supervisor/list", to: 'supervisor#list'
