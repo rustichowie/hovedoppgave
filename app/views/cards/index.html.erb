@@ -1,32 +1,19 @@
 
 
 <div class="container">
+	<%= render 'shared/supervisor_buttonbar'%>
+
+	<h3>Skriv inn tallsekvensen på kortet for å søke etter brukeren</h3>
+	<form name="card_form" id="card_form_id", method="get">
+
+	<input type="text" id="card_form_input_id" name="id" />
 	
-	<table class="table table-hover">
-		<thead>
-			<th>
-				Kort verdi
-			</th>
-			<th>
-				Eier
-			</th>
-		</thead>
-		<tbody>
-			<% @cards.each do |card|%>
-			<tr>
-				<td><%= card.card_value %></td>
-				<td><%= card.user.name %></td>
-				<td><%= link_to 'Rediger kort', edit_user_card_path(card.user, card) %></td>
-				<td><%= link_to 'Slett kort', user_card_path(card.user, card), :confirm => 'Are you sure?', :method => :delete %></td>
-			</tr>
-			<%end%>
-		</tbody>
-		
-		
-	</table>
-	<%= link_to 'Nytt kort', new_user_card_path, class: "btn btn-primary"%>
-	
-	
-	
-	
+	<% unless @user.nil?%>
+	<p>
+	<b>Eier av kort:</b>
+	<%= link_to @user.name, @user %>
+	</p>
+	</p>
+	<%end%>
+
 </div>

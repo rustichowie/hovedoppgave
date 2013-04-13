@@ -3,9 +3,16 @@
         <div class="container">
           <%= link_to "Kuraas AS timeregistrering", root_path, id: "logo" %>
           <nav>
+            
+            <%unless @current_user_sesson == @current_user%>
             <ul class="head pull-right">
-              <li><a class="btn" href="/logout">Logg ut</a></li>
+              <li><%= link_to 'Logg ut', '/logout', id: "logo_extra" %></li>
             </ul>
+            <ul class="head pull-right">
+            	<li><%= link_to @current_user.name, @current_user, id: "logo_extra" %></li>
+            </ul>
+            <%end%>
+            
           </nav>
         </div>
       </div>

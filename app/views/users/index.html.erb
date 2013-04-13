@@ -1,5 +1,5 @@
 <div class="container">
-	<%= render 'layouts/supervisor_buttonbar'%>
+<%= render 'shared/supervisor_buttonbar'%>
 <h1>Alle brukere</h1>
 <p id="notice"><%= notice %></p>
 <table class="table table-striped">
@@ -22,5 +22,5 @@
 </table>
  
 <br />
-<a href="new" class="btn btn-large">Opprett bruker</a>
+<%= link_to 'Opprett bruker', new_user_path, class: "btn btn-large" %>
 </div>

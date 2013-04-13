@@ -78,6 +78,28 @@ class Workday < ActiveRecord::Base
     return array
   end
   
+  #Henter workdays basert på måned og bruker id.
+  def get_workdays_by_month_user(user_id, date)
+      #henter ut måned og år fra datoen
+      month = date.month
+      year = date.year
+      #hvis man sender inn en bruker id sjekker han for dette, ellers ikke.
+     if user_id
+      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id = ?",
+                                  month, year, user_id).order("date desc")
+    else  
+      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) =?",month, year).order("date desc")
+    end
+    new_days = []
+     unless days.empty?
+      days.each do |day|
+         new_days.push(day)
+      end
+      days = new_days
+    end
+    return days
+  end
+  
   #Henter summen av arbeidstimer basert på bruker og dato
   def get_workhour_sum(date, user_id)
     return Workhour.sum(:count, conditions: ["DATE(start) = ? AND user_id = ?", date, user_id])

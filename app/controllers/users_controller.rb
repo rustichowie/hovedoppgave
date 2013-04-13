@@ -29,7 +29,9 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
-    @workdays_graph = Workday.where(user_id: @user.id)
+    @workdays_graph = Workday.new.get_workdays_by_month_user(@user, @date)
+    
+    @card = Card.where(user_id: params[:id]).first
     
     @start = Array.new
     @stop = Array.new
@@ -60,9 +62,7 @@ class UsersController < ApplicationController
         @start.push(ankomst.to_json.html_safe)
       
       end
-      
      end
-
     respond_to do |format|
       format.html 
       format.js
@@ -74,7 +74,8 @@ class UsersController < ApplicationController
   # GET /users/new.xml
   def new
     @user = User.new
-
+    @groups = Group.all
+    @roles = Role.all
     respond_to do |format|
       format.html # new.html.haml
       format.xml { render :xml => @user }
@@ -84,13 +85,16 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    @groups = Group.all
+    @roles = Role.all
   end
 
   # POST /users
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-
+    @groups = Group.all
+    @roles = Role.all
     respond_to do |format|
       if @user.save
         format.html { redirect_to(@user, :notice => 'User was successfully created.') }
@@ -106,7 +110,6 @@ class UsersController < ApplicationController
   # PUT /users/1.xml
   def update
     @user = User.find(params[:id])
-
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to(@user, :notice => 'User was successfully updated.') }

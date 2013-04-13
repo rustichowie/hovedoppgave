@@ -1,0 +1,22 @@
+<div class="container">
+<%= render 'shared/supervisor_buttonbar'%>
+<h1>Alle grupper</h1>
+<p id="notice"><%= notice %></p>
+<table class="table table-striped">
+<tr>
+<th>Navn</th>
+<th>Handlinger</th>
+<th></th>
+</tr>
+<% @groups.each do |group| %>
+	<tr>
+	<td><%= group.name %></td>
+	<td style="width: 12%;"><%= link_to 'Endre', edit_group_path(group), class: "btn btn-block" %></td>
+	<td style="width: 12%;"><%= link_to 'Slett', group, class: "btn btn-block", :confirm => 'Er du sikker?', :method => :delete %></td>
+	</tr>
+<% end %>
+</table>
+ 
+<br />
+<%= link_to 'Opprett gruppe', new_group_path, class: "btn btn-large" %>
+</div>

@@ -1,7 +1,14 @@
+<div class="container">
+<%= render 'shared/supervisor_buttonbar'%>
 
-<h1>Register</h1>
+<div id="login">
+<h1 style="text-align: center;">Register</h1>
 
-<%= form_for @user do |f| %>
+<%= form_for @user, html: {class: "form-horizontal"} do |f| %>
 <%= render :partial => "form", :object => f, :locals => { :user => @user } %>
-<%= f.submit "Register" %>
+<div class="controls">
+<%= f.submit "Opprett" %>
+</div>
 <% end %>
+</div>
+</div>

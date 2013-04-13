@@ -66,9 +66,9 @@ $(function () {
             hoverable: true
     };
 
-    var plot = $.plot($("#example-section11 #flotcontainer"), [data11_1, data11_2], options);  
+    var plot = $.plot($("#grafcontainer #flotcontainer"), [data11_1, data11_2], options);  
     
-    $("#example-section11 #flotcontainer").UseTooltip();
+    $("#grafcontainer #flotcontainer").UseTooltip();
 });
 
 
@@ -107,7 +107,7 @@ function showTooltip(x, y, contents) {
         display: 'none',
         top: y + 5,
         left: x + 20,
-        border: '2px solid #4572A7',
+        //border: '2px solid #4572A7',
         padding: '2px',     
         size: '10',   
         'background-color': '#fff',

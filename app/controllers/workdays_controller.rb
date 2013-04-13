@@ -1,7 +1,7 @@
 #encoding: utf-8
 
 class WorkdaysController < ApplicationController
-  
+  filter_resource_access
   
   before_filter :get_user, except: :check_group
   

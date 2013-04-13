@@ -13,6 +13,7 @@ var data11_2 = [
 	<% end %> ];
 </script>
 <%= javascript_include_tag "worktimegraph"%>
+
 <div class="container-fluid">
 	
 	<div class="row-fluid margin-left">
@@ -23,7 +24,6 @@ var data11_2 = [
 
 
 <p>
-
 <b>Email:</b>
 <%=h @user.email %>
 </p>
@@ -57,39 +57,62 @@ var data11_2 = [
 <b>Current login ip:</b>
 <%=h @user.current_login_ip %>
 </p>
+
+<p>
+<b>Gruppe:</b>
+<% unless @user.group.nil?%>
+<%= @user.group.name %>
+<% else %>
+Ingen
+<%end%>
+</p>
+
+<p>
+<b>Rolle:</b>
+<% unless @user.role.nil?%>
+<%= @user.role.name %>
+<% else %>
+Ingen
+<%end%>
+</p>
+</p>
+
+<p>
+<b>Kort:</b>
+<% unless @card.nil?%>
+Registrert
+<% else %>
+Ingen
+<%end%>
+</p>
+</p>
+
 </div>
 </div>
+
+
+
 <div class="row-fluid">
 	<div class="well sidebar-nav">
 		<ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li class="active"><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li class="nav-header">Sidebar</li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
-            </ul>
+              <li class="nav-header">Alternativer</li>
+              <li><%= link_to 'Endre', edit_user_path %></li>
+              <li><%= link_to 'Deaktiver', @user, :confirm => 'Er du sikker?', :method => :delete %></li>
+              <% unless @card.nil? %>
+              <li class="nav-header">Kort</li>
+              <li><%= link_to 'Slett kortet', card_path(@card), :confirm => 'Er du sikker?', :method => :delete %></li>
+              <%end%>
+        </ul>
+        
 		</div>
-		</div>
-
-
+	</div>
 </div>
 <div class="span6">
 	<div class="row-fluid">
 		<%= render 'shared/supervisor_buttonbar'%>
-		
 	</div>
-	<div class="row-fluid">
+	
+	<div class="my_pager row-fluid">
 		<div class="pager row" id="pager">
 		<%= render 'shared/pager', action: "show"%>
 		</div>
@@ -103,8 +126,6 @@ var data11_2 = [
 				<th>Timer</th>
 				<th>Status</th>
 			</tr>
-
-
 		</thead>
 		<tbody>
 			<% @workdays.each_with_index do |day, index|%>
@@ -116,23 +137,16 @@ var data11_2 = [
 	</div>
 </div>
 
-<p>
-<b>Gruppe id:</b>
-<%= @user.group_id %>
-</p>
 
-<p>
-<b>Rolle id:</b>
-<%= @user.role_id %>
-</p>
 
-<div id="example-section11">
+<div id="grafcontainer" style="text-align: center;">
+	<h3>Grafisk fremstilling av arbeidstid</h3>
     <div id="flotcontainer" style="width: 1000px;height:400px; text-align: center; margin:0 auto;">
     </div>
 </div>
 
 
 
-<%= link_to 'Edit Account', edit_user_path %>
-<%= link_to 'Destroy', @user, :confirm => 'Are you sure?', :method => :delete %>
+
+
 

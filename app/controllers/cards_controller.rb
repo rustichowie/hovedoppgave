@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
-  
-  before_filter :get_card, only: [:show, :edit, :destroy, :update]
+  filter_resource_access
+  before_filter :get_card, only: [:edit, :destroy, :update]
   before_filter :get_user
   #henter en bruker om params[:user_id] finnes
   def get_user
@@ -14,8 +14,7 @@ class CardsController < ApplicationController
   #GET /cards
   #GET /cards.xml
   def index
-    @cards = Card.all
-
+    @user = Card.new.lookup(params[:id])
     respond_to do |format|
       format.html # index.html.haml
       format.xml { render :xml => @cards }
@@ -25,8 +24,8 @@ class CardsController < ApplicationController
   # GET /cards/1
   # GET /cards/1.xml
   def show
+    @user = Card.new.lookup(params[:id])
     
-
     respond_to do |format|
       format.html # show.html.haml
       format.xml { render :xml => @card }
@@ -57,7 +56,7 @@ class CardsController < ApplicationController
     respond_to do |format|
       if @card.save
         Log.create(user_id: current_user.id, logtype_id: 2, action: "card", card_id: @card.id)
-        format.html { redirect_to(@card, :notice => 'User was successfully created.') }
+        format.html { redirect_to(cards_path, :notice => 'User was successfully created.') }
         format.xml { render :xml => @card, :status => :created, :location => @card }
       else
         format.html { render :action => "new" }
@@ -72,7 +71,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if @card.update_attributes(params[:card])
-        format.html { redirect_to(@card, :notice => 'User was successfully updated.') }
+        format.html { redirect_to(cards_path, :notice => 'User was successfully updated.') }
         format.xml { head :ok }
       else
         format.html { render :action => "edit" }
@@ -84,10 +83,11 @@ class CardsController < ApplicationController
   # DELETE /cards/1
   # DELETE /cards/1.xml
   def destroy
+    @user = User.find(@card.user_id)
     @card.destroy
 
     respond_to do |format|
-      format.html { redirect_to(cards_url) }
+      format.html { redirect_to(@user) }
       format.xml { head :ok }
     end
   end

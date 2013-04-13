@@ -48,4 +48,18 @@ class Card < ActiveRecord::Base
     end  
   end
   
+  def lookup(id)
+    user = nil
+    cards = Card.all
+    cards.each do |card|
+      card_value = card.card_value
+      val = card_value.slice(7,13)
+      unless id.nil?
+        if id.include?(val)
+          user = User.find(card.user_id)
+        end
+      end
+    end
+    return user
+  end
 end

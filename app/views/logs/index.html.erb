@@ -1,15 +1,11 @@
+<%= javascript_include_tag "datepicker/single_datepicker"%>
+<%= javascript_include_tag "datepicker/double_datepicker"%>
 <%= stylesheet_link_tag "theme/jquery-ui-1.10.2.custom.css"%>
 
 
 
-
-
 <div class="container">
-
-
-
-
-<%= render "layouts/supervisor_buttonbar"%>
+<%= render "shared/supervisor_buttonbar"%>
 	
 <%if flash[:notice]%>
 <div class="alert alert-error">
