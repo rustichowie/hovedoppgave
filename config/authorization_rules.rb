@@ -21,6 +21,7 @@ authorization do
     has_permission_on [:cards], :to => [:administrate]
     has_permission_on [:groups], :to => [:administrate]
     has_permission_on [:users], :to => [:administrate]
+    has_permission_on [:logs], :to => [:administrate]
   end
 end
 

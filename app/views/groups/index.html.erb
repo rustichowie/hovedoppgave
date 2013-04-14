@@ -5,12 +5,14 @@
 <table class="table table-striped">
 <tr>
 <th>Navn</th>
+<th></th>
 <th>Handlinger</th>
 <th></th>
 </tr>
 <% @groups.each do |group| %>
 	<tr>
 	<td><%= group.name %></td>
+	<td style="width: 12%;"><%= link_to 'Medlemmer', group_path(group), class: "btn btn-block" %></td>
 	<td style="width: 12%;"><%= link_to 'Endre', edit_group_path(group), class: "btn btn-block" %></td>
 	<td style="width: 12%;"><%= link_to 'Slett', group, class: "btn btn-block", :confirm => 'Er du sikker?', :method => :delete %></td>
 	</tr>

@@ -6,9 +6,8 @@ DatabaseApp::Application.routes.draw do
   end
   resources :workdays, only: [:index, :show]
   resources :logs, only: [:index]
-  resources :users, :user_sessions
+  resources :users, :user_sessions, :groups
   resources :cards, only: [:index, :destroy]
-  resources :groups, except: [:show]
 
   match "/workdays", to: 'workdays#approve_all', via: :post
   match "/manual", to: 'register#manual_register'

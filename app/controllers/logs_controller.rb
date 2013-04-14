@@ -1,5 +1,5 @@
 class LogsController < ApplicationController
-
+filter_resource_access
 
   #GET /logs
   def index

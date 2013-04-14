@@ -59,6 +59,11 @@ var data11_2 = [
 </p>
 
 <p>
+<b>Pin:</b>
+<%=h @user.pin %>
+</p>
+
+<p>
 <b>Gruppe:</b>
 <% unless @user.group.nil?%>
 <%= @user.group.name %>
@@ -140,7 +145,7 @@ Ingen
 
 
 <div id="grafcontainer" style="text-align: center;">
-	<h3>Grafisk fremstilling av arbeidstid</h3>
+	<h3>Grafisk fremstilling av start og stopp på arbeidsdager</h3>
     <div id="flotcontainer" style="width: 1000px;height:400px; text-align: center; margin:0 auto;">
     </div>
 </div>

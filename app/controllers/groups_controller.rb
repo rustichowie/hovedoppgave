@@ -15,6 +15,8 @@ filter_resource_access
   # GET /groups/1
   # GET /groups/1.xml
   def show
+    @group = Group.find(params[:id])
+    @users = User.where(group_id: @group.id)
     respond_to do |format|
       format.html 
       format.xml { render :xml => @groups }

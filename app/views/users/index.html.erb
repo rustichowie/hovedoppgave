@@ -5,7 +5,8 @@
 <table class="table table-striped">
 <tr>
 <th>Navn</th>
-<th>Email</th>
+<th>Rolle</th>
+<th>Gruppe</th>
 <th></th>
 <th>Handlinger</th>
 <th></th>
@@ -13,7 +14,8 @@
 <% @users.each do |user| %>
 	<tr>
 	<td><%= user.name %></td>
-	<td><%= user.email %></td>
+	<td><%= user.role.name %></td>
+	<td><%= user.group.name%></td>
 	<td style="width: 12%;"><%= link_to 'Åpne', user, class: "btn btn-block" %></td>
 	<td style="width: 12%;"><%= link_to 'Endre', edit_user_path(user), class: "btn btn-block" %></td>
 	<td style="width: 12%;"><%= link_to 'Deaktiver', user, class: "btn btn-block", :confirm => 'Er du sikker?', :method => :delete %></td>

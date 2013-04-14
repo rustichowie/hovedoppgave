@@ -51,6 +51,21 @@ class User < ActiveRecord::Base
   def role_symbols
     return ["#{self.role.name.underscore}".to_sym]
   end
+  # Genererer en unik pin til brukeren
+  def generate_pin
+    unique = true
+    while unique
+      r = Random.new
+      pin = r.rand(1000...9999)
+      users = User.all
+      users.each do |user|
+        unless user.pin == pin
+          unique = false
+        end
+      end
+    end
+    return pin
+  end
 
   
 end

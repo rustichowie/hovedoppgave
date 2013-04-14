@@ -1,0 +1,18 @@
+<div class="container">
+<%= render 'shared/supervisor_buttonbar'%>
+
+<h1>Medlemmer av <%= @group.name %></h1>
+<p id="notice"><%= notice %></p>
+<table class="table table-striped">
+<tr>
+<th>Navn</th>
+<th>Rolle</th>
+</tr>
+<% @users.each do |user| %>
+	<tr>
+	<td><%= link_to user.name, user %></td>
+	<td><%= user.role.name%></td>
+	</tr>
+<% end %>
+</table>
+</div>

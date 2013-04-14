@@ -85,8 +85,8 @@ class Workday < ActiveRecord::Base
       year = date.year
       #hvis man sender inn en bruker id sjekker han for dette, ellers ikke.
      if user_id
-      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id = ?",
-                                  month, year, user_id).order("date desc")
+      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id = ? AND approved = ?",
+                                  month, year, user_id, 1).order("date desc")
     else  
       days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) =?",month, year).order("date desc")
     end

@@ -93,6 +93,7 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
+    @user.pin = User.new.generate_pin
     @groups = Group.all
     @roles = Role.all
     respond_to do |format|
