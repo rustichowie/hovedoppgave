@@ -1,0 +1,11 @@
+<script type="text/javascript">
+var data11_1 = [
+	<% start.each do |start_singel| %>
+	<%= start_singel %>,
+	<% end %> ];
+var data11_2 = [
+    <% stop.each do |stop_singel| %>
+	<%= stop_singel %>,
+	<% end %> ];
+</script>
+<%= javascript_include_tag "worktimegraph"%>

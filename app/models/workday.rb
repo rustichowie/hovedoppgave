@@ -97,7 +97,35 @@ class Workday < ActiveRecord::Base
       end
       days = new_days
     end
-    return days
+
+    start = Array.new
+    stop = Array.new
+    days.each do |workday|
+      forlat = Array.new
+      workhours = Workhour.where(workday_id: workday.id)
+      unless workhours.empty?
+        latest = 0
+        time = 0
+        workhours.each do |workhour|
+          if workhour.stop.to_time.to_i > latest
+            latest = workhour.stop.to_time.to_i
+            time = workhour.stop
+          end
+        end
+        forlat.push(workday.date.to_time.to_i*1000)
+        forlat.push(time.strftime("%H%M").to_i)
+        stop.push(forlat.to_json.html_safe)
+      
+        ankomst = Array.new
+        #ankomst.push(workday.created_at.strftime("%F").to_i)
+        ankomst.push(workday.date.to_time.to_i*1000)#date.strftime("%Y/%m/%d"))
+        ankomst.push(workday.created_at.strftime("%H%M").to_i)#.strftime("%H:%M").to_time.to_i)
+        start.push(ankomst.to_json.html_safe)
+      
+      end
+     end
+     
+    return {start: start, stop: stop}
   end
   
   #Henter summen av arbeidstimer basert på bruker og dato

@@ -68,6 +68,11 @@ body{
   margin-right: auto;
   margin-left: auto;
 }
+.sidebar {
+  width: 220px;
+  float: left;
+  margin-left: 200px;
+}
 
 .head {
   list-style: none;
@@ -131,3 +136,70 @@ footer {
 }
 
 
+
+
+.row_button{
+        width: 20%;
+      } 
+.last_td
+      {
+        width: 40%;
+      }
+.parent{
+form {
+  margin: 0px;
+  display: inline;
+  div{
+    display: inline;
+  }
+}
+
+}
+
+#buttonbar
+{
+  margin-bottom: 50px;
+
+}
+.child_row
+{
+  display: none;
+}
+#sokebar
+{
+  float: right;
+}
+
+#child-table
+{
+  padding: 0px;
+  margin-left: 15px;
+  margin-bottom: 0px;
+  td {
+    
+  }
+}
+
+
+.span4{
+  margin: 0px;
+}
+
+
+
+#current_month {
+  margin-left: 130px;
+  text-align: center;
+}
+
+div#next{
+  text-align: right;
+  float: right;
+}
+div#prev{
+  float: left;
+  margin: 0px;
+}
+#mainTable {
+  margin-top: 100px;
+}

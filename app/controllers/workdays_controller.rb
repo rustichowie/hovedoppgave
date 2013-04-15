@@ -60,6 +60,11 @@ class WorkdaysController < ApplicationController
   #Index action, GET /user/:user_id/workdays
   def index
     @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
+    
+    workdays_graph = Workday.new.get_workdays_by_month_user(@user, @date)
+    @start = workdays_graph[:start]
+    @stop = workdays_graph[:stop]
+    
     respond_to do |format|
       format.html do 
         @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
