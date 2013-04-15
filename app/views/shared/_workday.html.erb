@@ -37,13 +37,12 @@
 						<% end %>
 					</div>
 					</div>
-					<td id=last_td<%= id%>> <%= button_to  "Godkjenn timer", { :action => "update", :id => workday.id, :user_id => workday.user.id, approved: true},
-					{class: "approve_buttons btn btn-small btn-success button_row#{id}" , id: "#{id}",
-					:confirm => "Are you sure?", form_class: "approve_form"}%>
+					<td id=last_td<%= id%>> <%= button_to  "Godkjenn timer", {controller: "workdays", action: "update", id: workday.id, user_id: workday.user.id, approved: true},
+					{class: "approve_buttons btn btn-small btn-success button_row#{id}" , id: "#{id}", form_class: "approve_form"}%>
 					<button type="button" id=<%= id%> class="button_row<%= id%> btn btn-warning btn-small approve_buttons open_modal" data-id=<%=id%>>
 						Delvis godkjenn
 					</button> 
-					<%= button_to  "Underkjenn timer", { :action => "update", :id => workday.id, :user_id => workday.user.id, approved: false},
+					<%= button_to  "Underkjenn timer", {controller: "workdays", action: "update", id: workday.id, user_id: workday.user.id, approved: false},
 					{class: "approve_buttons btn-small btn btn-danger button_row#{id}" ,id: "#{id}",
 					:confirm => "Are you sure?", form_class: "approve_form"}%> </td>
 					<%end%>
