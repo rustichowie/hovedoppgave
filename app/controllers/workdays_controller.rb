@@ -32,13 +32,13 @@ class WorkdaysController < ApplicationController
   
   def approve_all
     if @user
-      workdays = @user.workdays.where(group_id: supervisor.group_id)
+      workdays = @user.workdays.where(group_id: current_user.group_id)
     else
       workdays = Workday.where("MONTH(date) = ? AND YEAR(date) = ? AND group_id = ?",
-                                  @date.month, @date.year, supervisor.group_id)
+                                  @date.month, @date.year, current_user.group_id)
     end  
     workdays.each do |workday|
-      if workday.approved == nil
+      if workday.approved == nil && workday.user != current_user
         workday.update_attributes(approved: true)
       end
     end
@@ -59,10 +59,10 @@ class WorkdaysController < ApplicationController
   
   #Index action, GET /user/:user_id/workdays
   def index
-    @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
+    @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user)
     respond_to do |format|
       format.html do 
-        @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
+        @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user)
       end
       format.js 
       format.json {render json: @workdays.to_json}

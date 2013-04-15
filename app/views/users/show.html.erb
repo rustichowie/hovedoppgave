@@ -117,29 +117,12 @@ Ingen
 		<%= render 'shared/supervisor_buttonbar'%>
 	</div>
 	
-	<div class="my_pager row-fluid">
-		<div class="pager row" id="pager">
+
+		<div class="my_pager row" id="pager">
 		<%= render 'shared/pager', action: "index"%>
 		</div>
-	</div>
 <div id="mainTable">
-	<table class="table table-striped table-hover" id="parent_table">
-		<thead>
-			<tr>
-				<th>Navn</th>
-				<th>Dato</th>
-				<th>Timer</th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @workdays.each_with_index do |day, index|%>
-			<%= render 'shared/workday', workday: day[:day], sum: day[:sum], id: index%>
-			<%end%>
-		</tbody>
-	</table>
-	</div>
-	</div>
+			<%= render 'shared/workdays', workdays: @workdays, page: "user"%>
 </div>
 
 

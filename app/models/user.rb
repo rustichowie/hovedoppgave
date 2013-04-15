@@ -48,6 +48,17 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :cards
   validates :name, :presence => true
   
+  
+  def is_admin?
+    if self.role_id == 3
+      true
+    else
+      false
+    end   
+  end
+  
+  
+  
   def role_symbols
     return ["#{self.role.name.underscore}".to_sym]
   end

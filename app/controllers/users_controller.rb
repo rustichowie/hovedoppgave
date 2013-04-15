@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
-    @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user.group_id)
+    @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user)
     @workdays_graph = Workday.new.get_workdays_by_month_user(@user, @date)
     
     @card = Card.where(user_id: params[:id]).first

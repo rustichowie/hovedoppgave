@@ -25,10 +25,10 @@ module DateModul
       @date = Date.today 
     end
     
-    if Workday.new.get_workdays_by_month(@user, @date.advance(months: -1), current_user.group_id).empty?
+    if Workday.new.get_workdays_by_month(@user, @date.advance(months: -1), current_user).empty?
          @prev_class = "disabled"
     end
-    if Workday.new.get_workdays_by_month(@user, @date.advance(months: 1), current_user.group_id).empty?
+    if Workday.new.get_workdays_by_month(@user, @date.advance(months: 1), current_user).empty?
          @next_class = "disabled"
     end
   end

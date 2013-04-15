@@ -43,7 +43,7 @@ class Workday < ActiveRecord::Base
   end
   
   #Henter jobbtimer basert på måned og bruker id.
-  def get_workdays_by_month(user_id, date, supervisor_group_id)
+  def get_workdays_by_month(user_id, date, current_user)
       #henter ut måned og år fra datoen
       month = date.month
       year = date.year
@@ -52,16 +52,19 @@ class Workday < ActiveRecord::Base
       days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id = ?",
                                   month, year, user_id).order("date desc")
     else  
-      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) =?",month, year).order("date desc")
+      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) =? AND user_id != ?",
+                                  month, year, current_user.id).order("date desc")
     end
     new_days = []
-     unless days.empty?
-      days.each do |day|
-        if day.user.group_id == supervisor_group_id
-          new_days.push(day)
+     unless current_user.is_admin?
+      unless days.empty?
+        days.each do |day|
+          if day.user.group_id == current_user.group_id
+            new_days.push(day)
+          end
         end
+        days = new_days
       end
-      days = new_days
     end
     array = []
     #Går igjennom alle dagene og legger rett sum til rett dag.

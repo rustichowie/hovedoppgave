@@ -1,5 +1,5 @@
 <%= javascript_include_tag "pager"%>
-<%= javascript_include_tag "update"%>
+
 
 
 	<div class="span3" id="prev" >
@@ -14,7 +14,7 @@
 		<%end%>			 
 	</div>
 	<div class="span3" id="current_month">
-		<%= button_to "Gjeldende måned", {action: action}, {class: "btn btn-info", method: :get}%>
+		<%= button_to "Gjeldende måned", {action: action, controller: "workdays", date: Date.today}, {class: "btn btn-info", method: :get, remote: true}%>
 	</div>
 	<div class="span3" id="next">
 		<%if @next_class == "disabled"%>
