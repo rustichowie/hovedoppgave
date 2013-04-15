@@ -7,7 +7,7 @@
 				<% else%>
 				<td class="row_button" id=<%= id%>><%= workday.supervisor_hour%> </td>
 				<% end%>
-				<%= render 'shared/workdays_approve_buttons', page: page, workday: workday, id: id, sum: sum%>
+				<%= render 'shared/workdays_approve_buttons', workday: workday, id: id, sum: sum%>
 			</tr>
 			<tr class="child_row" id="child<%= id%>">
 
