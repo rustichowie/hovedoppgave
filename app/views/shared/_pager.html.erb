@@ -15,6 +15,7 @@
 	</div>
 	<div class="span3" id="current_month">
 		<%= button_to "Gjeldende måned", {action: action, controller: "workdays", date: Date.today}, {class: "btn btn-info", method: :get, remote: true}%>
+
 	</div>
 	<div class="span3" id="next">
 		<%if @next_class == "disabled"%>
