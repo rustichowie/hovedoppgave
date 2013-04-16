@@ -15,54 +15,69 @@ class WorkdaysController < ApplicationController
   end
 
  def check_group
-    if params[:user_id]
-      if User.find(params[:user_id]).group_id != current_user.group_id
-        flash[:notice] = "Du har ikke tilgang på denne ansatte"
-        redirect_to action: 'index', user_id: nil
-      end
-    else if params[:id]
-      if Workday.find(params[:id]).user.group_id != current_user.group_id
-        flash[:notice] = "Du har ikke tilgang på denne ansatte"
-        redirect_to action: 'index', user_id: nil
-      end
-    end     
-    end
-  end
-  
-  
-  def approve_all
-    if @user
-      workdays = @user.workdays.where(group_id: current_user.group_id)
-    else
-      workdays = Workday.where("MONTH(date) = ? AND YEAR(date) = ? AND group_id = ?",
-                                  @date.month, @date.year, current_user.group_id)
-    end  
-    workdays.each do |workday|
-      if workday.approved == nil && workday.user != current_user
-        workday.update_attributes(approved: true)
-      end
-    end
-    
-    respond_to do |format|
-      format.html do    
-          if @user
-            redirect_to action: "index", user_id: @user
-          else
-            redirect_to action: "index"
+    unless current_user.is_admin?
+      if params[:user_id]
+        if User.find(params[:user_id]).group_id != current_user.group_id
+          flash[:notice] = "Du har ikke tilgang på denne ansatte"
+          redirect_to action: 'index', user_id: nil
+        end
+      else if params[:id]
+          if Workday.find(params[:id]).user.group_id != current_user.group_id
+            flash[:notice] = "Du har ikke tilgang på denne ansatte"
+            redirect_to action: 'index', user_id: nil
           end
+        end
       end
     end
-    
   end
   
+ def approve_all
+
+    unless current_user.is_admin?
+      if @user
+        workdays = @user.workdays.where("MONTH(date) = ? AND YEAR(date) = ? AND group_id = ?",
+        @date.month, @date.year, current_user.group_id)
+      else
+        workdays = Workday.where("MONTH(date) = ? AND YEAR(date) = ? AND group_id = ?",
+        @date.month, @date.year, current_user.group_id)
+      end
+    else
+      if @user
+        workdays = @user.workdays.where("MONTH(date) = ? AND YEAR(date) = ?",
+      @date.month, @date.year)
+      else
+        workdays = Workday.where("MONTH(date) = ? AND YEAR(date) = ?",
+      @date.month, @date.year)
+      end
+    end
+      workdays.each do |workday|
+        if workday.approved == nil && workday.user != current_user || current_user.is_admin?
+          workday.update_attributes(approved: true)
+        end
+      end
+    respond_to do |format|
+      format.html do
+        if @user
+          redirect_to action: "index", user_id: @user
+        else
+          redirect_to action: "index"
+        end
+      end
+    end
+
+  end
+
   
   
   #Index action, GET /user/:user_id/workdays
-  def index
-
+  def index  
+    
     @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user)
     
+    @workday = @workdays.map {|workday| workday[:day]}
+    
     workdays_graph = Workday.new.get_workdays_by_month_user(@user, @date)
+    
     @start = workdays_graph[:start]
     @stop = workdays_graph[:stop]
     

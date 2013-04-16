@@ -11,7 +11,7 @@
 		</thead>
 		<tbody id="workday_body">
 			<% workdays.each_with_index do |day, index|%>
-			<%= render 'shared/workday', workday: day[:day], sum: day[:sum], id: index%>
+			<%= render 'shared/workday',user: user, workday: day[:day], sum: day[:sum], id: index%>
 			<%end%>
 		</tbody>
 	</table>

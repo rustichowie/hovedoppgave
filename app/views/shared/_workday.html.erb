@@ -1,5 +1,4 @@
 <tr class="parent" id=row<%= id%>>
-
 				<td class="row_button" id=<%= id%>><%= workday.user.name %></td>
 				<td class="row_button" id=<%= id%>><%= workday.date %></td>
 				<% if workday.supervisor_hour == nil%>
@@ -7,7 +6,7 @@
 				<% else%>
 				<td class="row_button" id=<%= id%>><%= workday.supervisor_hour%> </td>
 				<% end%>
-				<%= render 'shared/workdays_approve_buttons', workday: workday, id: id, sum: sum%>
+				<%= render 'shared/workdays_approve_buttons',user: user, workday: workday, id: id, sum: sum%>
 			</tr>
 			<tr class="child_row" id="child<%= id%>">
 

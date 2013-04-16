@@ -111,10 +111,10 @@ Ingen
 	
 
 		<div class="my_pager" id="pager">
-		<%= render 'shared/pager', action: "index"%>
+		<%= render 'shared/pager', action: "index", user: @user%>
 		</div>
 <div id="mainTable">
-			<%= render 'shared/workdays', workdays: @workdays, page: "user"%>
+			<%= render 'shared/workdays', workdays: @workdays, user: @user%>
 </div>
 
 
@@ -124,7 +124,7 @@ Ingen
     <div id="flotcontainer" style="width: 1000px;height:400px; text-align: center; margin:0 auto;">
     </div>
 </div>
-
+</div>
 
 
 

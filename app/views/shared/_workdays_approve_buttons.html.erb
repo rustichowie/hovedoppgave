@@ -1,4 +1,4 @@
-
+<% unless user%>
 	<% if workday.approved != nil%>
 		<% if workday.approved%>
 			<% if workday.supervisor_hour == nil%>
@@ -15,7 +15,7 @@
 				<h1>Legg til en ny jobbdag for bruker: <h2><%= workday.user.name%></h2></h1>
 				<div class="row">
 				<div class="span3 offsett3">
-					<%= form_for([workday.user, workday]) do |f| %>
+					<%= form_for([workday.user, workday], action: :put) do |f| %>
 					<%= f.text_area :comment, placeholder: "Kommentar til manuell innlegg av timer...", :cols => 20, :rows => 5 %>
 					<%= f.number_field :supervisor_hour, placeholder: "Antall timer..." %>
 				</div>
@@ -31,13 +31,27 @@
 		</div>
 	</div>
 	<td id=last_td<%= id%>> <%= button_to  "Godkjenn timer", {controller: "workdays", action: "update", id: workday.id, user_id: workday.user.id, approved: true},
-		{class: "approve_buttons btn btn-small btn-success button_row#{id}" , id: "#{id}", form_class: "approve_form"}%>
+		{class: "approve_buttons btn btn-small btn-success button_row#{id}" , id: "#{id}", form_class: "approve_form", method: "put"}%>
 		<button type="button" id=<%= id%> class="button_row<%= id%> btn btn-warning btn-small approve_buttons open_modal" data-id=<%= id%>>
 		Delvis godkjenn
 		</button> 
 		<%= button_to  "Underkjenn timer", {controller: "workdays", action: "update", id: workday.id, user_id: workday.user.id, approved: false},
 			{class: "approve_buttons btn-small btn btn-danger button_row#{id}" ,id: "#{id}",
-				:confirm => "Are you sure?", form_class: "approve_form"}%> </td>
+				:confirm => "Are you sure?", form_class: "approve_form", method: "put"}%> </td>
 	<%end%>
-
+<%else%>
+	<% if workday.approved != nil%>
+		<% if workday.approved%>
+			<% if workday.supervisor_hour == nil%>
+				<td colspan="3" style="text-align: center"><span class="last_td label label-success">Timene er allerede godkjent</span></td>
+			<%else%>
+				<td colspan="3" style="text-align: center"><span class="last_td label label-warning">Timene har blitt forandret av formann</span></td>
+			<%end%>
+		<%else%>
+			<td colspan="3" style="text-align: center"><span class="last_td label label-important">Timene er blitt underkjent</span></td>
+		<%end%>
+	<%else%>
+	<td colspan="3" style="text-align: center"><span class="last_td label label-info">Pågående </span></td>
+	<%end%>
+<%end%>
 
