@@ -45,7 +45,7 @@ filter_resource_access
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to(groups_path, :notice => 'Group was successfully created.') }
+        format.html { redirect_to(groups_path, :notice => 'Avdeling opprettet') }
         format.xml { render :xml => @group, :status => :created, :location => @group }
       else
         format.html { render :action => "new" }

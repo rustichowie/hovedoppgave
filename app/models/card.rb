@@ -14,9 +14,19 @@ class Card < ActiveRecord::Base
   
   attr_accessible :card_value, :user_id
   belongs_to :user
-  has_many :logs
   validates :card_value, :presence => true, :uniqueness => {:scope => :user_id}
   validates :user_id, :presence => true
+  after_create do
+    create_log
+  end
+  
+  
+  def create_log
+    unless UserSession.find == nil
+      Log.create(user_id: self.user.id, message: "#{self.user.name} har registrert et nytt kort på seg selv.", logtype_id: 2)
+    end
+  end
+  
   
   # Metode for å registrere et kort på en bruker
   def check_card_value(value, pin)

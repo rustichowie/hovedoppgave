@@ -22,8 +22,8 @@
 					<tbody>
 						<% workday.workhours.each do |hour|%>
 						<tr class="info">
-							<td><%= hour[:start]%></td>
-							<td><%= hour[:stop]%></td>
+							<td><%= hour[:start].strftime("%H:%M:%S")%></td>
+							<td><%= hour[:stop].strftime("%H:%M:%S")%></td>
 							<td><%= hour[:count]%></td>
 						</tr>
 						<%end%>

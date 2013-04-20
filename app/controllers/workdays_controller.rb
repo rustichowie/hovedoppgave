@@ -120,28 +120,37 @@ class WorkdaysController < ApplicationController
     
     
     comment = params[:workday][:comment]
-    hours = params[:workday][:supervisor_hour]
+    hours = params[:workday][:supervisor_hour].to_i
     date = params[:workday][:date]
     unless date.empty?
       new_date = try_date(date, @user.id)
     end
     
     @workday = Workday.new(date: date, comment: comment, supervisor_hour: hours, user_id: @user.id, approved: true)
+   
     if @workday.save
-      Log.create(user_id: current_user.id, workday_id: @workday.id, effected_user_id: @user.id, action: "user", logtype_id: 2)
+       Workhour.create(count: hours*3600, start: Date.today.beginning_of_day,
+     stop: Date.today.beginning_of_day + hours.hour, workday_id: @workday.id, user_id: @user.id)
+      
       redirect_to action: 'show', id: @workday     
     else
-      if hours.empty?
+      
+      if hours == 0
         flash[:notice] = "Du må skrive inn antall timer.."
         render 'new'
-      else
-        if date.empty?
-        flash[:notice] = "Du må velge en dato.."
+        return
+      end
+      if hours > 24
+        flash[:notice] = "Du kan ikke legge til mer en 24 timer for en dag, prøv å fordele over flere dager."
         render 'new'
-        else
+        return
+      end  
+      if date.empty?
+        flash[:notice] = "Du må velge en dato.."
+        render 'new'       
+      else
         flash[:notice] = "Datoen har allerede en registrert arbeidsdag, prøv:  #{new_date}"
         render 'new'
-        end
       end
     end
   end
@@ -158,17 +167,25 @@ class WorkdaysController < ApplicationController
      if params[:approved] 
             #oppdaterer
             @workday.update_attributes(approved: params[:approved])        
-            
             #Logger
             if params[:approved] == true
-              Log.create(user_id: current_user.id, workday_id: @workday.id, effected_user_id: @user.id,action: "approved", logtype_id: 6)
+              Log.create(user_id: current_user.id, message: "ikke ferdig", logtype_id: 6)
             else
-              Log.create(user_id: current_user.id, workday_id: @workday.id, effected_user_id: @user.id,action: "unapproved", logtype_id: 6)
+              Log.create(user_id: current_user.id, message: "ikke ferdig", logtype_id: 6)
             end
       #du ender opp her om man delvis godkjenner
       else if params[:workday] 
-        @workday.update_attributes(comment: params[:workday][:comment], approved: true, supervisor_hour: params[:workday][:supervisor_hour])
-        Log.create(user_id: current_user.id, effected_user_id: @user.id, workday_id: @workday.id, action: "approved", logtype_id: 6)
+        hours = params[:workday][:supervisor_hour].to_i
+        if @workday.update_attributes(comment: params[:workday][:comment], approved: true, supervisor_hour: hours)
+        Log.create(user_id: current_user.id, message: "ikke ferdig", logtype_id: 6)
+        else
+        if hours > 24
+        flash[:notice] = "Du kan ikke legge til mer en 24 timer for en dag, prøv å fordele over flere dager."
+        redirect_to action: 'index', user_id: nil
+        return
+      end  
+      
+        end
     end
     end
 
@@ -176,7 +193,7 @@ class WorkdaysController < ApplicationController
         format.html do
             redirect_to action: "index", user_id: nil
         end
-      format.js
+      format.js 
       format.json {render json: @workday.to_json(only: :approved)}
     end
   end

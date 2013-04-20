@@ -1,3 +1,4 @@
+#encoding: utf-8
 # == Schema Information
 #
 # Table name: users
@@ -23,6 +24,7 @@
 #  current_login_ip    :string(255)
 #  last_login_ip       :string(255)
 #  crypted_password    :string(255)      not null
+#  active              :boolean          default(TRUE), not null
 #
 
 class User < ActiveRecord::Base
@@ -47,8 +49,18 @@ class User < ActiveRecord::Base
   has_many :logs
   accepts_nested_attributes_for :cards
   validates :name, :presence => true
+  after_create do
+    create_log
+  end
   
-  
+  def create_log
+    unless UserSession.find == nil
+    Log.create(user_id: self.id, message: "#{UserSession.find.user.name} har opprettet en ny ansatt med navn: #{self.name} den #{self.created_at.strftime("%Y-%m-%d")}", logtype_id: 2)
+    else
+      Log.create(user_id: user.id, message: "#{self.name} har blitt opprettet den #{self.created_at.strftime("%Y-%m-%d")}", logtype_id: 2)
+    end
+  end
+
   def is_admin?
     if self.role_id == 3
       true

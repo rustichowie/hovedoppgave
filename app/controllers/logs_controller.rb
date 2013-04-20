@@ -20,7 +20,7 @@ filter_resource_access
     end
     
     
-    @log_message = Log.new.print_log(cat, search, from, to)
+    @logs = Log.new.print_log(cat, search, from, to)
     respond_to do |format|
     format.html 
     format.js

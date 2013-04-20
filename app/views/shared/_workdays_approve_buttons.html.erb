@@ -10,26 +10,7 @@
 			<td colspan="3" style="text-align: center"><span class="last_td label label-important">Timene er blitt underkjent</span></td>
 		<%end%>
 	<%else%>
-		<div id="myModal<%= id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-body">
-				<h1>Legg til en ny jobbdag for bruker: <h2><%= workday.user.name%></h2></h1>
-				<div class="row">
-				<div class="span3 offsett3">
-					<%= form_for([workday.user, workday], action: :put) do |f| %>
-					<%= f.text_area :comment, placeholder: "Kommentar til manuell innlegg av timer...", :cols => 20, :rows => 5 %>
-					<%= f.number_field :supervisor_hour, placeholder: "Antall timer..." %>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">
-				Close
-			</button>
-			<%= f.submit "Lagre", {class: "btn btn-large btn-primary"}%>
-			<% end %>
-		</div>
-	</div>
+		<%= render 'workday_modal', workday: workday, id: id%>
 	<td id=last_td<%= id%>> <%= button_to  "Godkjenn timer", {controller: "workdays", action: "update", id: workday.id, user_id: workday.user.id, approved: true},
 		{class: "approve_buttons btn btn-small btn-success button_row#{id}" , id: "#{id}", form_class: "approve_form", method: "put"}%>
 		<button type="button" id=<%= id%> class="button_row<%= id%> btn btn-warning btn-small approve_buttons open_modal" data-id=<%= id%>>

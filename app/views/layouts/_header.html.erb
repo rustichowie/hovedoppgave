@@ -1,20 +1,26 @@
-<header class="header">
-      <div class="header-inner">
+<script>
+	$("#header-collapse").collapse('toogle');
+</script>
+
+<div class="header navbar navbar-fixed-top">
+      <div class="navbar-inner">
         <div class="container">
+        	<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#header-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          	</button>
           <%= link_to "Kuraas AS timeregistrering", root_path, id: "logo" %>
-          <nav>
-            
+            <div id="header-collapse" class="nav-collapse collapse">
             <%unless @current_user_sesson == @current_user%>
-            <ul class="head pull-right">
+            <ul class="head pull-right nav">
               <li><%= link_to 'Logg ut', '/logout', id: "logo_extra" %></li>
             </ul>
-            <ul class="head pull-right">
+            <ul class="head pull-right nav">
             	<li><%= link_to @current_user.name, @current_user, id: "logo_extra" %></li>
             </ul>
             <%end%>
-            
-          </nav>
         </div>
       </div>
-    </header>
-
+    </div>
+    </div>

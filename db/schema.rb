@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319134039) do
-
+ActiveRecord::Schema.define(:version => 20130419083233) do
 
   create_table "cards", :force => true do |t|
     t.integer  "user_id"
@@ -32,13 +31,9 @@ ActiveRecord::Schema.define(:version => 20130319134039) do
 
   create_table "logs", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "card_id"
     t.integer  "logtype_id"
-    t.integer  "workhours_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-    t.integer  "workday_id"
-    t.integer  "effected_user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "action"
   end
 
@@ -58,13 +53,6 @@ ActiveRecord::Schema.define(:version => 20130319134039) do
     t.datetime "updated_at",        :null => false
     t.string   "authorizable_type"
     t.integer  "authorizable_id"
-  end
-
-  create_table "roles_users", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
   end
 
   create_table "user_sessions", :force => true do |t|

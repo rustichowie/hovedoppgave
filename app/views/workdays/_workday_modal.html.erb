@@ -1,0 +1,44 @@
+<script>
+$(document).ready(function() {	
+	$("#submit<%=workday.id%>").click(function(){
+		
+		$("#edit_workday_<%=workday.id%>").submit(function(e){
+		//e.preventDefault();
+		hours = parseInt($("#workday_supervisor_hour").val());
+		warning = "<div class=\"alert alert-error\">" +
+  		"<button type=\"button\" id=\"close\" class=\"close\" data-dismiss=\"alert\">&times;</button>"+
+  		"<strong>Du kan maksimalt skrive inn 24 timer</strong>"+
+	"</div>";
+		if(hours > 24)
+		{
+			$("#edit_workday_<%=workday.id%>").before(warning);
+			return false;
+		}
+	});
+		
+	});
+});
+	
+</script>
+
+<div id="myModal<%= id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-body">
+				<h1>Endre en arbeidsdag for: <h2><%= workday.user.name%></h2></h1>
+				<div class="row">
+					<div id="inner-modal-body" class="span3 offsett3">
+
+					<%= form_for([workday.user, workday], action: :put) do |f| %>
+					<%= f.text_area :comment, placeholder: "Kommentar til manuell innlegg av timer...", :cols => 20, :rows => 5 %>
+					<%= f.number_field :supervisor_hour, placeholder: "Antall timer..." %>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<button id="close"<%=workday.id%> class="btn" data-dismiss="modal" aria-hidden="true">
+				Close
+			</button>
+			<%= f.submit "Lagre", {id: "submit#{workday.id}", class: "btn btn-large btn-primary"}%>
+			<% end %>
+		</div>
+	</div>
