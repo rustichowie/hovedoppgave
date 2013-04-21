@@ -12,7 +12,7 @@
 #  approved        :boolean
 #  date            :date             not null
 #
-
+#TODO: Sjekke at det logges overalt. ordne på 
 class Workday < ActiveRecord::Base
   attr_accessible :approved, :comment, :date, :supervisor_hour, :user_id
   has_many :workhours

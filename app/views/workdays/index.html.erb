@@ -16,8 +16,9 @@
 			<%= render 'shared/workdays', workdays: @workdays, user: @user%>
 </div>
 	
-
+<%unless @workdays.empty?%>
 	<%=button_to  "Godkjenn alle timer", {:action => "approve_all", id: @workday, user_id: @user},
 					{class: "btn btn-small btn-success",
              		:confirm => "Are you sure?", method: :put}%>
+             		<%end%>
 </div>

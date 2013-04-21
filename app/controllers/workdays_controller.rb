@@ -5,7 +5,7 @@ class WorkdaysController < ApplicationController
   
   before_filter :get_user, except: :check_group
   
-  before_filter :check_group, only: [:index, :new, :edit, :show]
+  before_filter :check_group, only: [:index, :new, :edit]
   include DateModul
   before_filter :pager
   
@@ -94,21 +94,23 @@ class WorkdaysController < ApplicationController
   end
 
   #GET /users/:user_id/workdays/:id
-  def show 
-    if @user
-        @workday = @user.workdays.find(params[:id]) 
-    else
-        @workday = Workday.find(params[:id])
-        @user = @workday.user
-    end
+  #def show
+    #if @user
+        #@workday = @user.workdays.find(params[:id]) 
+   # else     
+        #@workday = Workday.find(params[:id]) 
+       # @user = @workday.user
+   # end
     
-    if @workday.supervisor_hour
-      @sum = @workday.supervisor_hour
-    else
-      @sum = @workday.get_workhour_sum(@workday.date, @workday.user.id)
-    end
-    
-  end
+   # if @workday.supervisor_hour
+   #   @sum = @workday.supervisor_hour
+    #else
+    #  @sum = @workday.get_workhour_sum(@workday.date, @workday.user.id)
+   # end
+   # rescue ActiveRecord::RecordNotFound
+    #    redirect_to action: 'index', user_id: nil
+    #    return
+ # end
   
   #GET /users/:user_id/workdays/new
   def new
@@ -167,17 +169,12 @@ class WorkdaysController < ApplicationController
      if params[:approved] 
             #oppdaterer
             @workday.update_attributes(approved: params[:approved])        
-            #Logger
-            if params[:approved] == true
-              Log.create(user_id: current_user.id, message: "ikke ferdig", logtype_id: 6)
-            else
-              Log.create(user_id: current_user.id, message: "ikke ferdig", logtype_id: 6)
-            end
+
       #du ender opp her om man delvis godkjenner
       else if params[:workday] 
         hours = params[:workday][:supervisor_hour].to_i
         if @workday.update_attributes(comment: params[:workday][:comment], approved: true, supervisor_hour: hours)
-        Log.create(user_id: current_user.id, message: "ikke ferdig", logtype_id: 6)
+        
         else
         if hours > 24
         flash[:notice] = "Du kan ikke legge til mer en 24 timer for en dag, prøv å fordele over flere dager."
