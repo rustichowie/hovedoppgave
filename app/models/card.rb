@@ -21,6 +21,7 @@ class Card < ActiveRecord::Base
   end
   
   
+  
   def create_log
     unless UserSession.find == nil
       Log.create(user_id: self.user.id, message: "#{self.user.name} har registrert et nytt kort på seg selv.", logtype_id: 2)
