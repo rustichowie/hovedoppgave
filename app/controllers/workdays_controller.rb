@@ -88,7 +88,7 @@ class WorkdaysController < ApplicationController
       end
       format.js 
       format.json {render json: @workdays.to_json}
-    end
+     end
     
     
   end
