@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   #end
 
   
-  attr_accessible :name, :email, :group_id, :role_id, :employee_id, :password, :password_confirmation, :persistence_token
+  attr_accessible :name, :email, :group_id, :role_id, :employee_id, :password, :password_confirmation, :persistence_token, :phone_number
   has_many :cards
   has_many :workhours
   belongs_to :role
@@ -48,7 +48,9 @@ class User < ActiveRecord::Base
   has_many :workdays
   has_many :logs
   accepts_nested_attributes_for :cards
-  validates :name, :presence => true
+  validates :name, :phone_number, :presence => true
+  validates :phone_number, :uniqueness => {:message => "nummeret er allerede tatt"}
+  validates :phone_number, :numericality => { :only_integer => true, :message => "må bestå av bare tall"}
   after_create do
     create_log
   end

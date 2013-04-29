@@ -18,7 +18,10 @@
 						<b>Email:</b>
 						<%= h @user.email %>
 					</p>
-
+					<p>
+						<b>Telefon:</b>
+						<%= h @user.phone_number %>
+					</p>
 					<p>
 						<b>Login count:</b>
 						<%= h @user.login_count %>
@@ -111,28 +114,6 @@
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
-	</div>
-</div>
-<div class="container">
-	<div class="">
-		<%= render 'shared/supervisor_buttonbar'%>
-	</div>
-
-		<div class="my_pager" id="pager">
-		<%= render 'shared/pager', action: "index"%>
-		</div>
-<div id="mainTable">
-			<%= render 'shared/workdays', workdays: @workdays, page: "user"%>
-</div>
-
-</div>
-
-<div id="grafcontainer" style="text-align: center;">
-	<h3>Grafisk fremstilling av start og stopp på arbeidsdager</h3>
-    <div id="flotcontainer" style="width: 1000px;height:400px; text-align: center; margin:0 auto;">
-    </div>
-=======
 		<div class="span7 offset1">
 			<%= render 'shared/supervisor_buttonbar'%>
 
@@ -149,5 +130,4 @@
 			</div>
 		</div>
 	</div>
->>>>>>> 3d0be2caa7893c4ab8882d9bdbaa40e4c5339729
 </div>
