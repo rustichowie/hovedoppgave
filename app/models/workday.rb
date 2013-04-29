@@ -135,7 +135,6 @@ class Workday < ActiveRecord::Base
     return array
   end
   
- 
   
   #Henter workdays basert på måned og bruker id.
   def get_workdays_by_month_user(user_id, date)
