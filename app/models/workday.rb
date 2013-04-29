@@ -1,3 +1,4 @@
+#encoding: utf-8
 # == Schema Information
 #
 # Table name: workdays
@@ -11,16 +12,64 @@
 #  approved        :boolean
 #  date            :date             not null
 #
-
+#TODO: Sjekke at det logges overalt. ordne på 
 class Workday < ActiveRecord::Base
   attr_accessible :approved, :comment, :date, :supervisor_hour, :user_id
   has_many :workhours
   belongs_to :user
-  has_many :logs
+  before_create :hours_to_seconds
+  before_update :hours_to_seconds, :if => :before_update_validation
   validates :date, :uniqueness => {:scope => :user_id}
   validates :date, :presence => true
+  validates :supervisor_hour,:numericality => {:less_than => 24*3600}, :allow_nil => true
+  
+  after_create do
+    create_log(self.user)
+  end
+  after_update do
+    update_log(self.user, self.approved)
+  end
+  
+  def create_log(user)
+    unless UserSession.find == nil
+    Log.create(user_id: user.id, message: "#{UserSession.find.user.name} har opprettet en arbeidsdag for #{user.name} den #{self.date}", logtype_id: 2)
+    else
+      Log.create(user_id: user.id, message: "#{user.name} har opprettet en ny arbeidsdag på seg selv den #{self.date}", logtype_id: 2)
+    end
+  end
+  
+  def update_log(user, approved)
+    unless approved == nil
+      unless UserSession.find == nil
+        if approved
+          Log.create(user_id: user.id, message: "#{UserSession.find.user.name} har gokjent en arbeidsdag for #{user.name} den #{self.date}", logtype_id: 4)
+        else
+          Log.create(user_id: user.id, message: "#{UserSession.find.user.name} har underkjent en arbeidsdag for #{user.name} den #{self.date}", logtype_id: 4)
+        end
+      end
+    end
+  end
 
- 
+
+ def hours_to_seconds
+   if self[:supervisor_hour]
+    self[:supervisor_hour] *= 3600
+   end
+  end
+  
+  def before_update_validation
+    if self.supervisor_hour != nil
+      if self.supervisor_hour_was == nil
+        true
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
+
   #Henter ut arbeidsdager basert på bruker id.
   #Metoden sjekker om man sender inn nil eller en bruker id,
   #og basert på dette henter han henten dager for en bruker eller
@@ -52,8 +101,13 @@ class Workday < ActiveRecord::Base
       days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id = ?",
                                   month, year, user_id).order("date desc")
     else  
-      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) =?",
+      if current_user.is_admin?
+      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ?",
                                   month, year).order("date desc")
+      else
+       days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id != ?",
+                                  month, year, current_user.id).order("date desc") 
+      end
     end
     new_days = []
      unless current_user.is_admin?

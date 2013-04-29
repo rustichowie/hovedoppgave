@@ -1,4 +1,3 @@
-<%= javascript_include_tag "datepicker/single_datepicker"%>
 <%= javascript_include_tag "datepicker/double_datepicker"%>
 <%= stylesheet_link_tag "theme/jquery-ui-1.10.2.custom.css"%>
 
@@ -18,7 +17,8 @@
     <%= text_field_tag :search, params[:search] , placeholder: "Søkefelt..."%>
     <%= text_field_tag "datepicker-from", params["datepicker-from"], placeholder: "Fra dato..."%>
     <%= text_field_tag "datepicker-to", params["datepicker-to"], placeholder: "Til dato..."%>
-    <%=select_tag "category", options_from_collection_for_select(@logtypes, "id", "name", params[:category]), {prompt: "Kategorier"}%>
+    <%=select_tag "category", options_from_collection_for_select(@logtypes, "id", "name", params[:category]),
+    		 {prompt: "Kategorier"}%>
 	<input type="submit" class="btn"/>
 	<% end %>
 
@@ -29,8 +29,8 @@
 	<th>Bruker</th>
 	<th>Beskjed</th>
 </thead>
-<% unless @log_message.empty?%>
-<tbody last="<%=@log_message.to_a.last[:date]%>">
+<% unless @logs.empty?%>
+<tbody>
 	<%= render partial: 'logs'%>
 </tbody>
 <%else%>

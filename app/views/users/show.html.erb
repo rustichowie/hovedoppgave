@@ -2,106 +2,116 @@
 <%= javascript_include_tag "excanvas.min"%>
 <%= javascript_include_tag "jquery.flot.min"%>
 <%= javascript_include_tag "jquery.flot.time"%>
+
 <div id="graphrender">
-<%= render 'shared/graph', start: @start, stop: @stop%>
+	<%= render 'shared/graph', start: @start, stop: @stop%>
 </div>
 
-<div class="">
-	
-	<div class="">
-		<div class="sidebar">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span2">
 			<div class="row-fluid">
-			<div class="well">
-	<p>
+				<div class="well span">
+					<p>
 
+					<p>
+						<b>Email:</b>
+						<%= h @user.email %>
+					</p>
 
-<p>
-<b>Email:</b>
-<%=h @user.email %>
-</p>
+					<p>
+						<b>Login count:</b>
+						<%= h @user.login_count %>
+					</p>
 
-<p>
-<b>Login count:</b>
-<%=h @user.login_count %>
-</p>
+					<p>
+						<b>Last request at:</b>
+						<%= h @user.last_request_at %>
+					</p>
 
-<p>
-<b>Last request at:</b>
-<%=h @user.last_request_at %>
-</p>
+					<p>
+						<b>Last login at:</b>
+						<%= h @user.last_login_at %>
+					</p>
 
-<p>
-<b>Last login at:</b>
-<%=h @user.last_login_at %>
-</p>
+					<p>
+						<b>Current login at:</b>
+						<%= h @user.current_login_at %>
+					</p>
 
-<p>
-<b>Current login at:</b>
-<%=h @user.current_login_at %>
-</p>
+					<p>
+						<b>Last login ip:</b>
+						<%= h @user.last_login_ip %>
+					</p>
 
-<p>
-<b>Last login ip:</b>
-<%=h @user.last_login_ip %>
-</p>
+					<p>
+						<b>Current login ip:</b>
+						<%= h @user.current_login_ip %>
+					</p>
 
-<p>
-<b>Current login ip:</b>
-<%=h @user.current_login_ip %>
-</p>
+					<p>
+						<b>Pin:</b>
+						<%= h @user.pin %>
+					</p>
 
-<p>
-<b>Pin:</b>
-<%=h @user.pin %>
-</p>
+					<p>
+						<b>Gruppe:</b>
+						<% unless @user.group.nil?%>
+						<%= @user.group.name %>
+						<% else %>
+						Ingen
+						<%end%>
+					</p>
 
-<p>
-<b>Gruppe:</b>
-<% unless @user.group.nil?%>
-<%= @user.group.name %>
-<% else %>
-Ingen
-<%end%>
-</p>
+					<p>
+						<b>Rolle:</b>
+						<% unless @user.role.nil?%>
+						<%= @user.role.name %>
+						<% else %>
+						Ingen
+						<%end%>
+					</p>
+					</p>
 
-<p>
-<b>Rolle:</b>
-<% unless @user.role.nil?%>
-<%= @user.role.name %>
-<% else %>
-Ingen
-<%end%>
-</p>
-</p>
+					<p>
+						<b>Kort:</b>
+						<% unless @card.nil?%>
+						Registrert
+						<% else %>
+						Ingen
+						<%end%>
+					</p>
+					</p>
 
-<p>
-<b>Kort:</b>
-<% unless @card.nil?%>
-Registrert
-<% else %>
-Ingen
-<%end%>
-</p>
-</p>
+				</div>
+			</div>
 
-</div>
-</div>
+			<div class="row-fluid">
+				<div class="well sidebar-nav">
+					<ul class="nav nav-list">
+						<li class="nav-header">
+							Alternativer
+						</li>
+						<li>
+							<%= link_to 'Endre', edit_user_path %>
+						</li>
+						<li>
+							<%= link_to 'Deaktiver', @user, :confirm => 'Er du sikker?', :method => :delete %>
+						</li>
+						<% unless @card.nil? %>
+						<li class="nav-header">
+							Kort
+						</li>
+						<li>
+							<%= link_to 'Slett kortet', card_path(@card), :confirm => 'Er du sikker?', :method => :delete %>
+						</li>
+						<%end%>
+					</ul>
 
-
-
-<div class="">
-	<div class="well sidebar-nav">
-		<ul class="nav nav-list">
-              <li class="nav-header">Alternativer</li>
-              <li><%= link_to 'Endre', edit_user_path %></li>
-              <li><%= link_to 'Deaktiver', @user, :confirm => 'Er du sikker?', :method => :delete %></li>
-              <% unless @card.nil? %>
-              <li class="nav-header">Kort</li>
-              <li><%= link_to 'Slett kortet', card_path(@card), :confirm => 'Er du sikker?', :method => :delete %></li>
-              <%end%>
-        </ul>
-        
+				</div>
+			</div>
 		</div>
+<<<<<<< HEAD
 	</div>
 </div>
 <div class="container">
@@ -122,10 +132,22 @@ Ingen
 	<h3>Grafisk fremstilling av start og stopp på arbeidsdager</h3>
     <div id="flotcontainer" style="width: 1000px;height:400px; text-align: center; margin:0 auto;">
     </div>
+=======
+		<div class="span7 offset1">
+			<%= render 'shared/supervisor_buttonbar'%>
+
+			<div class="my_pager" id="pager">
+				<%= render 'shared/pager', action: "index", user: @user%>
+			</div>
+			<div id="mainTable">
+				<%= render 'shared/workdays', workdays: @workdays, user: @user%>
+			</div>
+
+			<div class="row-fluid" id="grafcontainer" style="text-align: center;">
+				<h3>Grafisk fremstilling av start og stopp på arbeidsdager</h3>
+				<div class="row-fluid" id="flotcontainer" style="height:400px; text-align: left; margin:0 auto;"></div>
+			</div>
+		</div>
+	</div>
+>>>>>>> 3d0be2caa7893c4ab8882d9bdbaa40e4c5339729
 </div>
-
-
-
-
-
-

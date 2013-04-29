@@ -23,6 +23,7 @@
 #  current_login_ip    :string(255)
 #  last_login_ip       :string(255)
 #  crypted_password    :string(255)      not null
+#  active              :boolean          default(TRUE), not null
 #
 
 require 'spec_helper'

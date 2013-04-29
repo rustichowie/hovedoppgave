@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: log_types
+# Table name: logtypes
 #
 #  id          :integer          not null, primary key
 #  name        :string(255)

@@ -2,15 +2,11 @@
 #
 # Table name: logs
 #
-#  id               :integer          not null, primary key
-#  user_id          :integer
-#  card_id          :integer
-#  logtype_id       :integer
-#  workhours_id     :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  workday_id       :integer
-#  effected_user_id :integer
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  logtype_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 require 'spec_helper'

@@ -1,8 +1,8 @@
 
 
-$('div#mainTable').html('<%= escape_javascript ("#{render('shared/workdays', workdays: @workdays)}").html_safe%>');
+$('div#mainTable').html('<%= escape_javascript ("#{render('shared/workdays', workdays: @workdays, user: @user)}").html_safe%>');
 $('div#graphrender').html('<%= escape_javascript ("#{render('shared/graph', start: @start, stop: @stop)}").html_safe%>')
-$('div#pager').html('<%= escape_javascript("#{render('shared/pager', action: 'index')}").html_safe%>');
+$('div#pager').html('<%= escape_javascript("#{render('shared/pager', action: 'index', user: @user)}").html_safe%>');
 
 if($("#prev_button").hasClass("disabled"))
 {

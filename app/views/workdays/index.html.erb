@@ -4,7 +4,7 @@
 	
 	<%= render 'shared/supervisor_buttonbar'%>
 	<div class="my_pager" id="pager">
-	<%= render 'shared/pager', action: 'index'%>
+	<%= render 'shared/pager', action: 'index', user: @user%>
 	</div>
 	<%if flash[:notice]%>
 	<div class="alert alert-error">
@@ -13,11 +13,12 @@
 	</div>
 	<%end%>
 <div id="mainTable">
-			<%= render 'shared/workdays', workdays: @workdays%>
+			<%= render 'shared/workdays', workdays: @workdays, user: @user%>
 </div>
 	
-
-	<%=button_to  "Godkjenn alle timer", {:action => "approve_all", user_id: @user},
+<%unless @workdays.empty?%>
+	<%=button_to  "Godkjenn alle timer", {:action => "approve_all", id: @workday, user_id: @user},
 					{class: "btn btn-small btn-success",
-             		:confirm => "Are you sure?"}%>
+             		:confirm => "Are you sure?", method: :put}%>
+             		<%end%>
 </div>

@@ -3,7 +3,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap";
- 
+@import "bootstrap-responsive";
 #content
 {
   text-align: center;
@@ -30,6 +30,7 @@
 body{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding-top: 60px;
+  position: relative;
   //background: #FFF5E0;
 }
 
@@ -37,11 +38,6 @@ body{
 
 .header 
 {
-  top: 0;
-  position:absolute;
-  right: 0;
-  left: 0;
-  z-index: 1030;
   a
   {
     text-decoration: none;
@@ -68,11 +64,7 @@ body{
   margin-right: auto;
   margin-left: auto;
 }
-.sidebar {
-  width: 220px;
-  float: left;
-  margin-left: 200px;
-}
+
 
 .head {
   list-style: none;
@@ -125,7 +117,7 @@ footer {
   position: absolute;
   height: 200px;
   width: 400px;
-  margin: -100px 0 0 -200px;
+  margin: 100px 0 0 -200px;
   top: 40%;
   left: 50%;
 }
@@ -188,18 +180,95 @@ form {
 
 
 #current_month {
-  margin-left: 130px;
+
   text-align: center;
+  float: left;
 }
 
 div#next{
   text-align: right;
   float: right;
+
 }
 div#prev{
   float: left;
-  margin: 0px;
 }
 #mainTable {
   margin-top: 100px;
 }
+
+
+/* Responsive
+-------------------------------------------------- */
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px) {
+  
+}
+
+/* Desktop
+------------------------- */
+@media (max-width: 980px) {
+  /* Unfloat brand */
+  body > .navbar-fixed-top .brand {
+    float: left;
+    margin-left: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 979px) {
+  /* Remove any padding from the body */
+  body {
+    padding-top: 0;
+  }
+  
+  
+}
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px) {
+  /* Remove any padding from the body */
+  body {
+    padding-top: 0;
+  }
+  
+  .my_pager {
+    .row-fluid {
+    .span3{
+      width: 23.40426%;
+    }
+    .span4{
+      width: 31.49171%;
+    }
+    }
+  }
+}
+
+/* Landscape phones
+------------------------- */
+@media (max-width: 480px) {
+  /* Remove padding above jumbotron */
+  body {
+    padding-top: 0;
+  }
+
+  /* Change up some type stuff */
+  h2 small {
+    display: block;
+  }
+
+  /* Do our best to make tables work in narrow viewports */
+  table code {
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+}
+
+

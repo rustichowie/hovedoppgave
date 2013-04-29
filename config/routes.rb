@@ -8,8 +8,11 @@ DatabaseApp::Application.routes.draw do
   resources :logs, only: [:index]
   resources :users, :user_sessions, :groups
   resources :cards, only: [:index, :destroy]
-
-  match "/workdays", to: 'workdays#approve_all', via: :post
+  resources :workdays do
+    put 'approve_all', on: :collection
+  end
+  
+#  match "/workdays", to: 'workdays#approve_all', via: :post
   match "/manual", to: 'register#manual_register'
   match "/add", to: 'register#add_card'
   

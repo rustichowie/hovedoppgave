@@ -1,7 +1,7 @@
 $(function(){
 	$("#date").datepicker({
-		defaultDate: "+1w",
 		changeMonth: true,
-		dateFormat: "yy-mm-dd"
+		dateFormat: "yy-mm-dd",
+		maxDate: new Date
 	});
 });

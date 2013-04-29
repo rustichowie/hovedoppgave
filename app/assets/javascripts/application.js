@@ -15,4 +15,5 @@
 //= require bootstrap-modal.js
 //= require bootstrap-transition.js
 //= require bootstrap-alert.js
+//= require bootstrap-collapse.js
 //= require jquery-ui.js

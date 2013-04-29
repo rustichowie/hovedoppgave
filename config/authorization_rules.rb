@@ -27,9 +27,10 @@ end
 
 privileges do
     privilege :administrate, :includes => [:read, :manage, :delete]
-    privilege :manage, :includes => [:create, :update]
+    privilege :manage, :includes => [:create, :update, :approve_all]
     privilege :read, :includes => [:index, :show]
     privilege :create, :includes => :new
     privilege :update, :includes => :edit
     privilege :delete, :includes => :destroy
+    privilege :approve_all, :includes => :approve_all
   end

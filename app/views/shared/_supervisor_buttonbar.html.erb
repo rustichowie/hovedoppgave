@@ -1,11 +1,25 @@
+<script>
+	$("#supervisor-collapse").collapse('toogle');
+</script>
+
 <%provide(:custom_css, 'supervisor')%>
 <%= javascript_include_tag "update"%>
 <%= javascript_include_tag "list"%>
-<div id="buttonbar">
-<div class="navbar">	
+<div id="buttonbar" class="navbar">	
 	<div class="navbar-inner">
-	<ul class="nav">
+		<div class="container">
+		<a class="btn btn-navbar" data-toggle="collapse" data-target="#supervisor-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#">Menyvalg</a>
+      
+      <div id="supervisor-collapse" class="nav-collapse navbar-responsive-collapse collapse">
+	<ul class="nav pull-right">
+		<li class="divider-vertical"></li>
 		<li clas="active">
+			
 			<%= link_to "Arbeidsdager", workdays_path%>
 		</li>
 		<li class="divider-vertical"></li>
@@ -14,7 +28,7 @@
 		</li>
 		<li class="divider-vertical"></li>
 		<li>
-			<%= link_to "Grupper", groups_path %>
+			<%= link_to "Avdelinger", groups_path %>
 		</li>
 		<li class="divider-vertical"></li>
 		<li>
@@ -24,8 +38,8 @@
 		<li>
 			<%= link_to "Kort", cards_path %>
 		</li>
-		<li class="divider-vertical"></li>
 	</ul>
 	</div>
-</div>
+	</div>
+	</div>
 </div>

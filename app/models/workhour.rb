@@ -1,3 +1,4 @@
+#encoding: utf-8
 # == Schema Information
 #
 # Table name: workhours
@@ -16,7 +17,20 @@ class Workhour < ActiveRecord::Base
   attr_accessible :count, :start, :stop, :user_id, :workday_id
   belongs_to :user
   belongs_to :workday
-  has_many :logs
+  after_create do
+    create_log(self.user)
+  end
+  after_update do
+    update_log(self.user)
+  end
+  
+  def create_log(user)
+    Log.create(user_id: user.id, message: "#{user.name} har startet timeregistrering", logtype_id: 1)
+  end
+  
+  def update_log(user)
+        Log.create(user_id: user.id, message: "#{user.name} har stoppet timeregistrering", logtype_id: 1)
+  end
   
   #Sjekker om en bruker har noen jobbtimer
   def has_workhours(user_id, n)

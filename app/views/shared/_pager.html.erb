@@ -1,30 +1,32 @@
 <%= javascript_include_tag "pager"%>
 
 
-
+<div class="row-fluid">
 	<div class="span3" id="prev" >
 		<%if @prev_class == "disabled"%>
-		<%=button_to  t("date.month_names")[@date.advance(months: -1).month].titleize, { :action => action, controller: "workdays",  date: @date.advance(months: -1)},
+		<%=button_to  t("date.month_names")[@date.advance(months: -1).month].titleize, { :action => action, controller: "workdays", user_id: user , date: @date.advance(months: -1)},
 					{class: " btn-small btn btn-info #{@prev_class} pager_buttons" , disabled: "",
 					 id: "prev_button", form_class: "prev_form",method: :get, remote: true}%>
 		<%else%>
-		<%=button_to  t("date.month_names")[@date.advance(months: -1).month].titleize, { :action => action, controller: "workdays",  date: @date.advance(months: -1)},
+		<%=button_to  t("date.month_names")[@date.advance(months: -1).month].titleize, { :action => action, controller: "workdays", user_id: user , date: @date.advance(months: -1)},
 					{class: " btn-small btn btn-info #{@prev_class} pager_buttons",
 					 id: "prev_button", form_class: "prev_form",method: :get, remote: true}%>
 		<%end%>			 
 	</div>
-	<div class="span3" id="current_month">
-		<%= button_to "Gjeldende måned", {action: action, controller: "workdays", date: Date.today}, {class: "btn btn-info", method: :get, remote: true}%>
+	<div class="span4" id="current_month">
+		<%= button_to "Gjeldende måned", {action: action, controller: "workdays",user_id: user , date: Date.today}, {class: "btn btn-info", method: :get, remote: true}%>
 
 	</div>
-	<div class="span3" id="next">
+
+	<div class="span3 offset2" id="next">
 		<%if @next_class == "disabled"%>
-		<%=button_to  t("date.month_names")[@date.advance(months: 1).month].titleize, { :action => action, controller: "workdays", date: @date.advance(months: 1)},
+		<%=button_to  t("date.month_names")[@date.advance(months: 1).month].titleize, { :action => action, controller: "workdays",user_id: user , date: @date.advance(months: 1)},
 					{class: " btn-small btn btn-info #{@next_class} pager_buttons" ,id: "next_button",disabled: "", 
 					form_class: "next_form",method: :get, remote: true}%>
 		<%else%>
-		<%=button_to  t("date.month_names")[@date.advance(months: 1).month].titleize, { :action => action, controller: "workdays", date: @date.advance(months: 1)},
+		<%=button_to  t("date.month_names")[@date.advance(months: 1).month].titleize, { :action => action, controller: "workdays",user_id: user, date: @date.advance(months: 1)},
 					{class: " btn-small btn btn-info #{@next_class} pager_buttons" ,id: "next_button", 
 					form_class: "next_form",method: :get, remote: true}%>
 		<%end%>			
 	</div>
+</div>

@@ -4,7 +4,7 @@
 $(document).ready(function() {	
 
 	//når en av knappene trykkes
-	$(".approve_buttons").click(function(){
+	$("#parent_table").parent().delegate(".approve_buttons","click" ,function(){
 		id = this.id;
 		
 		$(".approve_form").submit(function(e){
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 	});
 	//Åpner vinduet til å kunne delvis godkjenne ting.
-	$(".open_modal").click(function(){
+	$("#parent_table").parent().delegate(".open_modal","click",function(){
 		id = $(this).data('id');
 			$("#myModal"+id).modal('show');
 	});
