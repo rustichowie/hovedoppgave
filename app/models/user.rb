@@ -29,15 +29,9 @@
 
 class User < ActiveRecord::Base
 
-   acts_as_authentic #do |c|
-    #c.validate_email_field = false
-    #c.validate_login_field = true
-    #make sure that one workshop wont be able to have two users of the same name
-    #c.validations_scope = :workshop_id
-    #c.logged_in_timeout=30.minutes;
-    #c.maintain_sessions=false
-    #c.ignore_blank_passwords=false
-  #end
+   acts_as_authentic do |c| 
+     c.login_field = :phone_number 
+   end
 
   
   attr_accessible :name, :email, :group_id, :role_id, :employee_id, :password, :password_confirmation, :persistence_token, :phone_number
@@ -91,6 +85,7 @@ class User < ActiveRecord::Base
     end
     return pin
   end
+
 
   
 end

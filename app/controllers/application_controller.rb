@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery
   
+
+  #filter_parameter_logging :password
   helper :all
   
   helper_method :set_current_user, :current_user_session, :current_user 
