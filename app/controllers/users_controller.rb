@@ -30,8 +30,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user)
-    @workdays_graph = Workday.new.get_workdays_by_month_user(@user, @date)
-    
 
     @card = Card.where(user_id: params[:id]).first
     

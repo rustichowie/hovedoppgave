@@ -131,40 +131,31 @@ class Workday < ActiveRecord::Base
   
   #Henter workdays basert på måned og bruker id.
   def get_workdays_by_month_user(user_id, date)
-      #henter ut måned og år fra datoen
-      month = date.month
-      year = date.year
-      #hvis man sender inn en bruker id sjekker han for dette, ellers ikke.
-     if user_id
-      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id = ? AND approved = ?",
+    #henter ut måned og år fra datoen
+    month = date.month
+    year = date.year
+    days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) = ? AND user_id = ? AND approved = ? AND supervisor_hour is null",
                                   month, year, user_id, 1).order("date desc")
-    else  
-      days = Workday.includes(:workhours).where("MONTH(date) = ? AND YEAR(date) =?",month, year).order("date desc")
-    end
-    new_days = []
-     unless days.empty?
-      days.each do |day|
-         new_days.push(day)
-      end
-      days = new_days
-    end
 
     start = Array.new
     stop = Array.new
     days.each do |workday|
-      forlat = Array.new
+      
       workhours = Workhour.where(workday_id: workday.id)
       unless workhours.empty?
         latest = 0
         time = 0
         workhours.each do |workhour|
           unless workhour.stop == nil
+
           if workhour.stop.to_time.to_i > latest
             latest = workhour.stop.to_time.to_i
             time = workhour.stop
+
           end
           end
         end
+        forlat = Array.new
         forlat.push(workday.date.to_time.to_i*1000)
         forlat.push(time.strftime("%H%M").to_i)
         stop.push(forlat.to_json.html_safe)
