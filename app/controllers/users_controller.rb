@@ -70,8 +70,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.pin = User.new.generate_pin
-    #@groups = Group.all
-    #@roles = Role.all
+    @groups = Group.all
+    @roles = Role.all
     respond_to do |format|
       if @user.save
         format.html { redirect_to(@user, :notice => 'User was successfully created.') }
@@ -86,6 +86,8 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
+    @groups = Group.all
+    @roles = Role.all
     @user = User.find(params[:id])
     respond_to do |format|
       if @user.update_attributes(params[:user])

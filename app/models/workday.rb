@@ -61,18 +61,6 @@ class Workday < ActiveRecord::Base
       end
     end
   end
-  
-  def before_update_validation
-    if self.supervisor_hour != nil
-      if self.supervisor_hour_was == nil
-        true
-      else
-        false
-      end
-    else
-      false
-    end
-  end
 
 
   #Henter ut arbeidsdager basert på bruker id.
@@ -170,9 +158,11 @@ class Workday < ActiveRecord::Base
         latest = 0
         time = 0
         workhours.each do |workhour|
+          unless workhour.stop == nil
           if workhour.stop.to_time.to_i > latest
             latest = workhour.stop.to_time.to_i
             time = workhour.stop
+          end
           end
         end
         forlat.push(workday.date.to_time.to_i*1000)
@@ -230,23 +220,6 @@ class Workday < ActiveRecord::Base
   end
 end
 
-class Time
-  def round_up(seconds = 60)
-    Time.at((self.to_f / seconds).round * seconds)
-  end
-
-  def floor(seconds = 60)
-    Time.at((self.to_f / seconds).floor * seconds)
-  end
-
-  def round_to_closest_hour
-    if self.min > 30
-      self.round(1.hour)
-    else
-      self.floor(1.hour)
-    end
-  end
-end
 
 
 

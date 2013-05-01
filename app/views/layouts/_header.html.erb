@@ -19,6 +19,10 @@
             <ul class="head pull-right nav">
             	<li><%= link_to @current_user.name, @current_user, id: "logo_extra" %></li>
             </ul>
+            <%else%>
+            <ul class="head pull-right nav">
+            	<li><%= link_to "Logg inn", login_path, id: "logo_extra" %></li>
+            </ul>
             <%end%>
         </div>
       </div>

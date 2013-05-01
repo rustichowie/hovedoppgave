@@ -43,9 +43,9 @@ class User < ActiveRecord::Base
   has_many :workdays
   has_many :logs
   accepts_nested_attributes_for :cards
-  #validates :name, :phone_number, :presence => true
-  #validates :phone_number, :uniqueness => {:message => "nummeret er allerede tatt"}
-  #validates :phone_number, :numericality => { :only_integer => true, :message => "må bestå av bare tall"}
+  validates :name, :phone_number, :presence => true
+  validates :phone_number, :uniqueness => {:message => "nummeret er allerede tatt"}
+  validates :phone_number, :numericality => { :only_integer => true, :message => "må bestå av bare tall"}
   after_create do
     create_log
   end
