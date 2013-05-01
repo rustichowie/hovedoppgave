@@ -30,8 +30,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     @workdays = Workday.new.get_workdays_by_month(@user, @date, current_user)
-    @workdays_graph = Workday.new.get_workdays_by_month_user(@user, @date)
-    
 
     @card = Card.where(user_id: params[:id]).first
     
@@ -70,8 +68,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.pin = User.new.generate_pin
-    #@groups = Group.all
-    #@roles = Role.all
+    @groups = Group.all
+    @roles = Role.all
     respond_to do |format|
       if @user.save
         format.html { redirect_to(@user, :notice => 'User was successfully created.') }
