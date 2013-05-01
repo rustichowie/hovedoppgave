@@ -13,7 +13,7 @@
 					 id: "prev_button", form_class: "prev_form",method: :get, remote: true}%>
 		<%end%>			 
 	</div>
-	<div class="span4" id="current_month">
+	<div class="span3 offset1" id="current_month">
 		<%= button_to "Gjeldende måned", {action: action, controller: "workdays",user_id: user , date: Date.today}, {class: "btn btn-info", method: :get, remote: true}%>
 
 	</div>

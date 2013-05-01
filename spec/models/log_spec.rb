@@ -7,6 +7,7 @@
 #  logtype_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  message    :string(100)      not null
 #
 
 require 'spec_helper'

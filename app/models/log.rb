@@ -7,6 +7,18 @@
 #  logtype_id :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  message    :string(100)      not null
+#
+
+# == Schema Information
+#
+# Table name: logs
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  logtype_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 #Se workdays_controller for eksempel på lagring av log. og se metoden humanize for å se
 #om du skal legge actions i en egen tabell.

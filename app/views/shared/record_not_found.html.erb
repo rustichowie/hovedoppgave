@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%=full_title("Registrering")%></title>
+  <%= javascript_include_tag "application" , :media => "all"%>
+  <%= stylesheet_link_tag "base"%>
+  
+  <%= csrf_meta_tags %>
+<script>
+	function last_page(){
+		window.history.go(-2);
+	}
+	
+</script>
+</head>
+<body>
+<%= render 'layouts/header'%>
+<div class="container">
+	<div class="hero-unit">
+		<h1>Siden du lette etter finnes desverre ikke!</h1>
+		<h2><a href="#" onclick="last_page();">Trykk her</a> for å gå tilbake til forige side</h2>
+	</div>
+</div>
+
+</body>
+</html>

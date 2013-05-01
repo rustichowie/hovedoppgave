@@ -19,7 +19,7 @@
     <%= text_field_tag "datepicker-to", params["datepicker-to"], placeholder: "Til dato..."%>
     <%=select_tag "category", options_from_collection_for_select(@logtypes, "id", "name", params[:category]),
     		 {prompt: "Kategorier"}%>
-	<input type="submit" class="btn"/>
+	<%= submit_tag "Søk", class: "btn"%>
 	<% end %>
 
 <div id="logs">

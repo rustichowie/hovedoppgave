@@ -14,10 +14,12 @@ class CardsController < ApplicationController
   #GET /cards
   #GET /cards.xml
   def index
+    @cards = Card.all
     @user = Card.new.lookup(params[:id])
     respond_to do |format|
       format.html # index.html.haml
       format.xml { render :xml => @cards }
+      format.json {render json: @cards}
     end
   end
 

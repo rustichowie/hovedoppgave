@@ -1,10 +1,8 @@
 <%= javascript_include_tag "registration" %>
-<!DOCTYPE html>
-<html>
-
-<body>
 <div id="content" class="container">
-
+	<% if current_user != nil && current_user.role_id != 1%>
+	<%= render 'shared/supervisor_buttonbar'%>
+	<%end%>
     <h3>Dra nøkkelkortet for å registrere deg</h3>
 
 	
@@ -32,6 +30,3 @@
 		<% end %>
 	<%end%>
 </div>
-
-</body>
-</html>

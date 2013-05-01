@@ -25,6 +25,7 @@
 #  last_login_ip       :string(255)
 #  crypted_password    :string(255)      not null
 #  active              :boolean          default(TRUE), not null
+#  phone_number        :string(20)       not null
 #
 
 class User < ActiveRecord::Base
@@ -48,9 +49,9 @@ class User < ActiveRecord::Base
   has_many :workdays
   has_many :logs
   accepts_nested_attributes_for :cards
-  validates :name, :phone_number, :presence => true
-  validates :phone_number, :uniqueness => {:message => "nummeret er allerede tatt"}
-  validates :phone_number, :numericality => { :only_integer => true, :message => "må bestå av bare tall"}
+  #validates :name, :phone_number, :presence => true
+  #validates :phone_number, :uniqueness => {:message => "nummeret er allerede tatt"}
+  #validates :phone_number, :numericality => { :only_integer => true, :message => "må bestå av bare tall"}
   after_create do
     create_log
   end
@@ -76,21 +77,20 @@ class User < ActiveRecord::Base
   def role_symbols
     return ["#{self.role.name.underscore}".to_sym]
   end
+  
   # Genererer en unik pin til brukeren
   def generate_pin
-    unique = true
-    while unique
-      r = Random.new
+    r = Random.new
+    present = true
+    while present
       pin = r.rand(1000...9999)
       users = User.all
-      users.each do |user|
-        unless user.pin == pin
-          unique = false
-        end
+      user_pin = users.map {|user| user.pin}
+      unless user_pin.include? pin
+        present = false
+        return pin
       end
     end
-    return pin
   end
 
-  
 end

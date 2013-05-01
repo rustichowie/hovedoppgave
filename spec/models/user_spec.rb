@@ -24,6 +24,7 @@
 #  last_login_ip       :string(255)
 #  crypted_password    :string(255)      not null
 #  active              :boolean          default(TRUE), not null
+#  phone_number        :string(20)       not null
 #
 
 require 'spec_helper'

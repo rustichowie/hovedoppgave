@@ -1,25 +1,25 @@
 <div class="container-fluid">
-<div id="login">
-<h1>Logg inn</h1>
-<%= form_for @user_session, :as => :user_session, html: {class: "form-horizontal"}, :url => { :action => "create" } do |f| %>
-   <%= render "shared/error_messages", :target => @user_session %>
-   <div class="control-group">
-   	
-  <%= f.label :email, class: "control-label" %>
-  <div class="controls">
-  <%= f.text_field :email %>
-  </div>
-  </div>
-  <div class="control-group">
-  <%= f.label "Passord", class: "control-label" %>
-  <div class="controls">
-  <%= f.password_field :password %>
-  </div>
-  </div>
-  <div class="controls">
-  <%= f.submit "Login" %>
-  </div>
-  
-<% end %>
-</div>
+	<div id="login">
+		<legend class="login_title">Logg inn</legend>
+		<%= form_for @user_session, :as => :user_session, :html => {class: "form-horizontal login_form"}, :url => { :action => "create" } do |f| %>
+		<%= render "shared/error_messages", :target => @user_session %>
+
+			<div class="control-group">
+			<%= f.label :email, class: "control-label" %>
+			<div class="controls">
+				<%= f.text_field :email %>
+			</div>
+			</div>
+			<div class="control-group">
+			<%= f.label "Passord", class: "control-label" %>
+			<div class="controls">
+				<%= f.password_field :password %>
+			</div>
+			</div>
+			<div class="control-group">
+			<%= f.submit "Login" %>
+			</div>
+
+		<% end %>
+	</div>
 </div>

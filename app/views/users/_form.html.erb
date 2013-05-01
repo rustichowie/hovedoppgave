@@ -1,46 +1,52 @@
-
-
 <%= render "shared/error_messages", :target => @user %>
 
 <div class="control-group">
-<%= form.label "Navn", class: "control-label" %>
-<div class="controls">
-<%= form.text_field :name %>
-</div>
-</div>
-<div class="control-group">
-<%= form.label "Telefon nr.", class: "control-label" %>
-<div class="controls">
-<%= form.text_field :phone_number %>
-</div>
+	<%= form.label "Navn", class: "control-label" %>
+	<div class="controls">
+		<%= form.text_field :name %>
+	</div>
 </div>
 <div class="control-group">
-<%= form.label "Email", class: "control-label" %>
-<div class="controls">
-<%= form.text_field :email %>
-</div>
-</div>
-<div class="control-group">
-<%= form.label "Gruppe", class: "control-label" %>
-<div class="controls">
-<%= form.select(:group_id, @groups.collect{|x| [x.name, x.id]})%>
-</div>
+	<%= form.label "Telefon nr.", class: "control-label" %>
+	<div class="controls">
+		<%= form.text_field :phone_number %>
+	</div>
 </div>
 <div class="control-group">
-<%= form.label "Rolle", class: "control-label" %>
-<div class="controls">
-<%= form.select(:role_id, @roles.collect{|x| [x.name, x.id]})%>
-</div>
-</div>
-<div class="control-group">
-<%= form.label "Passord", class: "control-label"%> <%#form.object.new_record? ? nil : "Change password" %>
-<div class="controls">
-<%= form.password_field :password %>
-</div>
+	<%= form.label "Email", class: "control-label" %>
+	<div class="controls">
+		<%= form.text_field :email %>
+	</div>
 </div>
 <div class="control-group">
-<%= form.label "Bekreft passord", class: "control-label" %>
-<div class="controls">
-<%= form.password_field :password_confirmation %>
+	<%= form.label "Gruppe", class: "control-label" %>
+	<div class="controls">
+		<%unless current_user.role_id == 3 %>
+		<%= form.select(:group_id, @groups.collect{|x| [x.name, x.id]},{}, {disabled: "disabled"})%>
+		<%else%>
+		<%= form.select(:group_id, @groups.collect{|x| [x.name, x.id]})%>
+		<%end%>
+	</div>
 </div>
+<div class="control-group">
+	<%= form.label "Rolle", class: "control-label" %>
+	<div class="controls">
+		<%unless current_user.role_id == 3 %>
+		<%= form.select(:role_id, @roles.collect{|x| [x.name, x.id]},{}, {disabled: "disabled"})%>
+		<%else%>
+		<%= form.select(:role_id, @roles.collect{|x| [x.name, x.id]})%>
+		<%end%>
+	</div>
+</div>
+<div class="control-group">
+	<%= form.label "Passord", class: "control-label"%> <%#form.object.new_record? ? nil : "Change password" %>
+	<div class="controls">
+		<%= form.password_field :password %>
+	</div>
+</div>
+<div class="control-group">
+	<%= form.label "Bekreft passord", class: "control-label" %>
+	<div class="controls">
+		<%= form.password_field :password_confirmation %>
+	</div>
 </div>

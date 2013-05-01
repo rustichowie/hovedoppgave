@@ -3,6 +3,7 @@ DatabaseApp::Application.routes.draw do
   resources :users do
     resources :workdays
     resources :cards
+    
   end
   resources :workdays, only: [:index, :show]
   resources :logs, only: [:index]
@@ -11,21 +12,20 @@ DatabaseApp::Application.routes.draw do
   resources :workdays do
     put 'approve_all', on: :collection
   end
-  
+  resources :pin_codes, only: [:new, :create]
+
 #  match "/workdays", to: 'workdays#approve_all', via: :post
   match "/manual", to: 'register#manual_register'
   match "/add", to: 'register#add_card'
   
-
-  
-  match 'signup' => 'users#new', :as => :signup
+  match 'signup' => 'users#new', as: :signup
   
   
   root to: 'register#register'
   
   
-  match 'login' => 'user_sessions#new', :as => :login
-  match 'logout' => 'user_sessions#destroy', :as => :logout
+  match 'login' => 'user_sessions#new', as: :login
+  match 'logout' => 'user_sessions#destroy', as: :logout
 
 
   

@@ -1,0 +1,50 @@
+
+<div class="container">
+	<%= render 'shared/supervisor_buttonbar'%>
+	<div id="users_without_phone">
+		<table class="table table-border">
+			<thead>
+				<th>Navn</th>
+				<th>Skriv inn nummer</th>
+			</thead>
+			<tbody>
+				<%@users_without_phone.each do |user| unless @users_without_phone.empty?%>
+				<tr><td><%=user.name%></td>
+				<%= form_for user do |f|%>
+				<td><%=f.text_field :phone_number, placeholder: "Telefonnummer"%></td>
+				<td><%=f.submit "Lagre"%></td>
+				</tr>
+				<%end%>
+				<%end%>
+				<%end%>
+			</tbody>
+		</table>
+	
+	</div>
+	<div id="users_with_phone">
+		<table class="table table-border">
+			<thead>
+				<th>Navn</th>
+				<th>Nummer</th>
+			</thead>
+			<tbody>
+				<%@users.each do |user| unless @users.empty?%>
+				<tr><td><%=user.name%></td>
+				<td><%=user.phone_number%></td>
+				<td><%=button_to "Send pinkode", {action: :create, id: user},
+					{class: "btn btn-small btn-success",
+             		:confirm => "Are you sure?", method: :post}%></td>
+             	</tr>
+				<%end%>
+				<%end%>
+			</tbody>
+		</table>
+	
+	</div>
+	<%unless @users.empty?%>
+	<%=button_to  "Send pinkoder til alle ansatte", {action: :create, id: @users},
+					{class: "btn btn-small btn-success",
+             		:confirm => "Are you sure?", method: :post}%>
+    <%end%>
+
+</div>

@@ -12,14 +12,14 @@ casper.start('https://www.talkmore.no/',function(){
   this.click('form#loginform input[type="submit"]');
 });
 casper.then(function(){
-	this.capture('a.png');
+
   this.test.assertTextExists('Send SMS', 'link found');
   this.clickLabel('Send SMS', 'a');
 });
   
 
 casper.then(function(){
-	this.capture('b.png');
+
   this.page.switchToChildFrame(0);
   this.fill('form#ContactListForm', {
     'contact_list__phone_number_manual': casper.cli.get('num')
@@ -29,11 +29,5 @@ casper.then(function(){
   this.page.switchToParentFrame();
   this.click('div.button_green a');
 });
-  
-
-casper.then(function(){
-	this.capture('c.png');
-});
-  
 
 casper.run();

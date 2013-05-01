@@ -4,7 +4,7 @@
 
 <body>
 
-<div id="content">
+<div id="content" class="container">
 	<div id="login">
 	<h3>Manuell registrering</h3>
 	<%= form_for @user_session, :as => :user_session, html: {class: "form-horizontal"}, :url => { :action => "register", :method => "post" } do |f| %>

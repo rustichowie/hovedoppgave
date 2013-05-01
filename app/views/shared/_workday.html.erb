@@ -1,11 +1,12 @@
+<%if Date.today.beginning_of_day > workday.date.beginning_of_day %>
 <tr class="parent" id=row<%= id%>>
 				<td class="row_button" id=<%= id%>><%= workday.user.name %></td>
 				<td class="row_button" id=<%= id%>><%= workday.date %></td>
-				<% if workday.supervisor_hour == nil%>
-				<td class="row_button" id=<%= id%>><%= sum%></td>
-				<% else%>
-				<td class="row_button" id=<%= id%>><%= workday.supervisor_hour%> </td>
-				<% end%>
+				<td class="row_button" id=<%= id%>><%= sum%>
+					<%if sum.to_f >= 9%>
+					<a href="#" data-toggle="tooltip" id="tool" class="label label-warning" rel="tooltip" title="" data-original-title="Unormalt mange timer.">!</a>
+					<%end%></td>
+
 				<%= render 'shared/workdays_approve_buttons',user: user, workday: workday, id: id, sum: sum%>
 			</tr>
 			<tr class="child_row" id="child<%= id%>">
@@ -24,10 +25,11 @@
 						<tr class="info">
 							<td><%= hour[:start].strftime("%H:%M:%S")%></td>
 							<td><%= hour[:stop].strftime("%H:%M:%S")%></td>
-							<td><%= hour[:count]%></td>
+							<td><%= workday.humanize_workhours(hour[:count])%></td>
 						</tr>
 						<%end%>
 					</tbody>
 				</table></td>
 
 			</tr>
+			<%end%>

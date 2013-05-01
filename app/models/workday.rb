@@ -12,16 +12,28 @@
 #  approved        :boolean
 #  date            :date             not null
 #
+
+# == Schema Information
+#
+# Table name: workdays
+#
+#  id              :integer          not null, primary key
+#  user_id         :integer          not null
+#  comment         :string(255)
+#  supervisor_hour :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  approved        :boolean
+#  date            :date             not null
+#
 #TODO: Sjekke at det logges overalt. ordne på 
 class Workday < ActiveRecord::Base
   attr_accessible :approved, :comment, :date, :supervisor_hour, :user_id
   has_many :workhours
   belongs_to :user
-  before_create :hours_to_seconds
-  before_update :hours_to_seconds, :if => :before_update_validation
   validates :date, :uniqueness => {:scope => :user_id}
   validates :date, :presence => true
-  validates :supervisor_hour,:numericality => {:less_than => 24*3600}, :allow_nil => true
+  validates :supervisor_hour,:numericality => {:less_than => 24}, :allow_nil => true
   
   after_create do
     create_log(self.user)
@@ -48,13 +60,6 @@ class Workday < ActiveRecord::Base
         end
       end
     end
-  end
-
-
- def hours_to_seconds
-   if self[:supervisor_hour]
-    self[:supervisor_hour] *= 3600
-   end
   end
   
   def before_update_validation
@@ -125,7 +130,7 @@ class Workday < ActiveRecord::Base
     days.each do |day|
       #bruker timene supervisor har lagt inn som default
       if day.supervisor_hour
-        sum = supervisor_hour
+        sum = humanize_workhours(day.supervisor_hour*1.hour)
       else
         sum = get_workhour_sum(day.date, day.user.id)
       end
@@ -188,11 +193,30 @@ class Workday < ActiveRecord::Base
   
   #Henter summen av arbeidstimer basert på bruker og dato
   def get_workhour_sum(date, user_id)
-    return Workhour.sum(:count, conditions: ["DATE(start) = ? AND user_id = ?", date, user_id])
+    sum = Workhour.sum(:count, conditions: ["DATE(start) = ? AND user_id = ?", date, user_id])
+    return humanize_workhours(sum)  
+  end
+
+  def humanize_workhours(sum)
+    final_sum = ((sum/3600.0)*4).round / 4.0
+    hours = final_sum.round
+    minutes = ((final_sum-hours)*1.minute).round
+    if hours == 0
+      if minutes != 0
+        return "#{minutes} minutter."       
+      else
+        return "For liten tidsperiode (mindre enn 15 minutt)"   
+      end
+    else
+      if minutes != 0
+        return "#{hours} timer og #{minutes} minutter."
+      else
+        return "#{hours} timer."
+      end
+    end
+    
   end
   
-  
-
   # Metode som sjekker om det eksisterer en arbeidsdag for brukeren i dag
   # hvis det eksisterer, returneres id, hvis ikke returneres false
   def check_for_workday_now(user_id)
@@ -206,6 +230,23 @@ class Workday < ActiveRecord::Base
   end
 end
 
+class Time
+  def round_up(seconds = 60)
+    Time.at((self.to_f / seconds).round * seconds)
+  end
+
+  def floor(seconds = 60)
+    Time.at((self.to_f / seconds).floor * seconds)
+  end
+
+  def round_to_closest_hour
+    if self.min > 30
+      self.round(1.hour)
+    else
+      self.floor(1.hour)
+    end
+  end
+end
 
 
 

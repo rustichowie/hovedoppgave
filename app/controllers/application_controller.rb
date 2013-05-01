@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
   helper :all
   
   helper_method :set_current_user, :current_user_session, :current_user 
-  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   
-  def not_found
-    redirect_to "public/404.html", status: 404, layout: false
+  def render_404
+    render template: '/shared/record_not_found', layout: false, status: :not_found
   end
   before_filter { |c| Authorization.current_user = c.current_user }
   before_filter :set_language

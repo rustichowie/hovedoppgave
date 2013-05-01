@@ -1,4 +1,3 @@
-<%= javascript_include_tag "jquery.min"%>
 <%= javascript_include_tag "excanvas.min"%>
 <%= javascript_include_tag "jquery.flot.min"%>
 <%= javascript_include_tag "jquery.flot.time"%>
@@ -22,6 +21,7 @@
 						<b>Telefon:</b>
 						<%= h @user.phone_number %>
 					</p>
+					<%if current_user.role_id == 3%>
 					<p>
 						<b>Login count:</b>
 						<%= h @user.login_count %>
@@ -56,7 +56,7 @@
 						<b>Pin:</b>
 						<%= h @user.pin %>
 					</p>
-
+					<%end%>
 					<p>
 						<b>Gruppe:</b>
 						<% unless @user.group.nil?%>
@@ -98,6 +98,10 @@
 						<li>
 							<%= link_to 'Endre', edit_user_path %>
 						</li>
+						<%if current_user.role_id == 3%>
+						<li>
+							<%= link_to 'Ny arbeidsdag', new_user_workday_path(@user)%>
+						</li>
 						<li>
 							<%= link_to 'Deaktiver', @user, :confirm => 'Er du sikker?', :method => :delete %>
 						</li>
@@ -109,15 +113,17 @@
 							<%= link_to 'Slett kortet', card_path(@card), :confirm => 'Er du sikker?', :method => :delete %>
 						</li>
 						<%end%>
+						<%end%>
 					</ul>
 
 				</div>
 			</div>
 		</div>
-		<div class="span7 offset1">
+		<div id="margin_left" class="span7">
+			<%unless current_user.role_id == 1%>
 			<%= render 'shared/supervisor_buttonbar'%>
-
-			<div class="my_pager" id="pager">
+			<%end%>
+			<div class="my_pager without_buttonbar" id="pager">
 				<%= render 'shared/pager', action: "index", user: @user%>
 			</div>
 			<div id="mainTable">

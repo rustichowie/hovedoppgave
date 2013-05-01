@@ -10,6 +10,7 @@
 			<td colspan="3" style="text-align: center"><span class="last_td label label-important">Timene er blitt underkjent</span></td>
 		<%end%>
 	<%else%>
+	
 		<%= render 'workday_modal', workday: workday, id: id%>
 	<td id=last_td<%= id%>> <%= button_to  "Godkjenn timer", {controller: "workdays", action: "update", id: workday.id, user_id: workday.user.id, approved: true},
 		{class: "approve_buttons btn btn-small btn-success button_row#{id}" , id: "#{id}", form_class: "approve_form", method: "put"}%>
@@ -19,6 +20,7 @@
 		<%= button_to  "Underkjenn timer", {controller: "workdays", action: "update", id: workday.id, user_id: workday.user.id, approved: false},
 			{class: "approve_buttons btn-small btn btn-danger button_row#{id}" ,id: "#{id}",
 				:confirm => "Are you sure?", form_class: "approve_form", method: "put"}%> </td>
+
 	<%end%>
 <%else%>
 	<% if workday.approved != nil%>

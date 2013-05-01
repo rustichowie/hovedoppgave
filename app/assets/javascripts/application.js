@@ -16,4 +16,5 @@
 //= require bootstrap-transition.js
 //= require bootstrap-alert.js
 //= require bootstrap-collapse.js
+//= require bootstrap-tooltip.js
 //= require jquery-ui.js
