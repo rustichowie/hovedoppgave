@@ -1,3 +1,5 @@
+
+//Datepicker som brukes når man vil ha en spesifikk dato.
 $(function(){
 	$("#date").datepicker({
 		changeMonth: true,

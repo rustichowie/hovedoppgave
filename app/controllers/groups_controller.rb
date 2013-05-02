@@ -1,36 +1,26 @@
 class GroupsController < ApplicationController
 filter_resource_access
-  
+  respond_to :html, :json
   #GET /groups
-  #GET /groups.xml
+  #GET /groups.json
   def index
     @groups = Group.all
 
-    respond_to do |format|
-      format.html 
-      format.xml { render :xml => @groups }
-    end
+    respond_with(@groups)
   end
 
   # GET /groups/1
-  # GET /groups/1.xml
+  # GET /groups/1.json
   def show
     @group = Group.find(params[:id])
     @users = User.where(group_id: @group.id)
-    respond_to do |format|
-      format.html 
-      format.xml { render :xml => @groups }
-    end
+    respond_with(@group)
   end
 
   # GET /groups/new
   # GET /groups/new.xml
   def new
     @group = Group.new
-    respond_to do |format|
-      format.html 
-      format.xml { render :xml => @card }
-    end
   end
 
   # GET /groups/1/edit

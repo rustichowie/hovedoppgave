@@ -2,14 +2,13 @@ DatabaseApp::Application.routes.draw do
 
   resources :users do
     resources :workdays
-    resources :cards
     
   end
   resources :records, only: [:new, :create]
   resources :workdays, only: [:index, :show]
   resources :logs, only: [:index]
   resources :users, :user_sessions, :groups
-  resources :cards, only: [:index, :destroy]
+  resources :cards, only: [:index, :destroy, :show]
   resources :workdays do
     put 'approve_all', on: :collection
   end

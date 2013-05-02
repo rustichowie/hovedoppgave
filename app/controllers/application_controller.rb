@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
   helper_method :set_current_user, :current_user_session, :current_user 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
   
+  
+  #rescue fra RecordNotFound, sender deg til side ikke funnet.
   def render_404
     render template: '/shared/record_not_found', layout: false, status: :not_found
   end

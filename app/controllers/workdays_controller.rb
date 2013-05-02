@@ -94,23 +94,23 @@ class WorkdaysController < ApplicationController
   end
 
   #GET /users/:user_id/workdays/:id
-  #def show
-    #if @user
-        #@workday = @user.workdays.find(params[:id]) 
-   # else     
-        #@workday = Workday.find(params[:id]) 
-       # @user = @workday.user
-   # end
+  def show
+    if @user
+        @workday = @user.workdays.find(params[:id]) 
+    else     
+        @workday = Workday.find(params[:id]) 
+        @user = @workday.user
+    end
     
-   # if @workday.supervisor_hour
-   #   @sum = @workday.supervisor_hour
-    #else
-    #  @sum = @workday.get_workhour_sum(@workday.date, @workday.user.id)
-   # end
-   # rescue ActiveRecord::RecordNotFound
-    #    redirect_to action: 'index', user_id: nil
-    #    return
- # end
+    if @workday.supervisor_hour
+      @sum = @workday.supervisor_hour
+    else
+      @sum = @workday.get_workhour_sum(@workday.date, @workday.user.id)
+    end
+    rescue ActiveRecord::RecordNotFound
+        redirect_to action: 'index', user_id: nil
+        return
+  end
   
   #GET /users/:user_id/workdays/new
   def new
