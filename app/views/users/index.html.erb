@@ -11,7 +11,24 @@
 <th>Handlinger</th>
 <th></th>
 </tr>
+<%if current_user.role_id == 3%>
 <% @users.each do |user| %>
+	<tr>
+	<td><%= user.name %></td>
+	<td><%= user.role.name %></td>
+	<%if user.group != nil%>
+	<td><%= user.group.name%></td>
+	<%else%>
+	<td>Uten avdeling</td>
+	<%end%>
+	<td style="width: 12%;"><%= link_to 'Åpne', user, class: "btn btn-block" %></td>
+	<td style="width: 12%;"><%= link_to 'Endre', edit_user_path(user), class: "btn btn-block" %></td>
+	<td style="width: 12%;"><%= link_to 'Deaktiver', user, class: "btn btn-block", :confirm => 'Er du sikker?', :method => :delete %></td>
+	</tr>
+<% end %>
+<%else%>
+<% @users.each do |user| %>
+	<%if user.group_id == current_user.group_id%>
 	<tr>
 	<td><%= user.name %></td>
 	<td><%= user.role.name %></td>
@@ -20,11 +37,13 @@
 	<%else%>
 	<td>Uten gruppe</td>
 	<%end%>
-	<td style="width: 12%;"><%= link_to 'Åpne', user, class: "btn btn-block" %></td>
+	<td style="width: 12%;"><%= link_to 'Åpne', user_workdays_path(user), class: "btn btn-block" %></td>
 	<td style="width: 12%;"><%= link_to 'Endre', edit_user_path(user), class: "btn btn-block" %></td>
 	<td style="width: 12%;"><%= link_to 'Deaktiver', user, class: "btn btn-block", :confirm => 'Er du sikker?', :method => :delete %></td>
 	</tr>
 <% end %>
+<%end%>
+<%end%>
 </table>
  
 <br />

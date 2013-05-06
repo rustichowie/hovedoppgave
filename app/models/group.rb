@@ -15,6 +15,15 @@ class Group < ActiveRecord::Base
   after_create do
   create_log
   end
+  after_destroy do
+  delete_log
+  end
+  
+  def delete_log
+    unless UserSession.find == nil
+      Log.create(user_id: UserSession.find.user.id, message: "#{UserSession.find.user.name} har slettet avdelingen: #{self.name}", logtype_id: 3)
+    end
+  end
   
   def create_log
     unless UserSession.find == nil

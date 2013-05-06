@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-filter_resource_access
+  filter_resource_access
   respond_to :html, :json
   #GET /groups
   #GET /groups.json
@@ -14,11 +14,14 @@ filter_resource_access
   def show
     @group = Group.find(params[:id])
     @users = User.where(group_id: @group.id)
-    respond_with(@group)
+    if @group
+      respond_with(@group)
+    else
+      respond_with({error: "Ingen avdeling funnet", status: 404})
+    end
   end
 
   # GET /groups/new
-  # GET /groups/new.xml
   def new
     @group = Group.new
   end
@@ -29,17 +32,17 @@ filter_resource_access
   end
 
   # POST /groups
-  # POST /groups.xml
+  # POST /groups.json
   def create
     @group = Group.new(params[:group])
 
-    respond_to do |format|
+    respond_with(@group) do |format|
       if @group.save
         format.html { redirect_to(groups_path, :notice => 'Avdeling opprettet') }
-        format.xml { render :xml => @group, :status => :created, :location => @group }
+        format.json { render json: @group}
       else
         format.html { render :action => "new" }
-        format.xml { render :xml => @group.errors, :status => :unprocessable_entity }
+        format.json { render json: {error: @group.errors}}
       end
     end
   end
@@ -48,14 +51,14 @@ filter_resource_access
   # PUT /groups/1.xml
   def update
     @group = Group.find(params[:id])
-    
-    respond_to do |format|
-      if @group.update_attributes(params[:group])
-        format.html { redirect_to(groups_path, :notice => 'Group was successfully updated.') }
-        format.xml { head :ok }
+
+    respond_with(@group) do |format|
+      if @group.save
+        format.html { redirect_to(groups_path, :notice => 'Avdeling opprettet') }
+        format.json { render json: @group, :status => :created, :location => @group }
       else
         format.html { render :action => "edit" }
-        format.xml { render :xml => @group.errors, :status => :unprocessable_entity }
+        format.json { render json: {error: @group.errors}}
       end
     end
   end
@@ -66,10 +69,9 @@ filter_resource_access
     @group = Group.find(params[:id])
     @group.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(groups_url) }
-      format.xml { head :ok }
+    respond_with(@group) do |format|
+      format.html { redirect_to(groups_path, :notice => "Avdeling '#{@group.name}' er slettet") }
     end
   end
-  
+
 end

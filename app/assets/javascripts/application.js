@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap.js
 //= require bootstrap-modal.js
 //= require bootstrap-transition.js
 //= require bootstrap-alert.js

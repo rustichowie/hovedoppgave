@@ -14,8 +14,10 @@ authorization do
   end
   role :formann do
     includes :ansatt
+    has_permission_on [:users], :to => [:index]
     has_permission_on [:cards], :to => [:read]
     has_permission_on [:workdays], :to => [:read, :manage]
+    has_permission_on [:workhours], :to => [:read]
   end
   role :administrator do
     includes :formann

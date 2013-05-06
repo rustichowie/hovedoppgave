@@ -19,8 +19,11 @@ class Role < ActiveRecord::Base
   after_create do
     create_log
   end
+  after_destroy do
+    delete_log
+  end
 
-  
+  #Lager en create logg
   def create_log
     unless UserSession.find == nil
     Log.create(user_id: UserSession.find.user.id, message: 
@@ -28,7 +31,13 @@ class Role < ActiveRecord::Base
      logtype_id: 2)
     end
   end
-  
-  
+  #Lager en destroy logg
+  def delete_log
+    unless UserSession.find == nil
+    Log.create(user_id: UserSession.find.user.id, message: 
+    "#{UserSession.find.user.name} har slettet rollen: #{self.name}",
+     logtype_id: 3)
+    end
+  end
   
 end

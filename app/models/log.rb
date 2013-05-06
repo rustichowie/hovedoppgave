@@ -20,8 +20,9 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-#Se workdays_controller for eksempel på lagring av log. og se metoden humanize for å se
-#om du skal legge actions i en egen tabell.
+
+
+#Log klasse, logger hendelser som skjer i applikasjonen.
 class Log < ActiveRecord::Base
   attr_accessible :logtype_id, :user_id, :message
   belongs_to :logtype
@@ -34,7 +35,7 @@ class Log < ActiveRecord::Base
     unless search == nil
       message_res = Log.select(:message).where("message like ?", "%#{search}%")
     end
-    #Filtrerer etter kategori.
+    #Filtrerer etter kategori, og fra-til dato
     unless logtype_id == nil
       unless from == nil || to == nil
         logs = Log.includes(:user, :logtype).where("logtype_id = ? and Date(created_at) >= ? AND Date(created_at) <= ?" ,logtype_id, from, to).order('created_at desc')
@@ -49,6 +50,7 @@ class Log < ActiveRecord::Base
       end
     end
 
+    #mapper opp kun logbeskjedene fra message_res arrayet.
     message = message_res.map {|log| log.message}
     message_filtered_logs = logs.find_all_by_message(message)
 

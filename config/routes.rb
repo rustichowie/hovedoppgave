@@ -12,8 +12,8 @@ DatabaseApp::Application.routes.draw do
   resources :workdays do
     put 'approve_all', on: :collection
   end
-
-  resources :pin_codes, only: [:new, :create]
+  resources :workhours, only: [:index, :show]
+  resources :pin_codes, only: [:index, :create]
 
   
   match "/export", to: 'records#new'

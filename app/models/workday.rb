@@ -12,20 +12,6 @@
 #  approved        :boolean
 #  date            :date             not null
 #
-
-# == Schema Information
-#
-# Table name: workdays
-#
-#  id              :integer          not null, primary key
-#  user_id         :integer          not null
-#  comment         :string(255)
-#  supervisor_hour :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  approved        :boolean
-#  date            :date             not null
-#
 #TODO: Sjekke at det logges overalt. ordne på 
 class Workday < ActiveRecord::Base
   attr_accessible :approved, :comment, :date, :supervisor_hour, :user_id
@@ -129,8 +115,9 @@ class Workday < ActiveRecord::Base
   end
   
   
-  #Henter workdays basert på måned og bruker id.
-  def get_workdays_by_month_user(user_id, date)
+  #Henter workdays basert på måned og bruker id, og bruker
+  #dataen til å populere statistikkgrafen
+  def populate_graph(user_id, date)
     #henter ut måned og år fra datoen
     month = date.month
     year = date.year

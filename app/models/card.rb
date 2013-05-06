@@ -19,15 +19,22 @@ class Card < ActiveRecord::Base
   after_create do
     create_log
   end
+  after_destroy :delete_log
   
   
-  
+  #Lager en create logg
   def create_log
     unless UserSession.find == nil
       Log.create(user_id: self.user.id, message: "#{self.user.name} har registrert et nytt kort på seg selv.", logtype_id: 2)
     end
   end
   
+  #Lager en delete logg
+  def delete_log
+    unless UserSession.find == nil
+      Log.create(user_id: self.user.id, message: "#{UserSession.find.user.name} har slettet kortet til #{self.user.name}.", logtype_id: 3)
+    end
+  end
   
   # Metode for å registrere et kort på en bruker
   def check_card_value(value, pin)
@@ -59,6 +66,7 @@ class Card < ActiveRecord::Base
     end  
   end
   
+  #Søkemetode, leter opp en bruker basert på kort verdi
   def lookup(id)
     user = nil
     cards = Card.all

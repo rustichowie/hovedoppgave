@@ -1,6 +1,6 @@
 class LogsController < ApplicationController
 filter_resource_access
-
+respond_to :html, :json, :js
   #GET /logs
   def index
     @category = params[:category]
@@ -21,10 +21,7 @@ filter_resource_access
     
     
     @logs = Log.new.print_log(cat, search, from, to)
-    respond_to do |format|
-    format.html 
-    format.js
-  end
+    respond_with(@logs)
   rescue ActiveRecord::StatementInvalid
      flash[:notice] = "Encoding error"
      redirect_to action: "index"

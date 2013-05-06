@@ -1,5 +1,6 @@
 <script>
 	$("#supervisor-collapse").collapse('toogle');
+	$('.dropdown-toggle').dropdown();
 </script>
 
 
@@ -16,10 +17,10 @@
       </a>
       <a class="brand" href="#">Menyvalg</a>
       
-      <div id="supervisor-collapse" class="nav-collapse navbar-responsive-collapse collapse">
+      <div id="supervisor-collapse" class="nav-collapse navbar-responsive-collapse in collapse">
 	<ul class="nav pull-right">
 		<li class="divider-vertical"></li>
-		<li clas="active">
+		<li>
 			
 			<%= link_to "Arbeidsdager", workdays_path%>
 		</li>
@@ -28,6 +29,7 @@
 			<%= link_to "Brukere", users_path%>
 		</li>
 		<li class="divider-vertical"></li>
+		<%unless current_user.role_id != 3%>
 		<li>
 			<%= link_to "Avdelinger", groups_path %>
 		</li>
@@ -39,7 +41,19 @@
 		<li>
 			<%= link_to "Kort", cards_path %>
 		</li>
-	</ul>
+		<li class="divider-vertical"></li>
+		<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                          <li><%= link_to "Send ut pinkoder", pin_codes_path%></li>
+                          <li class="divider"></li>
+                          <li><%= link_to "Exporter timer til fil", export_path%></li>
+                          <li><%= link_to "importer ansatte til systemet", "#"%></li>
+                        </ul>
+                      </li>
+        </ul>
+		<%end%>
+	
 	</div>
 	</div>
 	</div>
