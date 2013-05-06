@@ -50,7 +50,7 @@ class Workhour < ActiveRecord::Base
   # Metode for å starte eller stoppe en arbeidsøkt på en bruker
   def register(user_id)
     # Sjekker om det er en workhour rad som ikke er stoppet
-    workhour = Workhour.where(user_id: user_id, stop: nil).last
+    workhour = Workhour.where(user_id: user_id, stop: Date.today.end_of_day).last
     # Finner ut om det eksisterer en workday for dagen
     workday = Workday.new.check_for_workday_now(user_id)
     # Hvis ikke lages en ny
@@ -71,7 +71,7 @@ class Workhour < ActiveRecord::Base
       response = "Timeregistrering stoppet"
     # Hvis ikke, startes det en ny
     else
-      Workhour.create(start: Time.now, user_id: user_id, workday_id: workday_id)
+      Workhour.create(start: Time.now, user_id: user_id, workday_id: workday_id, stop: Date.today.end_of_day, count: (Date.today.end_of_day - Time.now).to_i)
       response = "Timeregistrering startet"
     end
     return response
