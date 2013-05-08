@@ -28,7 +28,7 @@ class PinCodesController < ApplicationController
     
     respond_with do |format|
       format.html {
-        redirect_to(pin_code_path)
+        redirect_to(pin_codes_path)
       }
     end
   end

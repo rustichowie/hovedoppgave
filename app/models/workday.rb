@@ -167,7 +167,7 @@ class Workday < ActiveRecord::Base
 
   def humanize_workhours(sum)
     final_sum = ((sum/3600.0)*4).round / 4.0
-    hours = final_sum.round
+    hours = final_sum.floor
     minutes = ((final_sum-hours)*1.minute).round
     if hours == 0
       if minutes != 0

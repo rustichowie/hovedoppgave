@@ -2,7 +2,7 @@
 
 
 //Sjekker om nummer og text er med i kjøringen
-if(!casper.cli.has('num') || !casper.cli.has('text')){
+if(!casper.cli.has('num') || !casper.cli.has('text') || !casper.cli.has('pwd')){
 casper.echo("Legg til --num=97177229 --text='sms-beskjed'").exit();
 }
 
@@ -16,7 +16,7 @@ casper.start('https://www.talkmore.no/',function(){
   //logger inn
   this.fill('form#loginform', {
         'username':   '97177229',
-        'password':   'ed4m'
+        'password':   casper.cli.get('pwd')
     }, true);
   this.click('form#loginform input[type="submit"]');
 });
