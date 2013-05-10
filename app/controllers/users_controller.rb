@@ -98,4 +98,24 @@ class UsersController < ApplicationController
     end
   end
   
+  # metode som registrerer nye brukere fra ekstern database
+  def create_import
+    users = Remote_user.new.import
+    users.each do |us|
+      u = User.new(name: us["navn"], group_id: 1, role_id: 1, password: "passord", password_confirmation: "passord")
+      u.pin = User.new.generate_pin
+      unless us["tel"] == ""
+        u.phone_number = us["tel"].gsub(/[^0-9]/, '') #formaterer bort alt annet en nummer
+      end
+      unless us["epost"] == ""
+        u.epost = us["epost"]
+      end
+      u.save
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to(users_url) }
+    end
+  end
+  
 end

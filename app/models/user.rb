@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
    end
 
   
-  attr_accessible :name, :email, :group_id, :role_id, :employee_id, :password, :password_confirmation, :persistence_token, :phone_number
+  attr_accessible :name, :email, :group_id, :role_id, :employee_id, :password, :password_confirmation, :persistence_token, :phone_number, :pin
   has_many :cards
   has_many :workhours
   belongs_to :role
