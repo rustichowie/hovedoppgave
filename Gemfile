@@ -5,8 +5,7 @@ gem 'bootstrap-sass','2.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-
-group :development, :test do
+group :development, :test, :production do
 gem 'rspec-rails'
 gem 'guard-rspec', '1.2.1'
 gem "mysql2"
