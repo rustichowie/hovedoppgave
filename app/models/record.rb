@@ -9,11 +9,20 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class Record
+class Record < ActiveRecord::Base
+  
+  establish_connection "hlonn_database"
+  
   def write_record(workdays)
 
     position = 0
 
+    query = "select * FROM Program" #henter ut alle
+    tst = connection.select_all(query) #select_all is important!
+    tst.each do |result| #Fyller et array med relevant info, senere skal det ikke trenges å lage nytt array, men å hente ut akkurat det man vil ha rett fra spørringen
+      ids.push(result.fetch('somthing somthing'))
+    end
+    
     #get lonnsartnr
     #get avdelingsnr
     #get prosjektnr

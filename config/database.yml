@@ -36,3 +36,11 @@ production:
   username: root
   password: password2k
   socket: /var/run/mysqld/mysqld.sock
+  
+#Databasen til HLonn
+hlonn_database:
+  adapter: sqlserver
+  host: 192.168.44.4
+  database: HLonn
+  username: timereg
+  password: 

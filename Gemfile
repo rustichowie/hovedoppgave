@@ -5,6 +5,7 @@ gem 'bootstrap-sass','2.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+
 group :development, :test, :production do
 gem 'rspec-rails'
 gem 'guard-rspec', '1.2.1'
@@ -15,6 +16,8 @@ gem 'declarative_authorization'
 gem 'gemcutter'
 gem 'ruby_parser'
 gem 'therubyracer'
+gem 'tiny_tds' #sudo apt-get install freetds-dev må gjøres først
+gem 'activerecord-sqlserver-adapter'
 end
 
 
