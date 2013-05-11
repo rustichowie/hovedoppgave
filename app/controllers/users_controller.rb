@@ -100,7 +100,7 @@ class UsersController < ApplicationController
   
   # metode som registrerer nye brukere fra ekstern database
   def create_import
-    users = Remote_user.new.import
+    users = RemoteUser.new.import
     users.each do |us|
       u = User.new(name: us["navn"], group_id: 1, role_id: 1, password: "passord", password_confirmation: "passord")
       u.pin = User.new.generate_pin

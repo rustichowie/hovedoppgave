@@ -1,4 +1,4 @@
-class Remote_user
+class RemoteUser
   
   after_create do
     create_log
