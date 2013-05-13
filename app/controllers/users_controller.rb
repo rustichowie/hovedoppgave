@@ -1,7 +1,7 @@
 
 # encoding: utf-8
 class UsersController < ApplicationController 
-  filter_resource_access
+  filter_access_to :all, :except => :create_import
 
   respond_to :html, :json, :js
   include DateModul
@@ -100,6 +100,7 @@ class UsersController < ApplicationController
   
   # metode som registrerer nye brukere fra ekstern database
   def create_import
+    @user = current_user
     users = RemoteUser.new.import
     users.each do |us|
       u = User.new(name: us["navn"], group_id: 1, role_id: 1, password: "passord", password_confirmation: "passord")
