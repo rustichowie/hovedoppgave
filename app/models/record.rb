@@ -17,7 +17,8 @@ class Record
     file = File.new("db_pwd", "r")
     pwd = file.read.chomp
     file.close
-    return client = TinyTds::Client.new(:username => 'timereg', :password => "#{pwd}", :host => '192.168.44.4', :database => 'HLonn0004')
+  
+return client = TinyTds::Client.new(:username => 'timereg', :password => "#{pwd}", :host => '192.168.44.4', :database => 'HLonn0004')
   end
   def write_record(workdays)
 
@@ -86,6 +87,10 @@ class Record
       cr = "\f"
       lf = "\n"
       #Skriver en linje til filen
+      begin
+   File.delete('/tmp/IT0001TRS.HLW')
+  rescue Errno::ENOENT
+  end  
       IO.binwrite("/tmp/IT0001TRS.HLW", personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf, position)
       position += 166
     end
