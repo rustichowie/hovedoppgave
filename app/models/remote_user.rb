@@ -10,13 +10,7 @@ class RemoteUser
     file.close
     return client = TinyTds::Client.new(:username => 'timereg', :password => "#{pwd}", :host => '192.168.44.4', :database => 'HLonn0004')
   end
-  
-  #foreløbig metode for å hente ut bruker(e)
-  def get(index)
-    query = "select * FROM Operator"
-    tst = connection.select_all(query) #select_all is important!
-    return tst[index].fetch()
-  end
+
   
   #importere brukere fra HLonn database
   def import
@@ -44,7 +38,7 @@ class RemoteUser
         import_array.push(rem)
       end
     end
-    return result
+    return import_array
   end
 
 
