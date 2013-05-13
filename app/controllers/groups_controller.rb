@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  filter_resource_access
+  filter_access_to :all, :except => :import_groups
   respond_to :html, :json
   #GET /groups
   #GET /groups.json
