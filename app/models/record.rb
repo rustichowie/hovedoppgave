@@ -11,7 +11,7 @@
 #
 class Record < ActiveRecord::Base
   
-  establish_connection "hlonn_database"
+  #establish_connection "hlonn_database"
   
   def write_record(workdays)
 
