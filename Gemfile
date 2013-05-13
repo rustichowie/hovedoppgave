@@ -19,6 +19,7 @@ gem 'therubyracer'
 gem 'tiny_tds' #sudo apt-get install freetds-dev må gjøres først
 gem 'activerecord-sqlserver-adapter'
 gem 'iconv'
+gem 'unicode_utils'
 end
 
 
