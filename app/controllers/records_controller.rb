@@ -18,7 +18,7 @@ class RecordsController < ApplicationController
     workdays = Workday.where("MONTH(date) = ? AND YEAR(date) = ?, approved = ?", month, year, true).order("date desc")
     Record.new.write_record(workdays)
     respond_to do |format|
-        format.html { redirect_to "/export" }
+        format.html { render "/export" }
         format.xml { render :xml => @card.errors, :status => :unprocessable_entity }
       end
   end
