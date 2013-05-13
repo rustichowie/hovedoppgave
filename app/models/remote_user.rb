@@ -29,9 +29,9 @@ class RemoteUser
       exist = false #bool som holder på verdien om de eksisterer eller ikke
       usrs.each do |user|
         unless user.remote_id == nil
-        if rem["id"] == user.remote_id
-          exist = true #forandrer verdien når de er funnet blandt de som allerede er importert
-        end
+          if rem["id"] == user.remote_id
+            exist = true #forandrer verdien når de er funnet blandt de som allerede er importert
+          end
         end
       end
       unless exist #Hvis brukeren ikke eksisterte fra før, skal den returneres

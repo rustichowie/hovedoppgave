@@ -58,7 +58,11 @@ class User < ActiveRecord::Base
       Log.create(user_id: user.id, message: "#{self.name} har blitt opprettet den #{self.created_at.strftime("%Y-%m-%d")}", logtype_id: 2)
     end
   end
-
+  
+  def self.find_by_username_or_mobile(login)
+    find_by_email(login) || find_by_phone_number(login)
+  end
+  
   def is_admin?
     if self.role_id == 3
       true
