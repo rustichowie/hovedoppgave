@@ -21,8 +21,8 @@ class RemoteUser
     result = client.execute("SELECT * FROM Personer")
     result.each do |res|
       name = Iconv.conv("UTF-8", "iso8859-1", res["Name"])
-      surname = name = Iconv.conv("UTF-8", "iso8859-1", res["Surname"])
-      r = {"id" =>  res["PersonerID"], "navn" => "#{name.capitalize} #{surname.capitalize}", "tel" => res["TelMobil"], "epost" => res["EPostAddresse"]}
+      surname = Iconv.conv("UTF-8", "iso8859-1", res["Surname"])
+      r = {"id" =>  res["PersonerID"], "navn" => "#{name.humanize} #{surname.humanize}", "tel" => res["TelMobil"], "epost" => res["EPostAddresse"]}
       remote.push(r)
     end
     usrs = User.all
