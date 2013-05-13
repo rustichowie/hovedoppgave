@@ -23,8 +23,10 @@ class RemoteUser
       name = Iconv.conv("UTF-8", "iso8859-1", res["Name"])
       surname = Iconv.conv("UTF-8", "iso8859-1", res["Surname"])
       name = name.downcase
+      name = name.split(" ").each{|word| word.capitalize!}.join(" ")
       surname = surname.downcase
-      r = {"id" =>  res["PersonerID"], "navn" => "#{name.humanize} #{surname.humanize}", "tel" => res["TelMobil"], "epost" => res["EPostAddresse"]}
+      surname = surname.split(" ").each{|word| word.capitalize!}.join(" ")
+      r = {"id" =>  res["PersonerID"], "navn" => "#{name} #{surname}", "tel" => res["TelMobil"], "epost" => res["EPostAddresse"]}
       remote.push(r)
     end
     usrs = User.all
