@@ -103,9 +103,9 @@ class UsersController < ApplicationController
     @user = current_user
     users = RemoteUser.new.import
     users.each do |us|
-      us["navn"].gsub('\xD8', 'ø').gsub('\xC5', 'å')
+      name = Iconv.conv("UTF8", "ASCII-8BIT", us["navn"])
       
-      u = User.new(name: us["navn"], group_id: 1, role_id: 1, password: "passord", password_confirmation: "passord")
+      u = User.new(name: name, group_id: 1, role_id: 1, password: "passord", password_confirmation: "passord")
       u.pin = User.new.generate_pin
       unless us["tel"] == ""  || us["tel"] == nil
         u.phone_number = us["tel"].gsub(/[^0-9]/, '') #formaterer bort alt annet en nummer
