@@ -15,7 +15,7 @@ class RecordsController < ApplicationController
   def create
     month = params[:datepicker].partition('-').last
     year = params[:datepicker].partition('-').first
-    workdays = Workday.where("MONTH(date) = ? AND YEAR(date) = ?, approved = ?", month, year, true).order("date desc")
+    workdays = Workday.where("MONTH(date) = ? AND YEAR(date) = ? AND approved = ?", month, year, true).order("date desc")
     Record.new.write_record(workdays)
     respond_to do |format|
         format.html { render "/export" }
