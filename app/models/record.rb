@@ -42,7 +42,7 @@ class Record
     #get lonnsartnr
     #get avdelingsnr
     #get element1-5
-
+    unless workdays.empty?
     workdays.each do |workday|
       user = User.find(workday.user_id)
       if workday.supervisor_hour.nil?
@@ -86,6 +86,7 @@ class Record
       #Skriver en linje til filen
       IO.binwrite("/tmp/IT0001TRS.HLW", personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf, position)
       position += 166
+    end
     end
     return true
   end
