@@ -31,7 +31,7 @@ production:
   adapter: mysql2
   encoding: utf8
   database: timeregistrering
-  host: 192.168.3.44.129
+  host: 192.168.44.129
   pool: 5
   username: timereg
   password: UsUsugfec2
