@@ -22,7 +22,7 @@ authorization do
   role :administrator do
     includes :formann
     has_permission_on [:cards], :to => [:administrate]
-    has_permission_on [:groups], :to => [:administrate]
+    has_permission_on [:groups], :to => [:administrate, :import_groups]
     has_permission_on [:users], :to => [:administrate, :create_import]
     has_permission_on [:logs], :to => [:administrate]
   end

@@ -75,11 +75,11 @@ class GroupsController < ApplicationController
   end
   
   def import_groups
-    groups = Groups.new.import_groups
+    groups = Group.new.import_groups
     groups.each do |us|
       name = us["navn"]
       id = us["id"]
-      u = User.new(name: name, remote_id: id.to_i)
+      u = Group.new(name: name, remote_id: id.to_i)
       u.save
     end
     
