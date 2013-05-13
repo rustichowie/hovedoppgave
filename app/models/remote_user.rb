@@ -20,7 +20,7 @@ class RemoteUser
     client = database()
     result = client.execute("SELECT * FROM Personer")
     result.each do |res|
-      r = {"id" =>  res["PersonerID"], "navn" => res["Name"], "tel" => res["TelMobil"], "epost" => res["EPostAddresse"]}
+      r = {"id" =>  res["PersonerID"], "navn" => res["NAVN"], "tel" => res["TelMobil"], "epost" => res["EPostAddresse"]}
       remote.push(r)
     end
     usrs = User.all
