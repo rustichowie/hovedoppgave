@@ -17,7 +17,7 @@
 });
 </script>
 <div class="container">
-
+<%= render 'shared/supervisor_buttonbar'%>
 	<%= form_tag records_path, :method => 'post', class:"navbar-form pull-left" do %>
 <legend>Export</legend>
     <%= text_field_tag "datepicker", params["datepicker"], placeholder: "Dato"%>
