@@ -143,7 +143,7 @@ class WorkdaysController < ApplicationController
        Workhour.create(count: hours*3600, start: Date.today.beginning_of_day,
      stop: Date.today.beginning_of_day + hours.hour, workday_id: @workday.id, user_id: @user.id)
       
-      redirect_to action: :index, user_id: @user   
+      redirect_to user_path(@user)   
     else
       #Sjekker om man har skrevet inn timeantall
       if hours == 0
