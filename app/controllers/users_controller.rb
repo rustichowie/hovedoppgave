@@ -105,10 +105,10 @@ class UsersController < ApplicationController
     users.each do |us|
       u = User.new(name: us["navn"], group_id: 1, role_id: 1, password: "passord", password_confirmation: "passord")
       u.pin = User.new.generate_pin
-      unless us["tel"] == ""
+      unless us["tel"] == ""  || us["tel"] == nil
         u.phone_number = us["tel"].gsub(/[^0-9]/, '') #formaterer bort alt annet en nummer
       end
-      unless us["epost"] == ""
+      unless us["epost"] == "" || us["epost"] == nil
         u.epost = us["epost"]
       end
       u.save
