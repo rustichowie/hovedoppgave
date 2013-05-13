@@ -31,7 +31,7 @@ production:
   adapter: mysql2
   encoding: utf8
   database: timeregistrering
-  host: 192.168.44.129
+  host: 127.0.0.1
   pool: 5
   username: root
   password: ixauVo7t
