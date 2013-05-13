@@ -45,32 +45,32 @@ class Group < ActiveRecord::Base
     client = database()
     
     #Henter alle personer
-    result = client.execute("SELECT * FROM Prosjekter")
-    
-    #lagrer nødvendig data til array
-    result.each do |res|
-      name = Iconv.conv("UTF-8", "iso8859-1", res["NAVN"])
-      name = UnicodeUtils.downcase(name.downcase)
-      name = name.split(" ").each{|word| word.capitalize!}.join(" ")
-
-      r = {"id" =>  res["ProsjekterID"], "navn" => "#{name}"}
-      remote.push(r)
-    end
-    groups = Groups.all
-    #Går gjennom alle brukerne for hver bruker hos HLonn0004, og sjekker om de allerede er importert, hvis ikke importeres de.
-    remote.each do |rem|
-      exist = false #bool som holder på verdien om de eksisterer eller ikke
-      groups.each do |group|
-        unless group.remote_id == nil
-          if rem["id"] == group.remote_id
-            exist = true #forandrer verdien når de er funnet blandt de som allerede er importert
+      result = client.execute("SELECT * FROM Prosjekter")
+      
+      #lagrer nødvendig data til array
+      result.each do |res|
+        name = Iconv.conv("UTF-8", "iso8859-1", res["NAVN"])
+        name = UnicodeUtils.downcase(name.downcase)
+        name = name.split(" ").each{|word| word.capitalize!}.join(" ")
+  
+        r = {"id" =>  res["ProsjekterID"], "navn" => "#{name}"}
+        remote.push(r)
+      end
+      groups = Group.all
+      #Går gjennom alle brukerne for hver bruker hos HLonn0004, og sjekker om de allerede er importert, hvis ikke importeres de.
+      remote.each do |rem|
+        exist = false #bool som holder på verdien om de eksisterer eller ikke
+        groups.each do |group|
+          unless group.remote_id == nil
+            if rem["id"] == group.remote_id
+              exist = true #forandrer verdien når de er funnet blandt de som allerede er importert
+            end
           end
         end
+        unless exist #Hvis brukeren ikke eksisterte fra før, skal den returneres
+          import_array.push(rem)
+        end
       end
-      unless exist #Hvis brukeren ikke eksisterte fra før, skal den returneres
-        import_array.push(rem)
-      end
-    end
     return import_array
   end
   
