@@ -47,10 +47,8 @@ class User < ActiveRecord::Base
   has_many :logs
   accepts_nested_attributes_for :cards
   validates :name, :presence => true
-  validates :phone_number, :uniqueness => {:message => "nummeret er allerede tatt"}, :if => :email?
-  validates :phone_number, :numericality => { :only_integer => true, :message => "må bestå av bare tall"}, :if => :email?
-  validates :email, :presence => {:message => "må være utfylt hvis telefonnmmer er tom"}, :if => :phone?
-  validates :phone_number, :presence => {:message => "må være utfylt hvis email er tom"}, :if => :email?
+  validates :phone_number, :uniqueness => {:message => "nummeret er allerede tatt"}, :unless => :phone?
+  validates :phone_number, :numericality => { :only_integer => true, :message => "må bestå av bare tall"}, :unless => :phone?
   after_create do
     create_log
   end
