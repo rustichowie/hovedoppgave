@@ -19,7 +19,7 @@ class RemoteUser
   def import
     remote = []
     result = []
-    import_array[]
+    import_array = []
     client = database()
     result = client.execute("SELECT * FROM Personer")
     result.each do |res|
