@@ -33,6 +33,6 @@ production:
   database: timeregistrering
   host: 192.168.44.129
   pool: 5
-  username: timereg
-  password: UsUsugfec2
+  username: root
+  password: ixauVo7t
   socket: /var/run/mysqld/mysqld.sock
