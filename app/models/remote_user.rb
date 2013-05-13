@@ -5,7 +5,10 @@ class RemoteUser
   
   def database
     #passord må fylles inn etter push
-    return client = TinyTds::Client.new(:username => 'timereg', :password => '', :host => '192.168.44.4', :database => 'HLonn0004')
+    file = File.new("db_pwd", "r")
+    pwd = file.read.chomp
+    file.close
+    return client = TinyTds::Client.new(:username => 'timereg', :password => "#{pwd}", :host => '192.168.44.4', :database => 'HLonn0004')
   end
   
   #foreløbig metode for å hente ut bruker(e)
