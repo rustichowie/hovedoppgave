@@ -9,46 +9,82 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class Record < ActiveRecord::Base
+class Record
   
-  #establish_connection "hlonn_database"
   
+  def database
+    #passord må fylles inn etter push
+    file = File.new("db_pwd", "r")
+    pwd = file.read.chomp
+    file.close
+    return client = TinyTds::Client.new(:username => 'timereg', :password => "#{pwd}", :host => '192.168.44.4', :database => 'HLonn0004')
+  end
   def write_record(workdays)
 
     position = 0
-
-    query = "select * FROM Program" #henter ut alle
-    tst = connection.select_all(query) #select_all is important!
-    tst.each do |result| #Fyller et array med relevant info, senere skal det ikke trenges å lage nytt array, men å hente ut akkurat det man vil ha rett fra spørringen
-      ids.push(result.fetch('somthing somthing'))
+  
+    client = database()
+    
+    satser = []
+    satsRes = client.execute("SELECT * FROM PersonSatser where SatsValue is not null")
+    satsRes.each do |res|
+      r = {"id" => res["PersonerID"], "sats" => res["SatsValue"]*100}
+      satser.push(r)
+    end
+    
+    prosjekter = []
+    prosjektRes = client.execute("SELECT * FROM PersonProjekt")
+    prosjektRes.each do |res|
+      r = {"prosjektId" => res["ProsjekterID"], "personId" => res["PersonerID"]}
+      prosjekter.push(r)
     end
     
     #get lonnsartnr
     #get avdelingsnr
-    #get prosjektnr
     #get element1-5
-    #get sats
 
     workdays.each do |workday|
-
-      personId = "%06d" % User.find(workday.user_id).remote_id
+      user = User.find(workday.user_id)
+      if workday.supervisor_hour.nil?
+        antallKalk = workday.get_workhour_sum(workday.date, workday.id)
+      else
+        antallKalk = workday.supervisor_hour
+      end
+      
+      #Sats
+      sats = "0000000000"
+      satsKalk = 0
+      satser.each do |sat|
+        if user.remote_id == sat["PersonerId"]
+          sats = "%010d" % sat["SatsValue"]
+          satsKalk = sat["SatsValue"]
+        end
+      end
+      
+      #ProsjektNr
+      prosjektNr = "000000000000"
+      prosjekter.each do |pro|
+        if user.remote_id == pro["personId"]
+          prosjektNr = "%012d" % pro["prosjektId"]
+        end
+      end
+      
+      personId = "%06d" % user.remote_id
       lonnsartNr = "%05d" % 8
       avdelingsNr = "%012d" % 5467
-      prosjektNr = "%012d" % 66
-      element1Nr = "%012d" % 1
-      element2Nr = "%012d" % 2
-      element3Nr = "%012d" % 3
-      element4Nr = "%012d" % 4
-      element5Nr = "%012d" % 5
+      element1Nr = "%012d" % 0
+      element2Nr = "%012d" % 0
+      element3Nr = "%012d" % 0
+      element4Nr = "%012d" % 0
+      element5Nr = "%012d" % 0
       dato = workday.created_at.strftime("%d%m%y")
-      antall = ("%08d" % workday.get_workhour_sum(workday.date, workday.id))+"00"
-      sats = "0000015500"
-      belop = "0000002244500"
-      filler= "000000000000000000000000000000"
+      antall = "%08d" % antallKalk*100
+      belop = "%013d" % antallKalk*satsKalk*100
+      filler= "                              "
       cr = "\f"
       lf = "\n"
-
-      IO.binwrite("/tmp/ITxxxxTRS.HLW", personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf, position)
+      #Skriver en linje til filen
+      IO.binwrite("/tmp/IT0001TRS.HLW", personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf, position)
       position += 166
     end
     return true

@@ -1,4 +1,28 @@
+
+<%= stylesheet_link_tag "theme/jquery-ui-1.10.2.custom.css"%>
+<script>
+	$(function() {
+    $('#datepicker').datepicker( {
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'yy-mm',
+        maxDate: new Date,
+        onClose: function(dateText, inst) { 
+            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+            $(this).datepicker('setDate', new Date(year, month, 1));
+        }
+    });
+});
+</script>
 <div class="container">
 	<%= button_to  "Exporter timer", {controller: "records", action: "create"},
 		{method: "post"}%>
+		
+	<%= form_tag records_path, :method => 'post', class:"navbar-form pull-left" do %>
+<legend>Søkefelt</legend>
+    <%= text_field_tag "datepicker", params["datepicker"], placeholder: "Dato"%>
+	<%= submit_tag "Exporter", class: "btn"%>
+	<% end %>	
 </div>
