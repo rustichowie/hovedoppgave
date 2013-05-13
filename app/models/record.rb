@@ -80,13 +80,13 @@ class Record
       element4Nr = "%012d" % 0
       element5Nr = "%012d" % 0
       dato = workday.created_at.strftime("%d%m%y")
-      antall = "%08d" % antallKalk*100
-      belop = "%013d" % antallKalk*satsKalk*100
+      antall = "%08d" % (antallKalk.to_i*100)
+      belop = "%013d" % (antallKalk.to_i*satsKalk.to_i*100)
       filler= "                              "
       cr = "\f"
       lf = "\n"
       #Skriver en linje til filen
-      IO.binwrite("/tmp/IT0001TRS.HLW", personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+'\f\n', position)
+      IO.binwrite("/tmp/IT0001TRS.HLW", personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf, position)
       position += 166
     end
     end
