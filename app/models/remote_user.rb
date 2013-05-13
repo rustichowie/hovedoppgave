@@ -22,6 +22,8 @@ class RemoteUser
     result.each do |res|
       name = Iconv.conv("UTF-8", "iso8859-1", res["Name"])
       surname = Iconv.conv("UTF-8", "iso8859-1", res["Surname"])
+      name = name.downcase
+      surname = surname.downcase
       r = {"id" =>  res["PersonerID"], "navn" => "#{name.humanize} #{surname.humanize}", "tel" => res["TelMobil"], "epost" => res["EPostAddresse"]}
       remote.push(r)
     end
