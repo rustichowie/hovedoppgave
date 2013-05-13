@@ -103,7 +103,8 @@ class UsersController < ApplicationController
     @user = current_user
     users = RemoteUser.new.import
     users.each do |us|
-      us["navn"].force_encoding 'utf-8'
+      us["navn"].gsub('\xD8', 'ø').gsub('\xC5', 'å')
+      
       u = User.new(name: us["navn"], group_id: 1, role_id: 1, password: "passord", password_confirmation: "passord")
       u.pin = User.new.generate_pin
       unless us["tel"] == ""  || us["tel"] == nil
