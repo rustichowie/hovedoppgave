@@ -110,7 +110,7 @@ class UsersController < ApplicationController
       unless us["tel"] == ""  || us["tel"] == nil
         u.phone_number = us["tel"].gsub(/[^0-9]/, '') #formaterer bort alt annet en nummer
       end
-      unless us["epost"] == "" || us["epost"] == nil
+      unless us["epost"].lstrip == "" || us["epost"] == nil
         u.email = us["epost"]
       end
       u.save
