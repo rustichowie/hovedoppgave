@@ -75,6 +75,7 @@ class GroupsController < ApplicationController
   end
   
   def import_groups
+    @user = current_user
     groups = Group.new.import_groups
     groups.each do |us|
       name = us["navn"]
