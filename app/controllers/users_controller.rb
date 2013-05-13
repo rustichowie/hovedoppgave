@@ -107,7 +107,7 @@ class UsersController < ApplicationController
       
       u = User.new(name: name, group_id: 1, role_id: 1, password: "passord", password_confirmation: "passord")
       u.pin = User.new.generate_pin
-      unless us["tel"] == ""  || us["tel"] == nil
+      unless us["tel"].lstrip == ""  || us["tel"] == nil
         u.phone_number = us["tel"].gsub(/[^0-9]/, '') #formaterer bort alt annet en nummer
       end
       unless us["epost"].lstrip == "" || us["epost"] == nil
