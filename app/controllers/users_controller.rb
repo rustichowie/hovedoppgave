@@ -103,7 +103,7 @@ class UsersController < ApplicationController
     @user = current_user
     users = RemoteUser.new.import
     users.each do |us|
-      name = Iconv.conv("UTF8", "ASCII-8BIT", us["navn"])
+      name = Iconv.conv("UTF-8", "iso8859-1", us["navn"])
       
       u = User.new(name: name, group_id: 1, role_id: 1, password: "passord", password_confirmation: "passord")
       u.pin = User.new.generate_pin
