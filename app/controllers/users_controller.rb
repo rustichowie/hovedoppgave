@@ -92,7 +92,7 @@ class UsersController < ApplicationController
     @user.active = false
     @user.save
 
-    respond_to do |format|
+    respond_with do |format|
       format.html { redirect_to(users_url) }
       format.json { render json: @user }
     end
@@ -113,8 +113,8 @@ class UsersController < ApplicationController
       u.save
     end
     
-    respond_to do |format|
-      format.html { redirect_to(users_url) }
+    respond_with do |format|
+      format.html { redirect_to(users_path) }
     end
   end
   

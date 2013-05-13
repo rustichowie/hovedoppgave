@@ -17,7 +17,7 @@ DatabaseApp::Application.routes.draw do
 
   
   match "/export", to: 'records#new'
-  match "/import", to: 'users#create_import'
+  match "/import", to: 'users#create_import', via: :post
 
 #  match "/workdays", to: 'workdays#approve_all', via: :post
   match "/manual", to: 'register#manual_register'

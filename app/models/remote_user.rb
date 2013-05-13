@@ -28,6 +28,7 @@ class RemoteUser
   def import
     remote = []
     result = []
+    import_array[]
     client = database()
     result = client.execute("SELECT * FROM Personer")
     result.each do |res|
@@ -44,7 +45,7 @@ class RemoteUser
         end
       end
       unless exist #Hvis brukeren ikke eksisterte fra før, skal den returneres
-        result.push(rem)
+        import_array.push(rem)
       end
     end
     return result
