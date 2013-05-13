@@ -17,11 +17,9 @@
 });
 </script>
 <div class="container">
-	<%= button_to  "Exporter timer", {controller: "records", action: "create"},
-		{method: "post"}%>
-		
+
 	<%= form_tag records_path, :method => 'post', class:"navbar-form pull-left" do %>
-<legend>Søkefelt</legend>
+<legend>Export</legend>
     <%= text_field_tag "datepicker", params["datepicker"], placeholder: "Dato"%>
 	<%= submit_tag "Exporter", class: "btn"%>
 	<% end %>	

@@ -54,10 +54,12 @@ class User < ActiveRecord::Base
   end
 
   def create_log
+    if User.all.empty?
     unless UserSession.find == nil
     Log.create(user_id: self.id, message: "#{UserSession.find.user.name} har opprettet en ny ansatt med navn: #{self.name} den #{self.created_at.strftime("%Y-%m-%d")}", logtype_id: 2)
     else
       Log.create(user_id: user.id, message: "#{self.name} har blitt opprettet den #{self.created_at.strftime("%Y-%m-%d")}", logtype_id: 2)
+    end
     end
   end
   

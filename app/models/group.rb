@@ -26,9 +26,11 @@ class Group < ActiveRecord::Base
   end
   
   def create_log
+  if Group.all.empty?
     unless UserSession.find == nil
       Log.create(user_id: UserSession.find.user.id, message: "#{UserSession.find.user.name} har opprettet en ny avdeling med navn: #{self.name}", logtype_id: 2)
     end
+  end
   end
   def database
     #passord må fylles inn etter push

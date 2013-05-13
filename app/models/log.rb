@@ -38,15 +38,15 @@ class Log < ActiveRecord::Base
     #Filtrerer etter kategori, og fra-til dato
     unless logtype_id == nil
       unless from == nil || to == nil
-        logs = Log.includes(:user, :logtype).where("logtype_id = ? and Date(created_at) >= ? AND Date(created_at) <= ?" ,logtype_id, from, to).order('created_at desc')
+        logs = Log.includes(:user, :logtype).where("logtype_id = ? and Date(created_at) >= ? AND Date(created_at) <= ?" ,logtype_id, from, to).order('created_at desc').limit(100)
       else
-        logs = Log.includes(:user, :logtype).where(logtype_id: logtype_id).order('created_at desc')
+        logs = Log.includes(:user, :logtype).where(logtype_id: logtype_id).order('created_at desc').limit(100)
       end
     else
       unless from == nil || to == nil
-        logs = Log.includes(:user, :logtype).where("Date(created_at) >= ? AND Date(created_at) <= ?" ,from, to).order('created_at desc')
+        logs = Log.includes(:user, :logtype).where("Date(created_at) >= ? AND Date(created_at) <= ?" ,from, to).order('created_at desc').limit(100)
       else
-        logs = Log.includes(:user, :logtype).order('created_at desc')
+        logs = Log.includes(:user, :logtype).order('created_at desc').limit(100)
       end
     end
 

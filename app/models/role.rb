@@ -25,10 +25,12 @@ class Role < ActiveRecord::Base
 
   #Lager en create logg
   def create_log
+    if Role.all.empty?
     unless UserSession.find == nil
     Log.create(user_id: UserSession.find.user.id, message: 
     "#{UserSession.find.user.name} har opprettet en ny rolle med navn: #{self.name}",
      logtype_id: 2)
+    end
     end
   end
   #Lager en destroy logg
