@@ -32,7 +32,9 @@
 class User < ActiveRecord::Base
 
    acts_as_authentic do |c| 
-     c.login_field = :phone_number 
+     c.login_field = :email
+     c.validate_email_field = false
+     c.validate_login_field = false
    end
 
   
@@ -45,17 +47,36 @@ class User < ActiveRecord::Base
   has_many :logs
   accepts_nested_attributes_for :cards
   validates :name, :presence => true
-  validates :phone_number, :uniqueness => {:message => "nummeret er allerede tatt"}
-  validates :phone_number, :numericality => { :only_integer => true, :message => "må bestå av bare tall"}
+  validates :phone_number, :uniqueness => {:message => "nummeret er allerede tatt"}, :if => :email?
+  validates :phone_number, :numericality => { :only_integer => true, :message => "må bestå av bare tall"}, :if => :email?
+  validates :email, :presence => {:message => "må være utfylt hvis telefonnmmer er tom"}, :if => :phone?
+  validates :phone_number, :presence => {:message => "må være utfylt hvis email er tom"}, :if => :email?
   after_create do
     create_log
   end
-  
+
   def create_log
     unless UserSession.find == nil
     Log.create(user_id: self.id, message: "#{UserSession.find.user.name} har opprettet en ny ansatt med navn: #{self.name} den #{self.created_at.strftime("%Y-%m-%d")}", logtype_id: 2)
     else
       Log.create(user_id: user.id, message: "#{self.name} har blitt opprettet den #{self.created_at.strftime("%Y-%m-%d")}", logtype_id: 2)
+    end
+  end
+  
+  def email?
+    if self.email.blank?
+      true
+    else
+      false
+    end
+    
+  end
+  
+  def phone?
+    if self.phone_number.blank?
+      true
+    else
+      false
     end
   end
   
