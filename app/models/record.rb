@@ -46,7 +46,7 @@ class Record
     workdays.each do |workday|
       user = User.find(workday.user_id)
       if workday.supervisor_hour.nil?
-        antallKalk = workday.get_workhour_sum(workday.date, workday.id)
+        antallKalk = workday.workhour_sum(workday.date, workday.id)
       else
         antallKalk = workday.supervisor_hour
       end

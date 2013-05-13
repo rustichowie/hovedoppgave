@@ -165,6 +165,9 @@ class Workday < ActiveRecord::Base
     return humanize_workhours(sum)  
   end
 
+  def workhours_sum
+    sum = Workhour.sum(:count, conditions: ["DATE(start) = ? AND user_id = ?", date, user_id])
+  end
   def humanize_workhours(sum)
     final_sum = ((sum/3600.0)*4).round / 4.0
     hours = final_sum.floor
