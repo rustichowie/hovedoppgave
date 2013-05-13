@@ -73,5 +73,19 @@ class GroupsController < ApplicationController
       format.html { redirect_to(groups_path, :notice => "Avdeling '#{@group.name}' er slettet") }
     end
   end
+  
+  def import_groups
+    groups = Groups.new.import_groups
+    groups.each do |us|
+      name = us["navn"]
+      id = us["id"]
+      u = User.new(name: name, remote_id: id.to_i)
+      u.save
+    end
+    
+    respond_with do |format|
+      format.html { redirect_to(groups_path) }
+    end
+  end
 
 end

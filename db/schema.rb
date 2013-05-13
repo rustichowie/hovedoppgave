@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419083233) do
+ActiveRecord::Schema.define(:version => 20130513120722) do
 
   create_table "cards", :force => true do |t|
     t.integer  "user_id"
@@ -27,14 +27,15 @@ ActiveRecord::Schema.define(:version => 20130419083233) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "remote_id"
   end
 
   create_table "logs", :force => true do |t|
     t.integer  "user_id"
     t.integer  "logtype_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "action"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.string   "message",    :limit => 100, :null => false
   end
 
   add_index "logs", ["logtype_id"], :name => "index_logs_on_logtype_id"
@@ -67,26 +68,28 @@ ActiveRecord::Schema.define(:version => 20130419083233) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.integer  "employee_id"
     t.string   "pin"
     t.string   "salt"
     t.string   "email"
-    t.integer  "group_id",                              :null => false
-    t.integer  "role_id",                               :null => false
-    t.string   "persistence_token",                     :null => false
-    t.string   "single_access_token",                   :null => false
-    t.string   "perishable_token",                      :null => false
-    t.integer  "login_count",         :default => 0,    :null => false
-    t.integer  "failed_login_count",  :default => 0,    :null => false
+    t.integer  "group_id",                                            :null => false
+    t.integer  "role_id",                                             :null => false
+    t.string   "persistence_token",                                   :null => false
+    t.string   "single_access_token",                                 :null => false
+    t.string   "perishable_token",                                    :null => false
+    t.integer  "login_count",                       :default => 0,    :null => false
+    t.integer  "failed_login_count",                :default => 0,    :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.string   "crypted_password",                      :null => false
-    t.boolean  "active",              :default => true, :null => false
+    t.string   "crypted_password",                                    :null => false
+    t.boolean  "active",                            :default => true, :null => false
+    t.string   "phone_number",        :limit => 20
+    t.string   "remote_id",           :limit => 45
   end
 
   add_index "users", ["group_id"], :name => "index_users_on_group_id"

@@ -17,8 +17,13 @@ class RemoteUser
     remote = []
     result = []
     import_array = []
+    #Starter connection mot database
     client = database()
+    
+    #Henter alle personer
     result = client.execute("SELECT * FROM Personer")
+    
+    #lagrer nødvendig data til array
     result.each do |res|
       name = Iconv.conv("UTF-8", "iso8859-1", res["Name"])
       surname = Iconv.conv("UTF-8", "iso8859-1", res["Surname"])
@@ -26,7 +31,7 @@ class RemoteUser
       name = name.split(" ").each{|word| word.capitalize!}.join(" ")
       surname = UnicodeUtils.downcase(surname.downcase)
       surname = surname.split(" ").each{|word| word.capitalize!}.join(" ")
-      r = {"id" =>  res["PersonerID"], "navn" => "#{name} #{surname}", "tel" => res["TelMobil"], "epost" => res["EPostAddresse"]}
+      r = {"id" =>  res["PersonerID"], "navn" => "#{name} #{surname}", "tel" => res["TelMobil"], "epost" => res["EPostAddresse"], }
       remote.push(r)
     end
     usrs = User.all
