@@ -55,9 +55,11 @@ class Record
       sats = "0000000000"
       satsKalk = 0
       satser.each do |sat|
+        if user.remote_id != nil
         if user.remote_id == sat["PersonerId"]
           sats = "%010d" % sat["SatsValue"]
           satsKalk = sat["SatsValue"]
+        end
         end
       end
       
