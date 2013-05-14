@@ -90,7 +90,9 @@ class Record
     if File.exists?("/tmp/IT0001TRS.HLW")
     File.delete('/tmp/IT0001TRS.HLW')
     end
-      IO.binwrite("/tmp/IT0001TRS.HLW", personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf, position)
+      file_string = personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf
+      file_string = file_string.gsub("^@", '')
+      IO.binwrite("/tmp/IT0001TRS.HLW", file_string, position)
       position += 166
     end
     end
