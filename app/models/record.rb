@@ -91,8 +91,9 @@ class Record
       lf = "\n"
       #Skriver en linje til filen
     
-      file_string = personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler
-      IO.binwrite("/tmp/IT0001TRS.HLW", file_string, position)
+      file_string = personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf
+      file = Iconv.conv("iso8859-1", "UTF-8", file_string)
+      IO.binwrite("/tmp/IT0001TRS.HLW", file, position)
       position += 166
     end
     end
