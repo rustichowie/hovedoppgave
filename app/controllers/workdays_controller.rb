@@ -130,10 +130,10 @@ class WorkdaysController < ApplicationController
     #Henter ut variabler.
     comment = params[:workday][:comment]
     hours = params[:workday][:supervisor_hour].to_i
-    date = Date.parse(params[:workday][:date])
+    date = params[:workday][:date]
     
     unless date.empty?
-      new_date = try_date(date, @user.id)
+      new_date = try_date(date.to_s, @user.id)
     end
     
     
@@ -141,8 +141,8 @@ class WorkdaysController < ApplicationController
    
     #Prøver å lagre workday, med en workhour.
     if @workday.save
-       Workhour.create(count: hours*3600, start: date.beginning_of_day,
-     stop: date.beginning_of_day + hours.hour, workday_id: @workday.id, user_id: @user.id)
+       Workhour.create(count: hours*3600, start: Date.parse(date.beginning_of_day),
+     stop: Date.parse(date).beginning_of_day + hours.hour, workday_id: @workday.id, user_id: @user.id)
       
       redirect_to user_path(@user)   
     else
