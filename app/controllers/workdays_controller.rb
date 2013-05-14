@@ -141,7 +141,7 @@ class WorkdaysController < ApplicationController
    
     #Prøver å lagre workday, med en workhour.
     if @workday.save
-       Workhour.create(count: hours*3600, start: Date.parse(date.beginning_of_day),
+       Workhour.create(count: hours*3600, start: Date.parse(date).beginning_of_day,
      stop: Date.parse(date).beginning_of_day + hours.hour, workday_id: @workday.id, user_id: @user.id)
       
       redirect_to user_path(@user)   
