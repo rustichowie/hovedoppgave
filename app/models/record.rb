@@ -87,11 +87,11 @@ class Record
       antall = "%08d" % (antallKalk.to_i*100).to_s
       belop = "%013d" % (antallKalk.to_i*satsKalk.to_i*100).to_s
       filler= "                              "
-      cr = "\f"
-      lf = "\n"
+      end_of_line = "<cr><lf>"
       #Skriver en linje til filen
     
-      file_string = personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf
+      file_string = personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+end_of_line
+      puts file_string.encoding
       file = Iconv.conv("iso8859-1", "UTF-8", file_string)
       IO.binwrite("/tmp/IT0001TRS.HLW", file, position)
       position += 166
