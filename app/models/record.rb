@@ -58,8 +58,8 @@ class Record
       satser.each do |sat|
         if user.remote_id != nil
         if user.remote_id == sat["id"].to_s
-          sats = "%010d" % sat["SatsValue"]
-          satsKalk = sat["SatsValue"]
+          sats = "%010d" % sat["sats"]
+          satsKalk = sat["sats"]
         end
         end
       end
