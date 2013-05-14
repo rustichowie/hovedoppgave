@@ -57,7 +57,7 @@ class Record
       satsKalk = 0
       satser.each do |sat|
         if user.remote_id != nil
-        if user.remote_id == sat["PersonerId"]
+        if user.remote_id == sat["id"].to_s
           sats = "%010d" % sat["SatsValue"]
           satsKalk = sat["SatsValue"]
         end
@@ -67,7 +67,7 @@ class Record
       #ProsjektNr
       prosjektNr = "000000000000"
       prosjekter.each do |pro|
-        if user.remote_id == pro["personId"]
+        if user.remote_id == pro["personId"].to_s
           prosjektNr = "%012d" % pro["prosjektId"]
         end
       end
@@ -91,7 +91,6 @@ class Record
     File.delete('/tmp/IT0001TRS.HLW')
     end
       file_string = personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf
-      file_string = file_string.gsub("^@", '')
       IO.binwrite("/tmp/IT0001TRS.HLW", file_string, position)
       position += 166
     end
