@@ -43,6 +43,9 @@ class Record
     #get lonnsartnr
     #get avdelingsnr
     #get element1-5
+    if File.exists?("/tmp/IT0001TRS.HLW")
+    File.delete('/tmp/IT0001TRS.HLW')
+    end
     unless workdays.empty?
     workdays.each do |workday|
       user = User.find(workday.user_id)
@@ -87,9 +90,7 @@ class Record
       cr = "\f"
       lf = "\n"
       #Skriver en linje til filen
-    if File.exists?("/tmp/IT0001TRS.HLW")
-    File.delete('/tmp/IT0001TRS.HLW')
-    end
+    
       file_string = personId+lonnsartNr+avdelingsNr+prosjektNr+element1Nr+element2Nr+element3Nr+element4Nr+element5Nr+dato+antall+sats+belop+filler+cr+lf
       IO.binwrite("/tmp/IT0001TRS.HLW", file_string, position)
       position += 166
