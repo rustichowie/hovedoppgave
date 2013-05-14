@@ -101,16 +101,16 @@ class Record
 def write_record(workdays)
 
     position = 0
-
+    work = ["1", "2", "3"]
     #get lonnsartnr
     #get avdelingsnr
     #get prosjektnr
     #get element1-5
     #get sats
 
-    workdays.each do |workday|
+    work.each do |workday|
 
-      personId = "%06d" % User.find(workday.user_id).remote_id
+      personId = "%06d" % 66
       lonnsartNr = "%05d" % 8
       avdelingsNr = "%012d" % 5467
       prosjektNr = "%012d" % 66
@@ -119,8 +119,8 @@ def write_record(workdays)
       element3Nr = "%012d" % 3
       element4Nr = "%012d" % 4
       element5Nr = "%012d" % 5
-      dato = workday.created_at.strftime("%d%m%y")
-      antall = ("%08d" % workday.get_workhour_sum(workday.date, workday.id))+"00"
+      dato = "130513"#workday.created_at.strftime("%d%m%y")
+      antall = ("%08d" % 7) + "00"
       sats = "0000015500"
       belop = "0000002244500"
       filler= "000000000000000000000000000000"
