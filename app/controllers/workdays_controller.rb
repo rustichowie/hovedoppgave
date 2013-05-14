@@ -130,7 +130,8 @@ class WorkdaysController < ApplicationController
     #Henter ut variabler.
     comment = params[:workday][:comment]
     hours = params[:workday][:supervisor_hour].to_i
-    date = params[:workday][:date]
+    date = Date.parse(params[:workday][:date])
+    
     unless date.empty?
       new_date = try_date(date, @user.id)
     end
